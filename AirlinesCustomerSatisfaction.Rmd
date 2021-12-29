@@ -1,0 +1,163 @@
+---
+title: |
+  | \LARGE \textsf The Selection of a Model for Airlines Customer Satisfaction
+  | \vspace{4ex}
+author: "Joanna Krężel, Anna Matysek, Piotr Mikler, Adam Szczerba"
+date: "12/29/2021"
+abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+documentclass: article 
+classoption:
+  - 12pt
+output:
+  pdf_document: 
+    number_sections: yes
+fontsize: 12pt
+header-includes:
+    \usepackage{titling}
+    \pretitle{\begin{center}
+    \vspace{-7ex}
+    \includegraphics[height=40mm]{img/logo3AGH.png}\\
+    \vspace{5ex}
+    {\large \bf \textsf{AGH UNIVERITY OF SCIENCE AND TECHNOLOGY}}\\
+    {\large \bf \textsf{FACULTY OF APPLIED MATHEMATICS}}\\
+    \vspace{10ex}
+    }
+---
+
+<!--
+Alternative, use the mgrwms template:
+https://code.google.com/archive/p/mgrwms/downloads
+http://zasoby.open.agh.edu.pl/~12sjkaminski/indexba7d.html?q=pl/content/klasy-agh
+-->
+
+
+\newpage
+
+\tableofcontents
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+library(tidyverse)
+library(forcats)
+library(InformationValue)
+library(ggplot2)
+library(ggcorrplot)
+library(gridExtra)
+library(ROCR)
+library(modelr)
+library(purrr)
+d <- read_csv('http://www.de-brouwer.com/tmp/german_credit.csv')
+
+d$isGood <- 1 - d$default
+```
+
+\newpage
+
+# Introduction
+
+## Introduction
+
+# The Data
+
+The data is downloaded from www.kaggle.com and delivered by an airline organization. The
+dataset consists of the details of customers who have already flown with them. The feedback of
+the customers on various context and their flight data has been consolidated. The main purpose
+of this dataset is to predict whether a future customer would be satisfied with their service given
+the details of the other parameters values. Also the airlines need to know on which aspect of the
+services offered by them have to be emphasized more to generate more satisfied customers.
+The data consists of 129880 rows and 23 columns.\\
+Below we list all column names with explanations of the variables' meaning:
+* Satisfaction: Airline satisfaction level (satisfactied or dissatisfied)
+Gender: Gender of the passengers (male or female)
+Customer type: The customer type (loyal customer or disloyal customer)
+Age: the actual age of passengers (in years)
+Type of travel: Purpose of the flight of the passengers (personal travel or business travel)
+Class: Travel class in the plane of the passengers (business, eco or eco plus)
+Flight distance: The flight distance of this journey
+Seat comfort: Satisfaction level of seat comfort (0:Not Applicable;1-5)
+Departure/arrival: Satisfaction level of departure/arrival time convenient (0:Not Applicable;1-5)
+Food and drink: Satisfaction level of food and drink (0:Not Applicable;1-5)
+Gate location: Satisfaction level of gate location (0:Not Applicable;1-5)
+Inflight WiFi service: Satisfaction level of the inflight wifi service (0:Not Applicable;1-5)
+Inflight entertainment: Satisfaction level of inflight entertainment (0:Not Applicable;1-5)
+Online support: Satisfaction level of online support (0:Not Applicable;1-5)
+Ease of online booking: Satisfaction level of online booking (0:Not Applicable;1-5)
+On-board services: Satisfaction level of on-board service (0:Not Applicable;1-5)
+Leg room service: Satisfaction level of leg room service (0:Not Applicable;1-5)
+Baggage handling: Satisfaction level of baggage handling (0:Not Applicable;1-5)
+Checkin service: Satisfaction level of check-in service (0:Not Applicable;1-5)
+Cleanliness: Satisfaction level of cleanliness (0:Not Applicable;1-5)
+Online boarding: Satisfaction level of online boarding (0:Not Applicable;1-5)
+Departure delay in minutes: Minutes delayed when departure (0:Not Applicable;1-5)
+Arrival delay in minutes: Minutes delayed when arrival (0:Not Applicable;1-5)
+
+## The Data Quality
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+# Data Wrangling
+
+## Categorical Variables
+
+### The information Value
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+## The Continous Variables
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### Decide which Continuous Variable to Use
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Data Binning
+
+### The Categorical Variables
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### The Continuous variables
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+# The Logisic Regresssion
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+# The performance of the Model
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+# Validation of the Model
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+## Monte Carlo Cross Validation
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+# The Challenger Models
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Neural Network
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Another logistic regression: logistic 2
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+# Conclusion
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+# Bibliography
