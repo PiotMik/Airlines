@@ -4,7 +4,7 @@ title: |
   | \vspace{4ex}
 author: "Joanna Krężel, Anna Matysek, Piotr Mikler, Adam Szczerba"
 date: "12/29/2021"
-abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+abstract: "The project aims to analyze the data about satisfaction of Investico Airlines passengers. Having customer-granular observations about the cruise and a reported satisfaction level for particular aspects of the flight we try to fit models which predict whether they are satisfied with the service or not. The binary classification models used during the project are {} {} {}, out of which our recommendation is {} based on {}. This document describes the process we undertook and presents the results of data preprocessing, model selection and model validation."
 documentclass: article 
 classoption:
   - 12pt
@@ -98,37 +98,42 @@ sFileName <- file.path(getwd(), '/Data/Invistico_Airline.csv')
 Airlines <- read_csv(sFileName)
 ```
 
-The data is downloaded from www.kaggle.com and delivered by an airline organization. The
+The data is downloaded from [www.kaggle.com](https://www.kaggle.com/sjleshrac/airlines-customer-satisfaction?fbclid=IwAR1azFXqBkqKfah7ZTJ16CcR6S-zYpdQMJ7z7hlXcrEtzcJgh6nlN_4Bu8Y) and delivered by an airline organization. The
 dataset consists of the details of customers who have already flown with them. The feedback of
 the customers on various context and their flight data has been consolidated. The main purpose
 of this dataset is to predict whether a future customer would be satisfied with their service given
 the details of the other parameters values. Also the airlines need to know on which aspect of the
 services offered by them have to be emphasized more to generate more satisfied customers.
-The data consists of 129880 rows and 23 columns.\\
-Below we list all column names with explanations of the variables' meaning:
-* Satisfaction: Airline satisfaction level (satisfactied or dissatisfied)
-Gender: Gender of the passengers (male or female)
-Customer type: The customer type (loyal customer or disloyal customer)
-Age: the actual age of passengers (in years)
-Type of travel: Purpose of the flight of the passengers (personal travel or business travel)
-Class: Travel class in the plane of the passengers (business, eco or eco plus)
-Flight distance: The flight distance of this journey
-Seat comfort: Satisfaction level of seat comfort (0:Not Applicable;1-5)
-Departure/arrival: Satisfaction level of departure/arrival time convenient (0:Not Applicable;1-5)
-Food and drink: Satisfaction level of food and drink (0:Not Applicable;1-5)
-Gate location: Satisfaction level of gate location (0:Not Applicable;1-5)
-Inflight WiFi service: Satisfaction level of the inflight wifi service (0:Not Applicable;1-5)
-Inflight entertainment: Satisfaction level of inflight entertainment (0:Not Applicable;1-5)
-Online support: Satisfaction level of online support (0:Not Applicable;1-5)
-Ease of online booking: Satisfaction level of online booking (0:Not Applicable;1-5)
-On-board services: Satisfaction level of on-board service (0:Not Applicable;1-5)
-Leg room service: Satisfaction level of leg room service (0:Not Applicable;1-5)
-Baggage handling: Satisfaction level of baggage handling (0:Not Applicable;1-5)
-Checkin service: Satisfaction level of check-in service (0:Not Applicable;1-5)
-Cleanliness: Satisfaction level of cleanliness (0:Not Applicable;1-5)
-Online boarding: Satisfaction level of online boarding (0:Not Applicable;1-5)
-Departure delay in minutes: Minutes delayed when departure (0:Not Applicable;1-5)
-Arrival delay in minutes: Minutes delayed when arrival (0:Not Applicable;1-5)
+The data consists of 129880 rows and 23 columns.
+
+Below we list all column names with explanations of the variables' meaning.
+For categorical variables in the dataset describing satisfaction level, $0$ means _Not Applicable_.
+
+Feature | Description | Values
+--------|-------------|-------
+Satisfaction | Airline satisfaction level | satisfied/dissatisfied
+Gender | Gender of the passenger | male/female
+Customer type | The customer type | loyal / disloyal customer
+Age | The age of a passenger | [7; 85] years
+Type of travel | Purpose of the flight | personal / business travel
+Class | Travel class in the plane | business / eco / eco plus
+Flight distance | The flight distance of the journey | [50; 6951] miles
+Seat comfort | Satisfaction level of seat comfort | {0-5}
+Departure/arrival | Satisfaction level of departure/arrival time | {0-5}
+Food and drink | Satisfaction level of food and drink | {0-5}
+Gate location | Satisfaction level of gate location | {0-5}
+Inflight WiFi service | Satisfaction level of the inflight wifi service | {0-5}
+Inflight entertainment | Satisfaction level of inflight entertainment | {0-5}
+Online support | Satisfaction level of online support | {0-5}
+Ease of online booking | Satisfaction level of online booking | {0-5}
+On-board services | Satisfaction level of on-board service | {0-5}
+Leg room service | Satisfaction level of leg room service | {0-5}
+Baggage handling | Satisfaction level of baggage handling | {0-5}
+Checkin service |Satisfaction level of check-in service | {0-5}
+Cleanliness | Satisfaction level of cleanliness | {0-5}
+Online boarding | Satisfaction level of online boarding | {0-5}
+Departure delay in minutes | Delay upon departure | [0; 1592] minutes
+Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
 ## The Data Quality
 
