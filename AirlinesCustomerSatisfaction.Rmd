@@ -48,9 +48,14 @@ library(gridExtra)
 library(ROCR)
 library(modelr)
 library(purrr)
-d <- read_csv('http://www.de-brouwer.com/tmp/german_credit.csv')
+library(httr)
 
-d$isGood <- 1 - d$default
+# SETUP
+# Some config variables
+bDownloadFromKaggle <- TRUE  # fetch data from Kaggle when compiling .Rmd
+apiCredentials <- list(username = "piotrmikler",
+                       key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
+setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
 ```
 
 \newpage
@@ -60,6 +65,38 @@ d$isGood <- 1 - d$default
 ## Introduction
 
 # The Data
+
+```{r}
+fetch_from_kaggle <- function(sOutputPath, apiCredentials){
+  #' Download the project dataset from Kaggle API
+  #' 
+  #' @param sOutputPath path-like string, location where to save data
+  #'
+  #' @param apiCredentials Kaggle API credentials, list of username and key
+  
+  sZipFile <- file.path(sOutputPath, 'Dataset.zip')
+  apiResponse <- httr::GET("https://www.kaggle.com/api/v1/datasets/download/sjleshrac/airlines-customer-satisfaction",
+                           httr::authenticate(apiCredentials$username, 
+                                              apiCredentials$key, 
+                                              type="basic"))
+  # Download and unzip
+  download.file(apiResponse$url, 
+                destfile = sZipFile, 
+                mode="wb")
+  unzip(zipfile = sZipFile, 
+        file = 'Invistico_Airline.csv',
+        exdir = file.path(sOutputPath, "Data"))
+  unlink(sZipFile)
+}
+
+if (bDownloadFromKaggle){
+  fetch_from_kaggle(sOutputPath = getwd(),
+                    apiCredentials = apiCredentials)
+}
+
+sFileName <- file.path(getwd(), '/Data/Invistico_Airline.csv')
+Airlines <- read_csv(sFileName)
+```
 
 The data is downloaded from www.kaggle.com and delivered by an airline organization. The
 dataset consists of the details of customers who have already flown with them. The feedback of
