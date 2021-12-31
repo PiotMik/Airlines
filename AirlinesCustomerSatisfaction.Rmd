@@ -52,7 +52,7 @@ library(httr)
 
 # SETUP
 # Some config variables
-bDownloadFromKaggle <- TRUE  # fetch data from Kaggle when compiling .Rmd
+bDownloadFromKaggle <- FALSE  # fetch data from Kaggle when compiling .Rmd
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
 setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
@@ -73,7 +73,7 @@ fetch_from_kaggle <- function(sOutputPath, apiCredentials){
   #' @param sOutputPath path-like string, location where to save data
   #'
   #' @param apiCredentials Kaggle API credentials, list of username and key
-  
+
   sZipFile <- file.path(sOutputPath, 'Dataset.zip')
   apiResponse <- httr::GET("https://www.kaggle.com/api/v1/datasets/download/sjleshrac/airlines-customer-satisfaction",
                            httr::authenticate(apiCredentials$username, 
@@ -95,7 +95,16 @@ if (bDownloadFromKaggle){
 }
 
 sFileName <- file.path(getwd(), '/Data/Invistico_Airline.csv')
-Airlines <- read_csv(sFileName)
+sShorterColnames <- c('IsSatisfied', 'IsFemale', 'IsLoyal', 'Age', 'IsBusinessTravel', 'Class',
+                        'Distance', 'Seat', 'TimeConvenience', 'Victuals', 'Gate', 'WiFi',
+                        'Entertainment', 'eSupport', 'eBooking', 'Onboarding', 'LegRoom',
+                        'Baggage', 'CheckIn', 'Cleanliness', 'eBoarding', 'DepartureDelay', 'ArrivalDelay')
+
+Airlines <- read_csv(sFileName,
+                     col_types = "fffiffiffffffffffffffii")
+colnames(Airlines) <- sShorterColnames
+
+
 ```
 
 The data is downloaded from [www.kaggle.com](https://www.kaggle.com/sjleshrac/airlines-customer-satisfaction?fbclid=IwAR1azFXqBkqKfah7ZTJ16CcR6S-zYpdQMJ7z7hlXcrEtzcJgh6nlN_4Bu8Y) and delivered by an airline organization. The
@@ -135,11 +144,32 @@ Online boarding | Satisfaction level of online boarding | {0-5}
 Departure delay in minutes | Delay upon departure | [0; 1592] minutes
 Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
-## The Data Quality
+## Data Preprocessing
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+As both academia and business point out, the data-related operations typically constitute about $80%$ of the whole effort of a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be easily proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees.
 
-# Data Wrangling
+For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
+As the first step in our modeling pipeline we are going to look at the dataset to gain additional insight about it's statistics and information it conveys. We are going to perform quality checks on the data, such as outlier detection and treatment of not-available values (*NA*s). Lastly in this pre-modeling step we will look at the actual _information_ carried by particular features to remove variables of low added value.
+
+### Data wrangling
+
+
+### Exploratory Data Analysis
+
+**Describe the ideas of this section. To be done, not urgent...**
+
+Data summary
+```{r}
+Airlines %>% summary()
+```
+
+### NA treatment
+
+In the dataset we only have 
+
+### Feature Selection
+
+The more is not always the better. Every model has a certain computational complexity that increases with the number of additional explanatory variables. The feature selection in a pre-modeling environment serves identifying groups of variables which carry repeated or very similar informational value. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables they simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
 
 ## Categorical Variables
 
