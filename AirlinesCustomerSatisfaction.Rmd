@@ -3,7 +3,7 @@ title: |
   | \LARGE \textsf The Selection of a Model for Airlines Customer Satisfaction
   | \vspace{4ex}
 author: "Joanna Krężel, Anna Matysek, Piotr Mikler, Adam Szczerba"
-date: "12/29/2021"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 abstract: "The project aims to analyze the data about satisfaction of Investico Airlines passengers. Having customer-granular observations about the cruise and a reported satisfaction level for particular aspects of the flight we try to fit models which predict whether they are satisfied with the service or not. The binary classification models used during the project are {} {} {}, out of which our recommendation is {} based on {}. This document describes the process we undertook and presents the results of data preprocessing, model selection and model validation."
 documentclass: article 
 classoption:
@@ -49,6 +49,7 @@ library(ROCR)
 library(modelr)
 library(purrr)
 library(httr)
+library(caret)
 
 # SETUP
 # Some config variables
@@ -62,7 +63,7 @@ setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/A
 
 # Introduction
 
-## Introduction
+_Tbd..._
 
 # The Data
 
@@ -95,16 +96,9 @@ if (bDownloadFromKaggle){
 }
 
 sFileName <- file.path(getwd(), '/Data/Invistico_Airline.csv')
-sShorterColnames <- c('IsSatisfied', 'IsFemale', 'IsLoyal', 'Age', 'IsBusinessTravel', 'Class',
-                        'Distance', 'Seat', 'TimeConvenience', 'Victuals', 'Gate', 'WiFi',
-                        'Entertainment', 'eSupport', 'eBooking', 'Onboarding', 'LegRoom',
-                        'Baggage', 'CheckIn', 'Cleanliness', 'eBoarding', 'DepartureDelay', 'ArrivalDelay')
 
 Airlines <- read_csv(sFileName,
-                     col_types = "fffiffiffffffffffffffii")
-colnames(Airlines) <- sShorterColnames
-
-
+                     col_types = "fffdffdffffffffffffffdd")
 ```
 
 The data is downloaded from [www.kaggle.com](https://www.kaggle.com/sjleshrac/airlines-customer-satisfaction?fbclid=IwAR1azFXqBkqKfah7ZTJ16CcR6S-zYpdQMJ7z7hlXcrEtzcJgh6nlN_4Bu8Y) and delivered by an airline organization. The
@@ -146,13 +140,100 @@ Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
 ## Data Preprocessing
 
-As both academia and business point out, the data-related operations typically constitute about $80%$ of the whole effort of a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be easily proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees.
+As both academia and business point out, the data-related operations typically constitute about $80\%$ of the whole effort of a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be easily proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees. For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
 
-For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
-As the first step in our modeling pipeline we are going to look at the dataset to gain additional insight about it's statistics and information it conveys. We are going to perform quality checks on the data, such as outlier detection and treatment of not-available values (*NA*s). Lastly in this pre-modeling step we will look at the actual _information_ carried by particular features to remove variables of low added value.
+As the first step in our modeling pipeline we are going to look at the dataset to gain insight about it's statistics and information it conveys. We'll refactor the feature names to something more manageable and represent accordingly different data types present in the dataset. We will perform quality checks on the data, such as outlier detection and treatment of not-available values (*NA*s). Lastly in this pre-modeling step we will look at the actual *information* carried by particular features to remove variables which are unlikely to have significant added value. The following section will be divided into parts corresponding to the data type of the features.
 
-### Data wrangling
+### Categorical features
 
+The dataset contains some binary categorical information such as *Male/Female*, *Loyal/Disloyal Customer*, etc. We are going to employ binary encoding for those features, that is: map values to $1$ or $0$ and rename the factors to  `IsSatisfied`, `IsFemale`, `IsLoyal` for easier interpretation.
+
+```{r}
+sCategorialColnames <- c('satisfaction', 'Gender', 'Customer Type', 'Type of Travel')
+Airlines <-
+  Airlines %>%
+  mutate(IsSatisfied = as_factor(ifelse(satisfaction == "satisfied", 1, 0)),
+         IsFemale = as_factor(ifelse(Gender == "Female", 1, 0)),
+         IsLoyal = as_factor(ifelse(`Customer Type` == "Loyal Customer", 1, 0)),
+         IsPersonalTravel = as_factor(ifelse(`Type of Travel`== "Personal Travel",1, 0))) %>%
+  select(-all_of(sCategorialColnames)) %>%
+  rename("FlightDistance" = "Flight Distance",
+         "SeatNote" = "Seat comfort", 
+         "ScheduleNote" = "Departure/Arrival time convenient",
+         "FoodNote" = "Food and drink",
+         "GateNote" = "Gate location",
+         "WifiNote" = "Inflight wifi service",
+         "EntertainmentNote" = "Inflight entertainment",
+         "eSupportNote" = "Online support",
+         "eBookingNote" = "Ease of Online booking",
+         "ServiceNote" = "On-board service",
+         "LegRoomNote" = "Leg room service",
+         "BaggageNote" = "Baggage handling",
+         "CheckInNote" = "Checkin service",
+         "CleanNote" = "Cleanliness",
+         "eBoardingNote" = "Online boarding",
+         "DepartureDelay" ="Departure Delay in Minutes",
+         "ArrivalDelay" = "Arrival Delay in Minutes")
+```
+
+### Ordinal features
+
+The main challenge of the data preparation in this dataset is the treatment of ordinal features.
+Take for example the `SeatNote` feature which is a customer note describing their satisfaction level with the seating arrangement. One could ask himself the following questions:
+
+* What did the passenger have in mind? Satisfaction with seat location? Seat comfort? Possibility of choosing the seat?
+* Does $`SeatNote` = 3$ imply a negative attitude towards a service? Or it's a moderate 'OK'?
+* Is the satisfaction *"difference"* between notes $3$ and $2$ the same as between notes $5$ and $4$?
+* Is a note $`SeatNote` = 5$ given $`Class` = `Eco`$ the same as $`SeatNote` = 5$ given $`Class` = `Business`$?
+
+The point is valid for any note-type variable in the dataset. The issue boils down to the problem that there is **no universal "unit" of satisfaction**. It is just as non-trivial to measure it as to predict it - simply because everyone perceives it in a subjective way. Our problem has an additional layer of complexity since we don't have information how precisely the survey questions have been described to the customers - so even if we *did* have some carefully designed satisfaction unit, we cannot be sure if all respondents referred to the same aspects of service when filling out the survey.
+
+Before discussing this further let's take a short detour to the options we have when dealing with ordinal variables for Machine Learning. Two most common approaches emerge: **Dummy encoding** and **Ordinal encoding** - both are valid, depending on what we're trying to achieve. 
+
+We could use ordinal encoding and assign numbers to each vote. This is pretty much what we already have in our "note" features. We could encode `Class` this way and assign a mapping like: {'Eco': 1, 'EcoPlus': 2, 'Business': 3}. This type of representation ensures the quality of the service is properly represented in the numeric data, but the question is whether this translates the same to the overall satisfaction? Yes, the business class is clearly more comfortable to travel in, but the *expectations* (the baseline) of business-class passengers will also be quite higher than the expectations of say, passengers in the economic class. This may result in a counterintuitive drop in the satisfaction level, simply because the sub-populations across business classes will perceive the service differently. 
+
+The second possibility we have for encoding ordinal variables is the *dummy encoding* which will split the feature `Class` into features: `Class.Eco`, `Class.EcoPlus` and `Class.Business` assigning ones and zeros in appropriate places. One of those features will be dropped to avoid perfect linear relationship (otherwise the sum of the new features would always be $1$), but we'll not lose information. We only need $n-1$ features to encode full information about a factor with $n$ possible levels.
+
+We chose to employ dummy encoding to encode `Class` - to avoid making assumptions about baseline satisfaction criteria across different passenger classes. For `Note` features however this problem is non-existent, since a higher note should correspond to higher satisfaction for any rational passenger. Here to avoid inflating the dataset with additional $4*14 - 14 = 42$ sparse binary columns we will stick to the original ordinal encoding. This choice nonetheless should be revisited and controlled once we reach the stage of model choice and model fitting.
+
+The resulting, encoded dataframe looks the following way:
+```{r}
+Airlines <- Airlines %>% 
+  mutate(Class = as_factor(str_replace(Class, " ", "")))
+
+AirlinesEncoded <- 
+  dummyVars(~Class, data = Airlines,
+            fullRank = TRUE, drop2nd = TRUE) %>%
+  predict(newdata = Airlines) %>%
+  as_tibble() %>%
+  bind_cols(Airlines) %>%
+  select(-Class) %>%
+  mutate_at(vars(matches("Class")), as_factor)
+
+AirlinesEncoded %>% glimpse()
+```  
+
+
+```{r}
+AirlinesEncoded %>%
+  select(starts_with("Is")) %>%
+  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>% 
+  mutate(value = ifelse(value==1, "YES", "NO"),
+         IsSatisfied = ifelse(IsSatisfied==1, "YES", "NO")) %>%
+  ggplot(aes(x = IsSatisfied, fill=IsSatisfied)) + 
+  geom_bar() + facet_grid(value~Feature) +
+  theme_minimal() + ylab("# Satisfied/dissatisfied") 
+
+AirlinesEncoded %>%
+  select(c(ends_with("Note"), ends_with('Satisfied'))) %>%
+  mutate_all(as.numeric) %>%
+  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>% 
+  mutate(IsSatisfied = as_factor(ifelse(IsSatisfied==1, "YES", "NO")),
+         Feature = as_factor(Feature),
+         value = as_factor(value)) %>%
+  ggplot(aes(x = value, fill=IsSatisfied)) + geom_bar()# + 
+  #facet_grid(Feature~) + theme_minimal() + ylab("# Satisfied/dissatisfied")
+```
 
 ### Exploratory Data Analysis
 
@@ -165,7 +246,22 @@ Airlines %>% summary()
 
 ### NA treatment
 
-In the dataset we only have 
+In the dataset we only have _NAs_ for the `ArrivalDelay` feature. As there is an option to assign $0$ to the delay, and there is non-zero data about `DepartureDelay` we believe these _NAs_ are a genuine data loss. We stand before three possible choices:
+
+* impute the missing values
+* drop them from the dataset
+* discard the feature from the dataset
+
+Technically, we could do all of them. Looking however at the scatterplot of `ArrivalDelay` vs `DepartureDelay` we see these variables are extremely higly correlated, especially in their positive tails. This seems in line with intuition as the airplane departure delay should translate to delay in it's arrival roughly linearly. 
+```{r}
+c <- cor(x = drop_na(Airlines)$DepartureDelay, y = drop_na(Airlines)$ArrivalDelay)
+Airlines %>% drop_na() %>% 
+  ggplot(aes(x = DepartureDelay, y = ArrivalDelay)) +
+  geom_point() + geom_smooth() +
+  ggtitle(paste0("Collinearity of plane Departure and Arrival delays (pearson corr. coeff.:", round(c, 4), ")"))
+```
+
+Therefore we could _technically_ easily impute the values by regressing `ArrivalDelay` on `DepartureDelay` - however given the high correlation of those variables (`r round(c, 4)` pearson correlation coefficient) one of them is bound to be dropped during multicollinearity analysis. For this reason we are not going to bother imputing the missing values, but will simply drop `ArrivalDelay` from the features.
 
 ### Feature Selection
 
