@@ -216,52 +216,125 @@ AirlinesEncoded <-
   select(-Class) %>%  # drop old 'Class' feature
   mutate_at(vars(matches("Class")), as_factor) # ensure all are factors
 
-AirlinesEncoded %>% glimpse(width = 50)
+AirlinesEncoded %>% glimpse(width = 61)
 ```  
 
-### Missing data treatment
+### Feature Selection
 
-In the dataset we have *NAs* for several features. We see proper *NAs* in the `ArrivalDelay` column, but there are also some "hidden" *NAs* represented by zeros, corresponding to a missing customer note. Let's tackle that issue in this short section. 
+The more is not always the better. Every model has a certain computational complexity that increases with the number of additional explanatory variables. The feature selection in a pre-modeling environment serves identifying groups of variables which carry repeated or very similar informational value. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables they simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
 
-```{r NA_structure, echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:NA_structure} NA values constitute small percentage of the dataset"}
-# Summarize NAs
-AirlinesEncoded %>%
-  select(c(ends_with("Note"), starts_with("Arrival"))) %>%
-  mutate_all(as.numeric) %>%
-  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>%
-  mutate(value = is.na(value)) %>%
-  group_by(Feature) %>%
-  summarise(NA_pct = mean(value)*100,
-            nonNA_pct = 100*(1 - mean(value))) %>%
-  filter(NA_pct > 0) %>%
-  pivot_longer(cols=!ends_with('Feature'), names_to = "NA_stat") %>%
-  ggplot(aes(x = "", y = value, fill=NA_stat)) + 
-  geom_bar(stat='identity') + coord_polar("y", start=0) + facet_wrap(~Feature)
+#### Categorical Features
+
+First we will use the chi-square test and information value to detect dependency between the response variable and passenger note variables and quantify the predictive power of the categorical variables. It is customary to take information value smaller $0.1$ to mean "weak predictive power", so we will take that as our cut-off. 
+
+The Chi Square test rejected independency hypothesis of all categorical variables and the target variable. However, the table \ref{tab:CategoricalFeatureSelection} presents that there are features with IV smaller than $0.1$. That means even though they are co-dependent with satisfaction, their predictive power is not big. We are going to drop those from the dataset. 
+
+Lastly, a brief look at the spearman rank correlation matrix (fig. \ref{fig:spearman_cor}) shows that there are no highly correlated "note" features among ordinal variables in the dataset.
+
+```{r CategoricalFeatureSelection, caption="Categorical features with Information Value smaller than 0.1\\label{tab:CategoricalFeatureSelection}"}
+sCategoricalFeatures <- 
+  Airlines %>% 
+  select(c(ends_with("Note"), starts_with("Is"), starts_with("Class"))) %>%
+  colnames() %>% 
+  setdiff(c("IsSatisfied"))
+
+output <- data.frame(varName = character(0),
+                     IV = numeric(0),
+                     pvalChSq = numeric(0))  # create empty data frame
+
+for (colname in sCategoricalFeatures) {
+   wt <- WOETable(Airlines[[colname]], 
+                  Airlines$IsSatisfied, 
+                  valueOfGood = 1)
+   
+   chisq_res <- Airlines %>% 
+     select(all_of(c('IsSatisfied', colname))) %>% 
+     table() %>% t() %>%
+     chisq.test()
+   
+   tmp  <- data.frame(varName = colname, 
+                      IV = sum(wt$IV),
+                      pvalChSq = chisq_res$p.value)
+   
+   output <- rbind(output, tmp)
+}
+
+vars_to_drop <- 
+  output %>% arrange(IV) %>% filter(IV<0.1) %>% 
+  pull(varName) 
+
+table_ <- output %>% arrange(IV) %>% filter(IV < 0.1)
+knitr::kable(table_, 
+             caption = "Categorical features of low informational value\\label{tab:CategoricalFeatureSelection}")
 ```
 
-Generally speaking we don't have any critical issue related to missing values in our data. Yes, there are *NAs* present in $14$ variables, but they constitute a minuscule portion of a very large dataset (see fig. \ref{fig:NA_structure}).
+```{r}
+AirlinesEncoded <- 
+  AirlinesEncoded %>% select(-all_of(c(vars_to_drop)))
 
-Therefore we stand before three feasible choices:
+Airlines <- Airlines %>% select(-all_of(c(vars_to_drop)))
+```
 
-* impute the missing values
-* drop the rows from the dataset
-* discard the feature from the dataset
+```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:Spearman correlation for ordinal variables} Spearman correlation shows no significant colinear relationships in ordinal variables"}
+sOrdinalFeatures <-
+  Airlines %>% 
+  select(c(ends_with("Note"))) %>%
+  colnames()
 
-Handling missingness of `ArrivalDelay` turns out to be very straightforward, due to very strong linear relationship with `DepartureDelay` (see fig. \ref{fig:Delays_Collinearity}). Looking at their scatterplot we see that we could easily impute missing values in `ArrivalDelay` by regressing it on `DepartureDelay`. It is also a very reasonable relationship, as intuitively the airplane departure delay should translate to delay in it's arrival roughly linearly. Given that the actual linear model beta is `r round(lm(ArrivalDelay~DepartureDelay, data = AirlinesEncoded)$coefficients['DepartureDelay'], 4)`, this imputation would be easy to justify and defend. 
+spearman_cor <-
+  Airlines %>%
+  select(all_of(sOrdinalFeatures)) %>%
+  drop_na()%>%
+  mutate_all(as.numeric) %>%
+  cor(method='spearman')
 
-```{r Delays_Collinearity, echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:Delays_Collinearity} Strong linear relationship between departure delay and arrival delay allows to use one for imputing missing values in the other."}
+spearman_cor %>%
+  ggcorrplot()
+```
+
+#### Continuous Features
+
+We have four continuous variables in our dataset: `Age`, `DepartureDelay`, `ArrivalDelay` and `Distance`. We start the analysis by noting high linear relationship between `ArrivalDelay` and `DepartureDelay`, visible on figure \ref{fig:Delays_Collinearity}. We can safely drop `ArrivalDelay`, since it doesn't introduce new information and also conaminates dataset with NAs.
+
+```{r Delays_Collinearity, echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:Delays_Collinearity} Strong linear relationship between departure delay and arrival delay allows to drop one of them from the dataset."}
 c <- cor(x = drop_na(Airlines)$DepartureDelay, y = drop_na(Airlines)$ArrivalDelay)
 Airlines %>% drop_na() %>% 
   ggplot(aes(x = DepartureDelay, y = ArrivalDelay)) +
   geom_point() + geom_smooth() +
   ggtitle(paste0("Linearity of delays (corr: ", round(c, 4), ")"))
+
+AirlinesEncoded$ArrivalDelay <- NULL
 ```
 
-Therefore we could _technically_ easily impute the values by regressing `ArrivalDelay` on `DepartureDelay` - however given the high correlation of those variables (`r round(c, 4)` pearson correlation coefficient) one of them is bound to be dropped during multicollinearity analysis. For this reason we are not going to bother imputing the missing values, but will simply drop `ArrivalDelay` from the features at the stage of feature filtering.
+### Missing data treatment
 
-Imputing the missing values in "note" variables would require much more effort though. We could take an impute-by-model approach, but that would require selecting, fitting and evaluating a multilabel response model (like multinomial or even ordinal logistic regression). We could alternatively impute by some selected data statistic, like the median. They have their pros and cons but overall, given that top *NA* percentage in a feature is `r AirlinesEncoded %>% is.na() %>% colMeans() %>% as_tibble() %>% arrange(desc(value)) %>% top_n(1)`, we settled on simply dropping rows containing *NAs* if necessary. They constitute roughly `r round(mean(AirlinesEncoded %>% is.na() %>% rowSums() > 0), 2)` of all observations, so we would still have `r (AirlinesEncoded %>% drop_na() %>% dim())[1]` observations left to work with. That should be enough. 
+At this point, in the dataset we only have *NAs* corresponding to a missing passenger notes. Let's tackle that issue in this short section. 
 
-However we will hold off with the actual *NA* dropping until feature selection is finalized. Take for example the feature `ScheduleNote` - out of all the rows that would be dropped due to data missingness, almost half is caused by this feature only. That is, if `ScheduleNote` turns out to be a redundant feature and we discard it, then instead of dropping $8\%$ of all rows, we would be dropping only $5\%$.
+```{r NA_structure}
+# Summarize NAs
+#  select(c(ends_with("Note"), starts_with("Arrival"))) %>%
+
+NA_structure <-
+  AirlinesEncoded %>%
+  mutate_all(as.numeric) %>%
+  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>%
+  mutate(value = is.na(value)) %>%
+  group_by(Feature) %>%
+  summarise(NA_count = sum(value),
+            pct_of_data = paste0(round(100*sum(value)/length(value), 2), "%")) %>%
+  filter(NA_count > 0) %>%
+  arrange(desc(NA_count))
+
+knitr::kable(NA_structure,
+             caption= "NA breakdown per feature. NAs span a small portion of data \\label{tab:NA_structure}")
+```
+
+Generally speaking we don't have any critical issue related to missing values in our data. Yes, there are *NAs* present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see fig. \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that NAs constitute roughly `r round(mean(AirlinesEncoded %>% is.na() %>% rowSums() > 0), 2)` of all observations, even if we drop them we would still have `r (AirlinesEncoded %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data. 
+
+```{r}
+AirlinesEncoded <- drop_na(AirlinesEncoded)
+Airlines <- drop_na(Airlines)
+```
 
 ## Exploratory Data Analysis
 
@@ -269,26 +342,8 @@ However we will hold off with the actual *NA* dropping until feature selection i
 
 Data summary
 ```{r}
-Airlines %>% summary()
+AirlinesEncoded %>% summary()
 ```
-### Feature Selection
-
-The more is not always the better. Every model has a certain computational complexity that increases with the number of additional explanatory variables. The feature selection in a pre-modeling environment serves identifying groups of variables which carry repeated or very similar informational value. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables they simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
-
-## Categorical Variables
-
-### The information Value
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-
-## The Continous Variables
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-### Decide which Continuous Variable to Use
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ## Data Binning
 
