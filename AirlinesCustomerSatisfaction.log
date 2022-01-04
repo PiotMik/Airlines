@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  3 JAN 2022 05:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  4 JAN 2022 01:44
 entering extended mode
 **./AirlinesCustomerSatisfaction.tex
 (AirlinesCustomerSatisfaction.tex
@@ -528,156 +528,80 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [5] [6] [7]
 
-LaTeX Warning: Reference `fig:spearman_cor' on page 8 undefined on input line 3
-43.
+LaTeX Warning: Reference `fig:Multicollinearity' on page 8 undefined on input l
+ine 343.
 
-<AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf, id=
-101, 505.89pt x 433.62pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf
- Graphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf>
+<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=94
+, 289.08pt x 289.08pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf G
+raphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Multic
+ollinearity-1.pdf  used on input line 347.
+(pdftex.def)             Requested size: 289.09251pt x 289.09251pt.
 
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Catego
-ricalSpearman-1.pdf  used on input line 365.
-(pdftex.def)             Requested size: 390.00737pt x 334.29204pt.
+Underfull \hbox (badness 1552) in paragraph at lines 338--348
+\T1/lmr/m/n/12 (+20) high lin-ear re-la-tion-ship be-tween \T1/lmtt/m/n/12 Arri
+valDelay \T1/lmr/m/n/12 (+20) and \T1/lmtt/m/n/12 DepartureDelay\T1/lmr/m/n/12 
+(+20) ,
+ []
+
+
+Underfull \hbox (badness 2875) in paragraph at lines 338--348
+\T1/lmr/m/n/12 (+20) vis-i-ble both in the cor-re-la-tion ma-trix (fig. []) and
+ on fig-ure []1[].
+ []
+
+
+Underfull \hbox (badness 2027) in paragraph at lines 338--348
+\T1/lmr/m/n/12 (+20) We can safely drop \T1/lmtt/m/n/12 ArrivalDelay\T1/lmr/m/n
+/12 (+20) , since it doesn't in-tro-duce new
+ []
+
+
+Underfull \hbox (badness 4673) in paragraph at lines 338--348
+\T1/lmr/m/n/12 (+20) in-for-ma-tion and ad-di-tion-ally con-tam-i-nates the dat
+aset with NAs.
+ []
+
 <AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf, id=
-103, 505.89pt x 433.62pt>
+95, 216.81pt x 216.81pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf>
 
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Delays
-_Collinearity-1.pdf  used on input line 384.
+_Collinearity-1.pdf  used on input line 351.
+(pdftex.def)             Requested size: 216.81938pt x 216.81938pt.
+
+LaTeX Warning: Reference `fig:loess' on page 8 undefined on input line 363.
+
+[8 <./AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>]
+[9 <./AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
+>]
+<AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf, id=
+127, 505.89pt x 433.62pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf
+ Graphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf>
+
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Catego
+ricalSpearman-1.pdf  used on input line 413.
 (pdftex.def)             Requested size: 390.00737pt x 334.29204pt.
-[8] [9 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1
-.pdf>] [10 <./AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collineari
-ty-1.pdf>]
-Overfull \hbox (54.60022pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  Class.Business Class.EcoPlus      Age        FlightDistan
-ce SeatNote[] 
- []
-
-
-Overfull \hbox (48.4042pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  0:64070        0:114279      Min.   : 7.00   Min.   :  50
-   1:20126[] 
- []
-
-
-Overfull \hbox (48.4042pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  1:59114        1:  8905      1st Qu.:27.00   1st Qu.:1368
-   4:28107[] 
- []
-
-
-Overfull \hbox (48.41121pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##                               Median :40.00   Median :1930
-   5:17624[] 
- []
-
-
-Overfull \hbox (48.41121pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##                               Mean   :39.52   Mean   :1988
-   2:28427[] 
- []
-
-
-Overfull \hbox (48.41121pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##                               3rd Qu.:51.00   3rd Qu.:2549
-   3:28900[] 
- []
-
-
-Overfull \hbox (97.82524pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  FoodNote  WifiNote  EntertainmentNote eSupportNote eBooki
-ngNote ServiceNote[] 
- []
-
-[11]
-Overfull \hbox (73.04819pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  1:20697   2:25609   4:40560           2:16296      3:2098
-9      3:25419[] 
- []
-
-
-Overfull \hbox (73.09021pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  2:27076   3:26123   2:18867           3:20487      2:1862
-1      4:39007[] 
- []
-
-
-Overfull \hbox (73.0832pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  3:28062   4:30158   3:23746           4:39566      1:1238
-7      1:12360[] 
- []
-
-
-Overfull \hbox (73.0832pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  4:27126   5:27369   5:28667           5:33731      5:3273
-4      2:16145[] 
- []
-
-
-Overfull \hbox (73.11823pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  5:20223   1:13925   1:11344           1:13104      4:3845
-3      5:30253[] 
- []
-
-
-Overfull \hbox (91.65024pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  LegRoomNote BaggageNote CheckInNote CleanNote eBoardingNo
-te DepartureDelay[] 
- []
-
-
-Overfull \hbox (97.81824pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  4:38338     3:23280     5:25381     3:22739   2:17553    
-   Min.   :   0.00[] 
- []
-
-
-Overfull \hbox (97.78322pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  3:21158     4:46316     2:14779     4:46725   3:29106    
-   1st Qu.:   0.00[] 
- []
-
-
-Overfull \hbox (97.81824pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  2:20437     1: 7145     4:34624     1: 7043   5:28478    
-   Median :   0.00[] 
- []
-
-
-Overfull \hbox (97.82524pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  5:33013     2:12484     3:33734     2:12488   4:33521    
-   Mean   :  14.74[] 
- []
-
-
-Overfull \hbox (97.77621pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##  1:10238     5:33959     1:14666     5:34189   1:14526    
-   3rd Qu.:  12.00[] 
- []
-
-
-Overfull \hbox (97.81824pt too wide) in paragraph at lines 468--468
-[]\T1/lmtt/m/n/12 ##                                                           
-   Max.   :1592.00[] 
- []
-
-[12] [13] [14] [15] (AirlinesCustomerSatisfaction.aux)
+[10 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pd
+f>] [11] [12] [13] [14] (AirlinesCustomerSatisfaction.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
  13275 strings out of 479730
- 196113 string characters out of 2875469
- 518839 words of memory out of 3000000
+ 196391 string characters out of 2875469
+ 518660 words of memory out of 3000000
  29876 multiletter control sequences out of 15000+200000
- 473403 words of font info for 155 fonts, out of 3000000 for 9000
+ 473678 words of font info for 158 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,85p,1027b,500s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 79i,7n,85p,1027b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
 {D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Program F
 iles (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{D:/Program Files (x86)/MiKT
 eX/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips
@@ -691,9 +615,9 @@ x86)/MiKTeX/fonts/type1/public/lm/lmri12.pfb><D:/Program Files (x86)/MiKTeX/fon
 ts/type1/public/lm/lmss17.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public
 /lm/lmssbx10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmsy10.pf
 b><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (15 pages, 3091138 bytes).
+Output written on AirlinesCustomerSatisfaction.pdf (14 pages, 2955063 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
- 39080 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 274 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
+ 39061 words of extra memory for PDF output out of 42996 (max. 10000000)
 

@@ -50,10 +50,14 @@ library(modelr)
 library(purrr)
 library(httr)
 library(caret)
+library(woeBinning)
 
 # SETUP
 # Some config variables
 bDownloadFromKaggle <- FALSE  # fetch data from Kaggle when compiling .Rmd
+bRunComputationallyHeavyStuff <- FALSE # set ```{r eval=bRunComputationallyHeavyStuff}```
+                                       # to control execution of a problematic cell from                                          # here
+
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
 setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
@@ -219,21 +223,81 @@ AirlinesEncoded <-
 AirlinesEncoded %>% glimpse(width = 61)
 ```  
 
-### Feature Selection
+### Feature Engineering
 
-The more is not always the better. Every model has a certain computational complexity that increases with the number of additional explanatory variables. The feature selection in a pre-modeling environment serves identifying groups of variables which carry repeated or very similar informational value. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables they simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
+The more is not always the better. Every model has a certain computational complexity that increases with the number of additional explanatory variables. Feature engineering is a pre-modeling stage which serves identifying features which are significant and filtering out the ones that are not. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables they simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
+
+Across the following sections we are going to introduce a few additional modifications of variables to the dataset and see if it makes sense to keep them. Since we have a big share of $0s$ in column `DepartureDelay`, we wanted to check if it makes sense to include a binary variable $IsDelayed$ as a predictor. We are also going to try discretizing `Age`, `DepartureDelay` and `FlightDistance` continuous variables into bins based on Weight of Evidence metric and evaluate their predictive power.
+
+#### Continuous Features
+
+We have four continuous variables in our dataset: `Age`, `DepartureDelay`, `ArrivalDelay` and `FlightDistance`. We start the analysis by analyzing their codependence structure.
+We note a high linear relationship between `ArrivalDelay` and `DepartureDelay`, visible both in the correlation matrix  (fig. \ref{fig:Multicollinearity}) and on figure \ref{fig:Delays_Collinearity}. We can safely drop `ArrivalDelay`, since it doesn't introduce new information and additionally contaminates the dataset with NAs.
+```{r Multicollinearity, echo=FALSE, fig.width=4, fig.height=4, fig.cap="\\label{fig:Multicollinearity} Pearson correlation matrix only detects strong collinearity in Delays."}
+multicorr <- 
+  Airlines %>% 
+  select(all_of(c('Age', 'DepartureDelay', 'ArrivalDelay', 'FlightDistance'))) %>%
+  drop_na() %>%
+  cor() %>%
+  ggcorrplot(lab = T)
+
+multicorr
+```
+
+
+```{r Delays_Collinearity, echo=FALSE, fig.width=3, fig.height=3, fig.cap="\\label{fig:Delays_Collinearity} Strong linear relationship between departure delay and arrival delay allows to drop one of them from the dataset."}
+c <- cor(x = drop_na(Airlines)$DepartureDelay, y = drop_na(Airlines)$ArrivalDelay)
+Airlines %>% drop_na() %>% 
+  ggplot(aes(x = DepartureDelay, y = ArrivalDelay)) +
+  geom_point() + geom_smooth()
+
+AirlinesEncoded$ArrivalDelay <- NULL
+Airlines$ArrivalDelay <- NULL
+```
+
+Next, we're going to (very heuristically) examine the loess estimator of satisfaction as function of the remaining continuous variables to see if any of them looks flat enough to raise suspicion. Flatness of loess implies that average satisfaction does not change with the explanatory variable, hence the explanatory variable doesn't convey much information. 
+In our case, this is not visible on the figure \ref{fig:loess}, so we cannot discard any feature based on that. 
+
+```{r, eval=bRunComputationallyHeavyStuff, fig.width=5, fig.height=8, fig.caption = "Loess estimator for IsSatisfied as function of continuous features from the dataset.\\label{fig:loess}"}
+
+Airlines_numeric <- 
+  AirlinesEncoded %>% 
+  mutate_all(as.character) %>%
+  mutate_all(as.numeric)
+
+p1 <- qplot(data = Airlines_numeric, Age, IsSatisfied, xlab = "", ylab = "") +
+     geom_smooth(method = "loess", se=F) +
+     ggtitle("Age")
+p2 <- qplot(data = Airlines_numeric, FlightDistance, IsSatisfied, xlab = "", ylab = "") +
+     geom_smooth(method = "loess", se=F) +
+     ggtitle("FlightDistance")
+p3 <- qplot(data = Airlines_numeric, DepartureDelay, IsSatisfied, xlab = "", ylab = "") +
+     geom_smooth(method = "loess", se=F) +
+     ggtitle("DepartureDelay")
+
+grid.arrange(p1, p2, p3, ncol=1)
+```
+
 
 #### Categorical Features
 
-First we will use the chi-square test and information value to detect dependency between the response variable and passenger note variables and quantify the predictive power of the categorical variables. It is customary to take information value smaller $0.1$ to mean "weak predictive power", so we will take that as our cut-off. 
+For categorical features we will use the chi-square test and information value to
+
+* detect dependency between the response variable and feature in question
+* quantify the predictive power of the categorical variables. It is customary to take information value smaller $0.1$ to mean "weak predictive power", so we will take that as our cut-off. 
 
 The Chi Square test rejected independency hypothesis of all categorical variables and the target variable. However, the table \ref{tab:CategoricalFeatureSelection} presents that there are features with IV smaller than $0.1$. That means even though they are co-dependent with satisfaction, their predictive power is not big. We are going to drop those from the dataset. 
 
 Lastly, a brief look at the spearman rank correlation matrix (fig. \ref{fig:spearman_cor}) shows that there are no highly correlated "note" features among ordinal variables in the dataset.
 
 ```{r CategoricalFeatureSelection, caption="Categorical features with Information Value smaller than 0.1\\label{tab:CategoricalFeatureSelection}"}
+Airlines$IsDelayed <- as_factor(ifelse(Airlines$DepartureDelay > 0, 1 , 0))
+AirlinesEncoded$IsDelayed <- as_factor(ifelse(AirlinesEncoded$DepartureDelay > 0, 1 , 0))
+
+
 sCategoricalFeatures <- 
   Airlines %>% 
+  mutate(IsDelayed = as_factor(DepartureDelay>0)) %>%
   select(c(ends_with("Note"), starts_with("Is"), starts_with("Class"))) %>%
   colnames() %>% 
   setdiff(c("IsSatisfied"))
@@ -242,12 +306,14 @@ output <- data.frame(varName = character(0),
                      IV = numeric(0),
                      pvalChSq = numeric(0))  # create empty data frame
 
+Airlines2 <- Airlines
+Airlines2$IsDelayed <- as_factor(ifelse(Airlines$DepartureDelay > 0 , 1, 0)) 
 for (colname in sCategoricalFeatures) {
-   wt <- WOETable(Airlines[[colname]], 
-                  Airlines$IsSatisfied, 
+   wt <- WOETable(Airlines2[[colname]], 
+                  Airlines2$IsSatisfied, 
                   valueOfGood = 1)
    
-   chisq_res <- Airlines %>% 
+   chisq_res <- Airlines2 %>% 
      select(all_of(c('IsSatisfied', colname))) %>% 
      table() %>% t() %>%
      chisq.test()
@@ -275,7 +341,7 @@ AirlinesEncoded <-
 Airlines <- Airlines %>% select(-all_of(c(vars_to_drop)))
 ```
 
-```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:Spearman correlation for ordinal variables} Spearman correlation shows no significant colinear relationships in ordinal variables"}
+```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant colinear relationships in ordinal variables"}
 sOrdinalFeatures <-
   Airlines %>% 
   select(c(ends_with("Note"))) %>%
@@ -289,22 +355,9 @@ spearman_cor <-
   cor(method='spearman')
 
 spearman_cor %>%
-  ggcorrplot()
+  ggcorrplot(lab=T)
 ```
 
-#### Continuous Features
-
-We have four continuous variables in our dataset: `Age`, `DepartureDelay`, `ArrivalDelay` and `Distance`. We start the analysis by noting high linear relationship between `ArrivalDelay` and `DepartureDelay`, visible on figure \ref{fig:Delays_Collinearity}. We can safely drop `ArrivalDelay`, since it doesn't introduce new information and also conaminates dataset with NAs.
-
-```{r Delays_Collinearity, echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:Delays_Collinearity} Strong linear relationship between departure delay and arrival delay allows to drop one of them from the dataset."}
-c <- cor(x = drop_na(Airlines)$DepartureDelay, y = drop_na(Airlines)$ArrivalDelay)
-Airlines %>% drop_na() %>% 
-  ggplot(aes(x = DepartureDelay, y = ArrivalDelay)) +
-  geom_point() + geom_smooth() +
-  ggtitle(paste0("Linearity of delays (corr: ", round(c, 4), ")"))
-
-AirlinesEncoded$ArrivalDelay <- NULL
-```
 
 ### Missing data treatment
 
@@ -339,21 +392,6 @@ Airlines <- drop_na(Airlines)
 ## Exploratory Data Analysis
 
 **Describe the ideas of this section. To be done, not urgent...**
-
-Data summary
-```{r}
-AirlinesEncoded %>% summary()
-```
-
-## Data Binning
-
-### The Categorical Variables
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-### The Continuous variables
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 # The Logisic Regresssion
 
