@@ -397,6 +397,17 @@ Airlines <- drop_na(Airlines)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+#A train-test split of data
+```{r}
+# First we build the random indexes:
+N <- nrow(Airlines)
+train_index <- sample(1:N, 0.8 * N)
+test_index  <- setdiff(1:N, train_index)
+# Then we build the training and test data set:
+Airlines_train <- Airlines[train_index, ]
+Airlines_test  <- Airlines[test_index, ]
+```
+
 # The performance of the Model
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
