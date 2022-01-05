@@ -406,8 +406,8 @@ test_index  <- setdiff(1:N, train_index)
 # Then we build the training and test data set:
 Airlines_train <- Airlines[train_index, ]
 Airlines_test  <- Airlines[test_index, ]
-AirlinesEncoded_train <- AirlinesEncoded[train_index2, ]
-AirlinesEncoded_test  <- AirlinesEncoded[test_index2, ]
+AirlinesEncoded_train <- AirlinesEncoded[train_index, ]
+AirlinesEncoded_test  <- AirlinesEncoded[test_index, ]
 ```
 
 # The performance of the Model
