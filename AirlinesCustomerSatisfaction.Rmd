@@ -406,10 +406,6 @@ test_index  <- setdiff(1:N, train_index)
 # Then we build the training and test data set:
 Airlines_train <- Airlines[train_index, ]
 Airlines_test  <- Airlines[test_index, ]
-
-N2 <- nrow(AirlinesEncoded)
-train_index2 <- sample(1:N2, 0.8 * N2)
-test_index2  <- setdiff(1:N2, train_index)
 AirlinesEncoded_train <- AirlinesEncoded[train_index2, ]
 AirlinesEncoded_test  <- AirlinesEncoded[test_index2, ]
 ```
