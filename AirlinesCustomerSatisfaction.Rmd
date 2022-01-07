@@ -255,24 +255,26 @@ AirlinesEncoded$ArrivalDelay <- NULL
 Airlines$ArrivalDelay <- NULL
 ```
 
-Next, we're going to (very heuristically) examine the loess estimator of satisfaction as function of the remaining continuous variables to see if any of them looks flat enough to raise suspicion. Flatness of loess implies that average satisfaction does not change with the explanatory variable, hence the explanatory variable doesn't convey much information. 
-In our case, this is not visible on the figure \ref{fig:loess}, so we cannot discard any feature based on that. 
+Next, we're going to (very heuristically) examine the loess estimator of satisfaction as a function of the remaining continuous variables to see if any of them looks flat enough to raise suspicion regarding it's utility. Flatness of loess implies that average satisfaction does not change in the explanatory variable, hence the explanatory variable doesn't convey much information. 
+In our case, this is not visible on the figure \ref{fig:loess}, so we cannot discard any feature based on that.  Note, the plot has been generated on a randomized data sub-sample for computational complexity reduction. We made sure however to take a sample large enough, so that the standard errors are tamed, and to ensure the relationship shape is stable regardless of the random seed chosen.
 
-```{r, eval=bRunComputationallyHeavyStuff, fig.width=5, fig.height=8, fig.caption = "Loess estimator for IsSatisfied as function of continuous features from the dataset.\\label{fig:loess}"}
+```{r, fig.width=5, fig.height=8, fig.caption = "Loess estimator for IsSatisfied as function of continuous features from the dataset.\\label{fig:loess}"}
 
+set.seed(127)
 Airlines_numeric <- 
   AirlinesEncoded %>% 
   mutate_all(as.character) %>%
-  mutate_all(as.numeric)
+  mutate_all(as.numeric) %>%
+  slice_sample(n = 5000)
 
 p1 <- qplot(data = Airlines_numeric, Age, IsSatisfied, xlab = "", ylab = "") +
-     geom_smooth(method = "loess", se=F) +
+     geom_smooth(method = "loess", se=T) +
      ggtitle("Age")
 p2 <- qplot(data = Airlines_numeric, FlightDistance, IsSatisfied, xlab = "", ylab = "") +
-     geom_smooth(method = "loess", se=F) +
+     geom_smooth(method = "loess", se=T) +
      ggtitle("FlightDistance")
 p3 <- qplot(data = Airlines_numeric, DepartureDelay, IsSatisfied, xlab = "", ylab = "") +
-     geom_smooth(method = "loess", se=F) +
+     geom_smooth(method = "loess", se=T) +
      ggtitle("DepartureDelay")
 
 grid.arrange(p1, p2, p3, ncol=1)
