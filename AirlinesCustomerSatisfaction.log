@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  6 JAN 2022 15:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  10 JAN 2022 10:21
 entering extended mode
 **./AirlinesCustomerSatisfaction.tex
 (AirlinesCustomerSatisfaction.tex
@@ -516,105 +516,478 @@ Overfull \hbox (9.25664pt too wide) in paragraph at lines 141--142
 []|\T1/lmr/m/n/12 (-20) satisfied/dissatisfied|  
  []
 
-[3] [4]
+[3] [4] [5]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-05.
+53.
 ("D:\Program Files (x86)\MiKTeX\tex/latex/lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-20.
-("D:\Program Files (x86)\MiKTeX\tex/latex/lm\ts1lmr.fd"
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [5] [6] [7]
 
-LaTeX Warning: Reference `fig:Multicollinearity' on page 8 undefined on input l
-ine 343.
+LaTeX Warning: Reference `fig:Multicollinearity' on page 6 undefined on input l
+ine 267.
 
-<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=94
+<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=93
 , 289.08pt x 289.08pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf G
 raphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Multic
-ollinearity-1.pdf  used on input line 347.
+ollinearity-1.pdf  used on input line 271.
 (pdftex.def)             Requested size: 289.09251pt x 289.09251pt.
 
-Underfull \hbox (badness 1552) in paragraph at lines 338--348
+Underfull \hbox (badness 1552) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) high lin-ear re-la-tion-ship be-tween \T1/lmtt/m/n/12 Arri
 valDelay \T1/lmr/m/n/12 (+20) and \T1/lmtt/m/n/12 DepartureDelay\T1/lmr/m/n/12 
 (+20) ,
  []
 
 
-Underfull \hbox (badness 2875) in paragraph at lines 338--348
+Underfull \hbox (badness 2875) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) vis-i-ble both in the cor-re-la-tion ma-trix (fig. []) and
  on fig-ure []1[].
  []
 
 
-Underfull \hbox (badness 2027) in paragraph at lines 338--348
+Underfull \hbox (badness 2027) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) We can safely drop \T1/lmtt/m/n/12 ArrivalDelay\T1/lmr/m/n
 /12 (+20) , since it doesn't in-tro-duce new
  []
 
 
-Underfull \hbox (badness 4673) in paragraph at lines 338--348
+Underfull \hbox (badness 4673) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) in-for-ma-tion and ad-di-tion-ally con-tam-i-nates the dat
 aset with NAs.
  []
 
 <AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf, id=
-95, 216.81pt x 216.81pt>
+94, 216.81pt x 216.81pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf>
 
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Delays
-_Collinearity-1.pdf  used on input line 351.
+_Collinearity-1.pdf  used on input line 275.
 (pdftex.def)             Requested size: 216.81938pt x 216.81938pt.
+[6]
 
-LaTeX Warning: Reference `fig:loess' on page 8 undefined on input line 363.
+LaTeX Warning: Reference `fig:loess' on page 7 undefined on input line 287.
 
-[8 <./AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf, id=109,
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf, id=105,
  361.35pt x 578.16pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf Gra
 phic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-4-1.pdf  used on input line 370.
+d-chunk-4-1.pdf  used on input line 294.
 (pdftex.def)             Requested size: 342.82843pt x 548.52548pt.
-[9 <./AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
->] [10 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf
->]
+[7 <./AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>]
+
+Overfull \vbox (274.17818pt too high) has occurred while \output is active []
+
+[8 <./AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
+> <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf>] [9
+]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
+67.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\ts1lmr.fd"
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Overfull \hbox (15.99626pt too wide) in paragraph at lines 420--421
+[]\T1/lmr/m/n/12 (-20) Final.Bin  
+ []
+
+
+Overfull \hbox (23.34601pt too wide) in paragraph at lines 422--423
+ []\T1/lmr/m/n/12 (-20) Total.Count
+ []
+
+
+Overfull \hbox (13.41656pt too wide) in paragraph at lines 424--425
+[]\T1/lmr/m/n/12 (-20) Total.Distr.  
+ []
+
+
+Overfull \hbox (13.69266pt too wide) in paragraph at lines 426--427
+ []\T1/lmr/m/n/12 (-20) 1.Count
+ []
+
+
+Overfull \hbox (14.28015pt too wide) in paragraph at lines 428--429
+ []\T1/lmr/m/n/12 (-20) 0.Count
+ []
+
+
+Overfull \hbox (6.57736pt too wide) in paragraph at lines 430--431
+[]\T1/lmr/m/n/12 (-20) 1.Distr.  
+ []
+
+
+Overfull \hbox (7.16486pt too wide) in paragraph at lines 432--433
+[]\T1/lmr/m/n/12 (-20) 0.Distr.  
+ []
+
+
+Overfull \hbox (10.22273pt too wide) in paragraph at lines 434--435
+[]\T1/lmr/m/n/12 (-20) 0.Rate  
+ []
+
+
+Overfull \hbox (5.13524pt too wide) in paragraph at lines 436--437
+[]\T1/lmr/m/n/12 (-20) WOE  
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 442--442
+ []|\T1/lmr/m/n/12 (-20) 10152|
+ []
+
+
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 442--442
+[]|\T1/lmr/m/n/12 (-20) 18.6%|  
+ []
+
+
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 442--442
+[]|\T1/lmr/m/n/12 (-20) 86.7%|  
+ []
+
+
+Overfull \hbox (3.37442pt too wide) in paragraph at lines 442--442
+\T1/lmr/m/n/12 (-20) 203.8|  
+ []
+
+
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 443--444
+[]|\T1/lmr/m/n/12 (-20) 0.329|  
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 444--444
+ []|\T1/lmr/m/n/12 (-20) 11063|
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 444--444
+ []|\T1/lmr/m/n/12 (-20) 26947|
+ []
+
+
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 444--444
+[]|\T1/lmr/m/n/12 (-20) 17.1%|  
+ []
+
+
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 444--444
+[]|\T1/lmr/m/n/12 (-20) 49.3%|  
+ []
+
+
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 444--444
+[]|\T1/lmr/m/n/12 (-20) 70.9%|  
+ []
+
+
+Overfull \hbox (3.08067pt too wide) in paragraph at lines 445--445
+\T1/lmr/m/n/12 (-20) 105.6|  
+ []
+
+
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 445--446
+[]|\T1/lmr/m/n/12 (-20) 0.340|  
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 446--446
+ []|\T1/lmr/m/n/12 (-20) 51945|
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 446--446
+ []|\T1/lmr/m/n/12 (-20) 17587|
+ []
+
+
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 446--446
+[]|\T1/lmr/m/n/12 (-20) 80.4%|  
+ []
+
+
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 446--446
+[]|\T1/lmr/m/n/12 (-20) 32.2%|  
+ []
+
+
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 446--446
+[]|\T1/lmr/m/n/12 (-20) 25.3%|  
+ []
+
+
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 447--448
+[]|\T1/lmr/m/n/12 (-20) 0.443|  
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 448--448
+ []|\T1/lmr/m/n/12 (-20) 64569|
+ []
+
+
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 448--448
+ []|\T1/lmr/m/n/12 (-20) 54686|
+ []
+
+
+Overfull \hbox (7.62312pt too wide) in paragraph at lines 448--448
+[]|\T1/lmr/m/n/12 (-20) 100.0%|  
+ []
+
+
+Overfull \hbox (7.62312pt too wide) in paragraph at lines 448--448
+[]|\T1/lmr/m/n/12 (-20) 100.0%|  
+ []
+
+
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 448--448
+[]|\T1/lmr/m/n/12 (-20) 45.9%|  
+ []
+
+
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 449--450
+[]|\T1/lmr/m/n/12 (-20) 1.111|  
+ []
+
+[10] [11]
 <AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf, id=
-137, 505.89pt x 433.62pt>
+160, 505.89pt x 433.62pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf>
 
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Catego
-ricalSpearman-1.pdf  used on input line 420.
+ricalSpearman-1.pdf  used on input line 497.
 (pdftex.def)             Requested size: 390.00737pt x 334.29204pt.
-[11] [12] [13 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpe
-arman-1.pdf>] [14] [15] (AirlinesCustomerSatisfaction.aux)
+[12 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pd
+f>]
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ EntertainmentNote.M <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ EntertainmentNote.H <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ SeatNote.M          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ SeatNote.H          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ eBookingNote.H      <fct> 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 
+1, 1, 1, 0, 1, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ eBookingNote.M      <fct> 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 
+0, 0, 0, 1, 0, 1,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ eSupportNote.M      <fct> 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+1, 0, 0, 1, 1, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ eSupportNote.H      <fct> 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 
+0, 0, 1, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ ServiceNote.M       <fct> 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 
+0, 0, 1, 0, 0, 1,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ ServiceNote.L       <fct> 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 
+0, 0, 0, 0, 1, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ eBoardingNote.H     <fct> 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 
+1, 0, 1, 1, 1, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ eBoardingNote.M     <fct> 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ LegRoomNote.M       <fct> 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 
+1, 0, 1, 1, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ LegRoomNote.H       <fct> 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 
+0, 0, 0, 0, 0, 1,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ BaggageNote.M       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 1, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ BaggageNote.H       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ CleanNote.M         <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 1, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ CleanNote.H         <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ CheckInNote.L       <fct> 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 
+1, 0, 0, 0, 0, 0,...[] 
+ []
+
+[13]
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ CheckInNote.H       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ WifiNote.H          <fct> 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 
+1, 1, 1, 0, 1, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ WifiNote.M          <fct> 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 
+0, 0, 0, 0, 0, 1,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ FoodNote.M          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ FoodNote.H          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ Age.30s             <fct> 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 
+0, 0, 0, 0, 1, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ Age.40s50s          <fct> 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 
+1, 0, 1, 0, 0, 1,...[] 
+ []
+
+
+Overfull \hbox (110.16824pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ Age.60plus          <fct> 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+0, 1, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ FlightDistance.M    <fct> 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 
+1, 0, 1, 1, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ FlightDistance.H    <fct> 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 1,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ Class.Business      <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 1, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ Class.EcoPlus       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 1, 1,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ IsSatisfied         <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ IsFemale            <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0,...[] 
+ []
+
+
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
+[]\T1/lmtt/m/n/12 ## $ IsLoyal             <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+1, 1, 1, 1, 1, 1,...[] 
+ []
+
+[14] [15] [16] (AirlinesCustomerSatisfaction.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13282 strings out of 479730
- 196807 string characters out of 2875469
- 518661 words of memory out of 3000000
- 29881 multiletter control sequences out of 15000+200000
- 473678 words of font info for 158 fonts, out of 3000000 for 9000
+ 13289 strings out of 479730
+ 196883 string characters out of 2875469
+ 520402 words of memory out of 3000000
+ 29897 multiletter control sequences out of 15000+200000
+ 472382 words of font info for 146 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,85p,1027b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 79i,7n,85p,1027b,526s stack positions out of 5000i,500n,10000p,200000b,50000s
 {D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Program F
-iles (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{D:/Program Files (x86)/MiKT
-eX/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips
-/lm/lm-ec.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<D:/P
+iles (x86)/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Program Files (x86)/MiKTeX/
+fonts/enc/dvips/lm/lm-ec.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/
+lm-mathit.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<D:/P
 rogram Files (x86)/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><D:/Program Files (x
 86)/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><D:/Program Files (x86)/MiKTeX/font
 s/type1/public/lm/lmmi12.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/
@@ -624,9 +997,9 @@ x86)/MiKTeX/fonts/type1/public/lm/lmri12.pfb><D:/Program Files (x86)/MiKTeX/fon
 ts/type1/public/lm/lmss17.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public
 /lm/lmssbx10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmsy10.pf
 b><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (15 pages, 3344483 bytes).
+Output written on AirlinesCustomerSatisfaction.pdf (16 pages, 3343619 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
- 39066 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 336 PDF objects out of 1000 (max. 8388607)
+ 77 named destinations out of 1000 (max. 500000)
+ 39122 words of extra memory for PDF output out of 42996 (max. 10000000)
 

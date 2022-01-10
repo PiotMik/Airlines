@@ -136,20 +136,17 @@ Online boarding | Satisfaction level of online boarding | {0-5}
 Departure delay in minutes | Delay upon departure | [0; 1592] minutes
 Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
+
+## Exploratory Data Analysis
+
+**Describe the ideas of this section. To be done, not urgent...**
+
+
 ## Data Preprocessing
 
 As both academia and business point out, the data-related operations typically constitute about $80\%$ of the whole effort of a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be easily proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees. For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
 
-As the first step in our modeling pipeline we are going to look at the dataset to gain 
-insight about it's statistics and information it conveys. We'll refactor the feature names to something more manageable and represent accordingly different data types present in the dataset. Lastly we will perform quality checks on the data, such as outlier detection and treatment of not-available values (*NAs*).
-
-### Feature Encoding
-
-Most machine learning algorithms require numerical inputs. Our data is mostly categorical and ordinal, hence we need to start with encoding those features.
-
-#### Categorical features
-
-The dataset contains some binary categorical information such as *Male/Female*, *Loyal/Disloyal Customer*, etc. We are going to employ binary encoding for those features, that is: map values to $1$ or $0$ and rename the factors to  `IsSatisfied`, `IsFemale`, `IsLoyal` for easier interpretation.
+During data preprocessing step we will gain insight about data statistics and information it conveys. First, we'll deal with NAs and outliers. Then we will refactor the features with variable binning and select a subset of features which are likely to display predictive power for our problem. In the end we will encode the variables and prepare a train-test split for model development.
 
 ```{r}
 # Encoding Categorical Binary Features
@@ -160,7 +157,7 @@ Airlines <-
   mutate(IsSatisfied = as_factor(ifelse(satisfaction == "satisfied", 1, 0)),
          IsFemale = as_factor(ifelse(Gender == "Female", 1, 0)),
          IsLoyal = as_factor(ifelse(`Customer Type` == "Loyal Customer", 1, 0)),
-         IsPersonalTravel = as_factor(ifelse(`Type of Travel`== "Personal Travel",1, 0))) %>%
+         IsPersonalTravel = as_factor(ifelse(`Type of Travel`== "Personal Travel", 1, 0))) %>%
   select(-all_of(sCategorialColnames)) %>% # drop old columns
   rename("FlightDistance" = "Flight Distance", # rename long column names
          "SeatNote" = "Seat comfort", 
@@ -185,47 +182,38 @@ Airlines <-
             droplevels)  # drop empty factor levels (0s are no longer present)
 ```
 
-#### Ordinal features
 
-The main challenge of the data preparation in this dataset is the treatment of ordinal features.
-Take for example the `SeatNote` feature which is a customer note describing their satisfaction level with the seating arrangement. One could ask himself the following questions:
+### Missing data treatment
 
-* What did the passenger have in mind? Satisfaction with seat location? Seat comfort? Possibility of choosing the seat?
-* Does $`SeatNote`=3$ imply a negative attitude towards a service? Or it's a moderate 'OK'?
-* Is the satisfaction *"difference"* between notes $3$ and $2$ the same as between notes $5$ and $4$?
-* Is a note $`SeatNote`=5$ given $`Class`=`Eco`$ the same as $`SeatNote`=5$ given $`Class`=`Business`$?
 
-The point is valid for any note-type variable in the dataset. The issue boils down to the problem that there is **no universal "unit" of satisfaction**. It is just as non-trivial to measure it as to predict it - simply because everyone perceives it in a subjective way. Our problem has an additional layer of complexity since we don't have information how precisely the survey questions have been described to the customers - so even if we *did* have some carefully designed satisfaction unit, we cannot be sure if all respondents referred to the same aspects of service when filling out the survey.
+```{r NA_structure}
+# Summarize NAs
 
-Before discussing this further let's take a short detour to the options we have when dealing with ordinal variables for Machine Learning. Two most common approaches emerge: **Dummy encoding** and **Ordinal encoding** - both are valid, depending on what we're trying to achieve. 
+NA_structure <-
+  Airlines %>%
+  mutate_all(as.numeric) %>%
+  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>%
+  mutate(value = is.na(value)) %>%
+  group_by(Feature) %>%
+  summarise(NA_count = sum(value),
+            pct_of_data = paste0(round(100*sum(value)/length(value), 2), "%")) %>%
+  filter(NA_count > 0) %>%
+  arrange(desc(NA_count))
 
-We could use ordinal encoding and assign numbers to each vote. This is pretty much what we already have in our "note" features. We could encode `Class` this way and assign a mapping like: {'Eco': 1, 'EcoPlus': 2, 'Business': 3}. This type of representation ensures the quality of the service is properly represented in the numeric data, but the question is whether this translates the same to the overall satisfaction? Yes, the business class is clearly more comfortable to travel in, but the *expectations* (the baseline) of business-class passengers will also be quite higher than the expectations of say, passengers in the economic class. This may result in a counterintuitive drop in the satisfaction level, simply because the sub-populations across business classes will perceive the service differently. 
+knitr::kable(NA_structure,
+             caption= "NA breakdown per feature. NAs span a small portion of data \\label{tab:NA_structure}")
+```
 
-The second possibility we have for encoding ordinal variables is the *dummy encoding* which will split the feature `Class` into features: `Class.Eco`, `Class.EcoPlus` and `Class.Business` assigning ones and zeros in appropriate places. One of those features will be dropped to avoid perfect linear relationship (otherwise the sum of the new features would always be $1$), but we'll not lose information. We only need $n-1$ features to encode full information about a factor with $n$ possible levels.
+After examining the data it seems we don't have any critical issue related to missing values. *NAs* are present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see fig. \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that NAs constitute roughly `r round(mean(Airlines %>% is.na() %>% rowSums() > 0), 2)` of all observations, even if we drop them we would still have `r (Airlines %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data. 
 
-We chose to employ dummy encoding to encode `Class` - to avoid making assumptions about baseline satisfaction criteria across different passenger classes. For `Note` features however this problem is non-existent, since a higher note should correspond to higher satisfaction for any rational passenger. Here to avoid inflating the dataset with additional $4*14 - 14 = 42$ sparse binary columns we will stick to the original ordinal encoding. This choice nonetheless should be revisited and controlled once we reach the stage of model choice and model fitting.
-
-The resulting, encoded dataframe looks the following way:
 ```{r}
-# Encode Class feature
-Airlines <- Airlines %>% 
-  mutate(Class = as_factor(str_replace(Class, " ", ""))) # Eco Plus -> EcoPlus
+Airlines <- drop_na(Airlines)
+```
 
-AirlinesEncoded <- 
-  dummyVars(~Class, data = Airlines,  # Prepare a split into 3 dummy features
-            fullRank = TRUE, drop2nd = TRUE) %>%  # ensure 1 is dropped
-  predict(newdata = Airlines) %>%  # Execute the split
-  as_tibble() %>%
-  bind_cols(Airlines) %>% # Join dummy features with the original dataset
-  select(-Class) %>%  # drop old 'Class' feature
-  mutate_at(vars(matches("Class")), as_factor) # ensure all are factors
-
-AirlinesEncoded %>% glimpse(width = 61)
-```  
 
 ### Feature Engineering
 
-The more is not always the better. Every model has a certain computational complexity that increases with the number of additional explanatory variables. Feature engineering is a pre-modeling stage which serves identifying features which are significant and filtering out the ones that are not. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables they simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
+The more is not always the better. Feature engineering is a pre-modeling stage which serves identifying features which are significant and filtering out the ones that are not. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables or discretizing them we simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
 
 Across the following sections we are going to introduce a few additional modifications of variables to the dataset and see if it makes sense to keep them. Since we have a big share of $0s$ in column `DepartureDelay`, we wanted to check if it makes sense to include a binary variable $IsDelayed$ as a predictor. We are also going to try discretizing `Age`, `DepartureDelay` and `FlightDistance` continuous variables into bins based on Weight of Evidence metric and evaluate their predictive power.
 
@@ -251,18 +239,17 @@ Airlines %>% drop_na() %>%
   ggplot(aes(x = DepartureDelay, y = ArrivalDelay)) +
   geom_point() + geom_smooth()
 
-AirlinesEncoded$ArrivalDelay <- NULL
 Airlines$ArrivalDelay <- NULL
 ```
 
-Next, we're going to (very heuristically) examine the loess estimator of satisfaction as a function of the remaining continuous variables to see if any of them looks flat enough to raise suspicion regarding it's utility. Flatness of loess implies that average satisfaction does not change in the explanatory variable, hence the explanatory variable doesn't convey much information. 
+Next, we're going to examine the loess estimator of satisfaction as a function of the remaining continuous variables to see if any of them looks flat enough to raise suspicion regarding it's utility. Flatness of loess implies that average satisfaction does not change in the explanatory variable, hence the explanatory variable doesn't convey much information. 
 In our case, this is not visible on the figure \ref{fig:loess}, so we cannot discard any feature based on that.  Note, the plot has been generated on a randomized data sub-sample for computational complexity reduction. We made sure however to take a sample large enough, so that the standard errors are tamed, and to ensure the relationship shape is stable regardless of the random seed chosen.
 
 ```{r, fig.width=5, fig.height=8, fig.caption = "Loess estimator for IsSatisfied as function of continuous features from the dataset.\\label{fig:loess}"}
 
 set.seed(127)
 Airlines_numeric <- 
-  AirlinesEncoded %>% 
+  Airlines %>% 
   mutate_all(as.character) %>%
   mutate_all(as.numeric) %>%
   slice_sample(n = 5000)
@@ -280,49 +267,97 @@ p3 <- qplot(data = Airlines_numeric, DepartureDelay, IsSatisfied, xlab = "", yla
 grid.arrange(p1, p2, p3, ncol=1)
 ```
 
+Now we are going to look at possible binnings of our features. We'll use `woeBinning::woe.binning` function which chooses the binning to maximize the information value of the feature. If the optimized binning will yield $IV < 0.1$, we will discard the variable. Otherwise we'll analyze the bins to ensure they are not over-optimized to an unreasonable degree. Based on loess plot shapes/regimes the expectation is to have not more than four bins for `Age` and `FlightDistance`, and a maximum of two bins for `DepartureDelay`.  
 
-#### Categorical Features
+```{r, results='asis'}
+cols_to_bin <- Airlines %>% select(where(is.double)) %>% colnames
+cutpoints <- Airlines %>% as.data.frame() %>%
+  woe.binning("IsSatisfied", cols_to_bin)
 
-For categorical features we will use the chi-square test and information value to
+binnings <- woe.binning.table(cutpoints)
+display_cols <- c('Final.Bin', 'Total.Count', 'Total.Distr.', '0.Rate', '1.Rate', 'WOE', "IV")
 
-* detect dependency between the response variable and feature in question
-* quantify the predictive power of the categorical variables. It is customary to take information value smaller $0.1$ to mean "weak predictive power", so we will take that as our cut-off. 
+for (i in 1:length(cols_to_bin)){
+  woetable <- binnings[i]
+  available_cols <- colnames(woetable[[1]])
 
-The Chi Square test rejected independency hypothesis of all categorical variables and the target variable. However, the table \ref{tab:CategoricalFeatureSelection} presents that there are features with IV smaller than $0.1$. That means even though they are co-dependent with satisfaction, their predictive power is not big. We are going to drop those from the dataset. 
+  cat(names(woetable[1]))
+  woetable[[1]] %>% 
+    select(all_of(intersect(display_cols, available_cols))) %>%
+    knitr::kable() %>%
+    print()
+}
+```
+
+From the WOE tables above we see that `DepartureDelay` is a variable of low predictive power, hence we won't use it in modelling. For the other variables, as the data binning chosen by the algorithm seems reasonable given the ex-ante expectations, we're going to keep them.
+
+```{r}
+Airlines_binned <- Airlines %>% as.data.frame() %>%
+  woe.binning.deploy(cutpoints,
+                     min.iv.total = 0.1) %>%
+  select(-all_of(c("Age", "FlightDistance", "DepartureDelay"))) %>%
+  rename_with(~gsub(".binned", "", .)) %>%
+  as_tibble()
+
+levels(Airlines_binned$FlightDistance) <- c("L", "M", "H", NA)
+levels(Airlines_binned$Age) <- c("u30", "30s", "40s50s", "60plus", NA)
+```
+
+#### Ordinal & Categorical Features
+
+The main challenge of the data preparation in this dataset is the proper treatment of passenger notes.
+Take for example the `SeatNote` feature which is a customer note describing their satisfaction level with the seating arrangement. One could ask himself the following questions:
+
+* What did the passenger have in mind? Satisfaction with their seat location? Seat comfort? Possibility of choosing the seat?
+* Does $`SeatNote`=3$ imply a negative attitude towards a service? Or it's a moderate 'OK'?
+* Is the satisfaction *"difference"* between notes $3$ and $2$ the same as between notes $5$ and $4$?
+* Is a note $`SeatNote`=5$ given $`Class`=`Eco`$ the same as $`SeatNote`=5$ given $`Class`=`Business`$?
+
+The same point is valid for any note-type variable in the dataset. The issue boils down to the problem that there is **no universal "unit" of satisfaction**. It is just as non-trivial to measure it as to predict it - simply because everyone perceives satisfaction in a subjective way. Our problem has an additional layer of complexity since we don't have information how precisely the survey questions have been described to the customers - so even if we *did* have some carefully designed satisfaction unit, we cannot be sure if all respondents referred to the same aspects of service when filling out the survey.
+
+We aim to overcome this problem, by binning notes into wider classes, depending on how well they explain and affect the overall satisfaction. Since we have a lot of 5-leveled `Note` factors, there's a strong suspicion that in such large set there must exist some adjacent levels such that overall satisfaction is invariant to displacements in that group of levels. In other words, we could collapse notes of $1, 2 \& 3$ to one group if they carried similar information. Hence we will again let `woe.binning` automatically select bins and then verify the result.
+
+Since there are $12$ `Note` variables, we will only display one of the WOE tables as an example. However for all it has been verified that **adjacent** levels have been binned, so the binning is plausible, and the $IV$ of the newly binned features are above $0.1$.
+```{r, results='asis'}
+cols_to_bin <- Airlines_binned %>% select(c(ends_with('Note'))) %>% colnames
+cutpoints <- Airlines_binned %>% as.data.frame() %>%
+  woe.binning("IsSatisfied", cols_to_bin)
+
+binnings <- woe.binning.table(cutpoints)
+display_cols <- c('Final.Bin', 'Total.Count', 'Total.Distr.', '0.Rate', 'WOE', "IV")
+
+Airlines_binned <- Airlines_binned %>% as.data.frame() %>%
+  woe.binning.deploy(cutpoints,
+                     min.iv.total = 0.1) %>%
+  as_tibble() %>%
+  select(-all_of(cols_to_bin)) %>%
+  rename_with(~gsub(".binned", "", .)) %>%
+  mutate_at(vars(matches("Note")), ~as_factor(ifelse(grepl("1", .), "L",
+                                                 ifelse(grepl("5", .), "H",
+                                                        "M"))))
+binnings$`WOE Table for eBookingNote` %>% knitr::kable()
+```
+
+Next, we will check the information value for other categorical variables. They are binary, so binning has not been applied to them in the earlier step. The table \ref{tab:CategoricalFeatureSelection} presents features and their IV. We see that there are features with IV smaller than $0.1$ - we are going to drop those from the dataset. 
 
 Lastly, a brief look at the spearman rank correlation matrix (fig. \ref{fig:spearman_cor}) shows that there are no highly correlated "note" features among ordinal variables in the dataset.
 
 ```{r CategoricalFeatureSelection, caption="Categorical features with Information Value smaller than 0.1\\label{tab:CategoricalFeatureSelection}"}
-Airlines$IsDelayed <- as_factor(ifelse(Airlines$DepartureDelay > 0, 1 , 0))
-AirlinesEncoded$IsDelayed <- as_factor(ifelse(AirlinesEncoded$DepartureDelay > 0, 1 , 0))
-
-
 sCategoricalFeatures <- 
-  Airlines %>% 
-  mutate(IsDelayed = as_factor(DepartureDelay>0)) %>%
-  select(c(ends_with("Note"), starts_with("Is"), starts_with("Class"))) %>%
+  Airlines_binned %>%
   colnames() %>% 
   setdiff(c("IsSatisfied"))
 
 output <- data.frame(varName = character(0),
-                     IV = numeric(0),
-                     pvalChSq = numeric(0))  # create empty data frame
+                     IV = numeric(0))  # create empty data frame
 
-Airlines2 <- Airlines
-Airlines2$IsDelayed <- as_factor(ifelse(Airlines$DepartureDelay > 0 , 1, 0)) 
 for (colname in sCategoricalFeatures) {
-   wt <- WOETable(Airlines2[[colname]], 
-                  Airlines2$IsSatisfied, 
+   wt <- WOETable(Airlines_binned[[colname]], 
+                  Airlines_binned$IsSatisfied, 
                   valueOfGood = 1)
    
-   chisq_res <- Airlines2 %>% 
-     select(all_of(c('IsSatisfied', colname))) %>% 
-     table() %>% t() %>%
-     chisq.test()
-   
    tmp  <- data.frame(varName = colname, 
-                      IV = sum(wt$IV),
-                      pvalChSq = chisq_res$p.value)
+                      IV = sum(wt$IV))
    
    output <- rbind(output, tmp)
 }
@@ -332,27 +367,20 @@ vars_to_drop <-
   pull(varName) 
 
 table_ <- output %>% arrange(IV) %>% filter(IV < 0.1)
-knitr::kable(table_, 
-             caption = "Categorical features of low informational value\\label{tab:CategoricalFeatureSelection}")
+knitr::kable(arrange(output, IV), 
+             caption = "Information Value for all variables.\\label{tab:CategoricalFeatureSelection}")
 ```
 
 ```{r}
-AirlinesEncoded <- 
-  AirlinesEncoded %>% select(-all_of(c(vars_to_drop)))
-
-Airlines <- Airlines %>% select(-all_of(c(vars_to_drop)))
+Airlines_binned <- Airlines_binned %>% select(-all_of(c(vars_to_drop)))
 ```
 
 ```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant colinear relationships in ordinal variables"}
-sOrdinalFeatures <-
-  Airlines %>% 
-  select(c(ends_with("Note"))) %>%
-  colnames()
-
 spearman_cor <-
-  Airlines %>%
-  select(all_of(sOrdinalFeatures)) %>%
-  drop_na()%>%
+  Airlines_binned %>%
+  select(ends_with("Note")) %>%
+  mutate_all(~as_factor(ifelse(. == "L", 0,
+                               ifelse(. == "M", 1, 2)))) %>%
   mutate_all(as.numeric) %>%
   cor(method='spearman')
 
@@ -360,83 +388,88 @@ spearman_cor %>%
   ggcorrplot(lab=T)
 ```
 
+### Feature Encoding
 
-### Missing data treatment
+Some machine learning algorithms require numerical data, so we considered **ordinal encoding** and **dummy encoding** to transform our data.
 
-At this point, in the dataset we only have *NAs* corresponding to a missing passenger notes. Let's tackle that issue in this short section. 
+We ran the following thought experiment to determine which encoding to employ. Say we use ordinal encoding and assign numbers to each factor level. We could encode `Class` this way and assign a mapping like: {'Eco': 1, 'EcoPlus': 2, 'Business': 3}. This type of representation ensures the quality of the service is properly represented in the numeric data, but the question is whether this translates the same to the overall satisfaction? Yes, the business class is clearly more comfortable to travel in, but the *expectations* (the baseline) of business-class passengers will also be quite higher than the expectations of say, passengers in the economic class.
 
-```{r NA_structure}
-# Summarize NAs
-#  select(c(ends_with("Note"), starts_with("Arrival"))) %>%
+We chose to employ dummy encoding to encode `Class` - to avoid making assumptions about baseline satisfaction criteria across different passenger classes. For `Note` features however this problem is non-existent, since a higher note should correspond to higher satisfaction for any rational passenger. Here to avoid inflating the dataset with additional $4\cdot14 - 14 = 42$ sparse binary columns we will stick to the original ordinal encoding. This choice nonetheless should be revisited and controlled once we reach the stage of model choice and model fitting.
 
-NA_structure <-
-  AirlinesEncoded %>%
-  mutate_all(as.numeric) %>%
-  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>%
-  mutate(value = is.na(value)) %>%
-  group_by(Feature) %>%
-  summarise(NA_count = sum(value),
-            pct_of_data = paste0(round(100*sum(value)/length(value), 2), "%")) %>%
-  filter(NA_count > 0) %>%
-  arrange(desc(NA_count))
-
-knitr::kable(NA_structure,
-             caption= "NA breakdown per feature. NAs span a small portion of data \\label{tab:NA_structure}")
-```
-
-Generally speaking we don't have any critical issue related to missing values in our data. Yes, there are *NAs* present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see fig. \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that NAs constitute roughly `r round(mean(AirlinesEncoded %>% is.na() %>% rowSums() > 0), 2)` of all observations, even if we drop them we would still have `r (AirlinesEncoded %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data. 
-
+The resulting, encoded dataframe looks the following way:
 ```{r}
-AirlinesEncoded <- drop_na(AirlinesEncoded)
-Airlines <- drop_na(Airlines)
-```
+# Encode Class feature
+Airlines_binned <- Airlines_binned %>% 
+  mutate(Class = as_factor(str_replace(Class, " ", ""))) # Eco Plus -> EcoPlus
 
-## Exploratory Data Analysis
+vars_to_encode <-
+  Airlines_binned %>% 
+  select(c(ends_with('Note'), 'Age', 'FlightDistance', 'Class')) %>%
+  colnames()
 
-**Describe the ideas of this section. To be done, not urgent...**
+formula_string <- paste0("~ ", paste(vars_to_encode, collapse=" + "))
 
-# The Logisic Regresssion
+AirlinesEncoded_binned <- 
+  dummyVars(as.formula(formula_string), data = Airlines_binned, 
+            fullRank = TRUE, drop2nd = TRUE) %>%  # ensure 1 is dropped
+  predict(newdata = Airlines_binned) %>%  # Execute the split
+  as_tibble() %>%
+  bind_cols(Airlines_binned) %>% # Join dummy features with the original dataset
+  select(-all_of(vars_to_encode)) %>%  # drop old 'Class' feature
+  mutate_all(as_factor) # ensure all are factors
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+AirlinesEncoded_binned %>% glimpse()
+```  
 
-#A train-test split of data
+
+
+# A train-test split of data
 ```{r}
 # First we build the random indexes:
-N <- nrow(Airlines)
+N <- nrow(Airlines_binned)
 train_index <- sample(1:N, 0.8 * N)
 test_index  <- setdiff(1:N, train_index)
 # Then we build the training and test data set:
-Airlines_train <- Airlines[train_index, ]
-Airlines_test  <- Airlines[test_index, ]
-AirlinesEncoded_train <- AirlinesEncoded[train_index, ]
-AirlinesEncoded_test  <- AirlinesEncoded[test_index, ]
+Airlines_binned_train <- Airlines_binned[train_index, ]
+Airlines_binned_test  <- Airlines_binned[test_index, ]
+AirlinesEncoded_binned_train <- AirlinesEncoded_binned[train_index, ]
+AirlinesEncoded_binned_test  <- AirlinesEncoded_binned[test_index, ]
 ```
 
-# The performance of the Model
+# Baseline Model
 
+## Fitting and performance
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-# Validation of the Model
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-
-## Monte Carlo Cross Validation
-
+## Validation
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
 # The Challenger Models
 
+## Random Forest
+
+### Fitting and performance
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-## Neural Network
-
+### Validation
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-## Another logistic regression: logistic 2
+## Logistic Regression
 
+### Fitting and performance
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### Validation
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## State-of-the-art: Neural Network model
+
+### Fitting and performance
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### Validation
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
