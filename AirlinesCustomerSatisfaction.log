@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  6 JAN 2022 15:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  10 JAN 2022 02:45
 entering extended mode
 **./AirlinesCustomerSatisfaction.tex
 (AirlinesCustomerSatisfaction.tex
@@ -598,17 +598,17 @@ Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Catego
 ricalSpearman-1.pdf  used on input line 420.
 (pdftex.def)             Requested size: 390.00737pt x 334.29204pt.
 [11] [12] [13 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpe
-arman-1.pdf>] [14] [15] (AirlinesCustomerSatisfaction.aux)
+arman-1.pdf>] [14] [15] [16] (AirlinesCustomerSatisfaction.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13282 strings out of 479730
- 196807 string characters out of 2875469
- 518661 words of memory out of 3000000
- 29881 multiletter control sequences out of 15000+200000
- 473678 words of font info for 158 fonts, out of 3000000 for 9000
+ 13294 strings out of 479730
+ 196924 string characters out of 2875469
+ 519049 words of memory out of 3000000
+ 29885 multiletter control sequences out of 15000+200000
+ 473775 words of font info for 159 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  79i,7n,85p,1027b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
 {D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Program F
@@ -624,9 +624,9 @@ x86)/MiKTeX/fonts/type1/public/lm/lmri12.pfb><D:/Program Files (x86)/MiKTeX/fon
 ts/type1/public/lm/lmss17.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public
 /lm/lmssbx10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmsy10.pf
 b><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (15 pages, 3344483 bytes).
+Output written on AirlinesCustomerSatisfaction.pdf (16 pages, 3346148 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
+ 297 PDF objects out of 1000 (max. 8388607)
+ 68 named destinations out of 1000 (max. 500000)
  39066 words of extra memory for PDF output out of 42996 (max. 10000000)
 
