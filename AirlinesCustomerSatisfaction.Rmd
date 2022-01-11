@@ -438,8 +438,53 @@ AirlinesEncoded_binned_test  <- AirlinesEncoded_binned[test_index, ]
 
 # Baseline Model
 
+Before jumping straight into cutting-edge mathematical models, sometimes it can be very teaching to fit a simple model and analyze how well it performs on the data. It sets ground zero for any more complicated model that follow and allows to adjust the own expectations.
+
+
 ## Fitting and performance
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+```{r}
+library(keras)
+X_train <- 
+  AirlinesEncoded_binned_train %>% select(-IsSatisfied)
+
+y_train <-
+  AirlinesEncoded_binned_train %>% select(IsSatisfied)
+
+X_test <- 
+  AirlinesEncoded_binned_test %>% select(-IsSatisfied)
+
+y_test <- 
+  AirlinesEncoded_binned_test %>% select(IsSatisfied) 
+
+X_train <- X_train %>% 
+  mutate_all(as.character) %>% mutate_all(as.numeric) %>% mutate_all(scale)
+y_train <- y_train %>%
+  mutate_all(as.character) %>% mutate_all(as.numeric)
+X_test <- X_test %>% 
+  mutate_all(as.character) %>% mutate_all(as.numeric) %>% mutate_all(scale)
+y_test <- y_test %>%
+  mutate_all(as.character) %>% mutate_all(as.numeric)
+
+model <- keras_model_sequential()
+model %>%
+  layer_dense(units = 1, activation = 'sigmoid')
+
+model %>% compile(
+  optimizer = 'adam', 
+  loss = 'binary_crossentropy',
+  metrics = c('accuracy'))
+
+model %>% fit(as.matrix(X_train), as.matrix(y_train),
+              validation_split= 0.3, batch_size=50,
+              epochs = 10, verbose = 2)
+
+preds <- model %>% predict(as.matrix(X_test)) > 0.5
+preds <- preds %>% as.numeric()
+
+
+confusionMatrix(table(preds, unlist(y_test, use.names = F)))
+```
 
 ## Validation
 
