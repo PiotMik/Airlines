@@ -60,7 +60,7 @@ bRunComputationallyHeavyStuff <- FALSE # set ```{r eval=bRunComputationallyHeavy
 
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
-#setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
+setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
 ```
 
 \newpage
@@ -138,9 +138,49 @@ Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
 
 ## Exploratory Data Analysis
+Before data wrangling and trying to fit some models, it is great to get an overview of our data set and verify whether it makes sense. We start from reviewing the few top lines of our data and summarizing it to see basic statistical analysis. For each quantitive variable we get the minimum, maximum, mean, median and the inter quartile range information. However, for each categorical variable we get the number of observations in each category. 
+```{r}
+head(AirlinesRaw)
+summary(AirlinesRaw)
+```
+In this project we will predict the satisfaction level of a customer in function
+of the other variables based on past data. All results seems to be reasonable, but we notice that there are missing values in some columns. However, we will take care about it later.\\
 
-**Describe the ideas of this section. To be done, not urgent...**
-
+Additionally, we plot some histograms and vioplots to view overall data distribution and scatterplots for relationships between variables.
+```{r}
+h1<-histogram(AirlinesRaw$satisfaction,AirlinesRaw,type='count',col='blue')
+h2<-histogram(AirlinesRaw$Gender,AirlinesRaw,col='blue',type='count')
+h3<-histogram(AirlinesRaw$`Customer Type`,AirlinesRaw,col='blue',type='count')
+h4<-histogram(AirlinesRaw$Age,AirlinesRaw,col='blue',type='count')
+h5<-histogram(AirlinesRaw$`Type of Travel`,AirlinesRaw,col='blue',type='count')
+h6<-histogram(AirlinesRaw$Class,AirlinesRaw,col='blue',type='count')
+h7<-histogram(AirlinesRaw$`Flight Distance`,AirlinesRaw,col='blue',type='count')
+h8<-histogram(AirlinesRaw$`Seat comfort`,AirlinesRaw,col='blue',type='count')
+h9<-histogram(AirlinesRaw$`Departure/Arrival time convenient`,AirlinesRaw,col='blue',type='count')
+h10<-histogram(AirlinesRaw$`Food and drink`,AirlinesRaw,col='blue',type='count')
+h11<-histogram(AirlinesRaw$`Gate location`,AirlinesRaw,col='blue',type='count')
+h12<-histogram(AirlinesRaw$`Inflight wifi service`,AirlinesRaw,col='blue',type='count')
+h13<-histogram(AirlinesRaw$`Inflight entertainment`,AirlinesRaw,col='blue',type='count')
+h14<-histogram(AirlinesRaw$`Online support`,AirlinesRaw,col='blue',type='count')
+h15<-histogram(AirlinesRaw$`Ease of Online booking`,AirlinesRaw,col='blue',type='count')
+h16<-histogram(AirlinesRaw$`On-board service`,AirlinesRaw,col='blue',type='count')
+h17<-histogram(AirlinesRaw$`Leg room service`,AirlinesRaw,col='blue',type='count')
+h18<-histogram(AirlinesRaw$`Baggage handling`,AirlinesRaw,col='blue',type='count')
+h19<-histogram(AirlinesRaw$`Checkin service`,AirlinesRaw,col='blue',type='count')
+h20<-histogram(AirlinesRaw$Cleanliness,AirlinesRaw,col='blue',type='count')
+h21<-histogram(AirlinesRaw$`Online boarding`,AirlinesRaw,col='blue',type='count')
+h22<-histogram(AirlinesRaw$`Departure Delay in Minutes`,AirlinesRaw,col='blue',type='count')
+h23<-histogram(AirlinesRaw$`Arrival Delay in Minutes`,AirlinesRaw,col='blue',type='count')
+grid.arrange(h1, h2, h3, h4,ncol=2)
+grid.arrange(h5, h6, h7, h8,ncol=2)
+grid.arrange(h9, h10, h11, h12,ncol=2)
+grid.arrange(h13, h14, h15, h16,ncol=2)
+grid.arrange(h17, h18, h19, h20,ncol=2)
+grid.arrange(h21, h22, h23,ncol=2)
+library("vioplot")
+vioplot(AirlinesRaw)
+plot(AirlinesRaw)
+```
 
 ## Data Preprocessing
 
