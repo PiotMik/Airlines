@@ -60,7 +60,7 @@ bRunComputationallyHeavyStuff <- FALSE # set ```{r eval=bRunComputationallyHeavy
 
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
-setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
+#setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
 ```
 
 \newpage
@@ -459,10 +459,135 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Logistic Regression
 
 ### Fitting and performance
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The next model that we will study is a logistic regression. We name it for future reference \textit{logistic1}.
+```{r}
+# Define the formula:
+frm <- IsSatisfied ~.
+# Fit the model:
+logreg1 <- glm(formula = frm, data = Airlines_binned_train, family = "binomial")
+# Investigate the model:
+summary(logreg1)
+
+```
+We notice that according to this model
+• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones
+• satisfaction level is higher for females and loyal customers
+• passengers at the age of 40s and 50s have a higher satisfaction level than the others
+• satisfaction level is lower for long and medium flight distances than for the short ones
+• the higher entertainment notes, seat notes, eBooking notes, eSupport notes, eBoarding, leg room notes, clean notes and baggage notes, the higher the satisfaction level
+• satisfaction level is lower for low and medium service notes that for the high ones
+• satisfaction level is higher for high check-in notes and lower for the low ones
+• satisfaction level is higher for medium wifi notes than for the high ones
+• satisfaction level is lower for high food notes than for the medium ones
+```{r}
+library(ROCR)
+# function to get AUC
+fAUC <- function(model, data, ...) {
+y <- all.vars(formula(model))[1]
+pred1 <- predict(model, newdata = data, ...)
+pred <- ROCR::prediction(pred1, data[[y]])
+perf <- performance(pred, "auc")
+AUC <- attr(perf, "y.values")[[1]]
+AUC
+}
+AUC_logreg1_train <- fAUC(logreg1, data = Airlines_binned_train, type = "response")
+AUC_logreg1_test <- fAUC(logreg1, data = Airlines_binned_test, type = "response")
+pred1 <- prediction(predict(logreg1, type = "response"), Airlines_binned_train$IsSatisfied)
+
+# Visualize the ROC curve:
+plot(performance(pred1, "tpr", "fpr"), col="blue", lwd = 3)
+AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
+perf1 <- performance(pred1, "tpr", "fpr")
+ks1 <- max(attr(perf1,'y.values')[[1]] - attr(perf1,'x.values')[[1]])
+predScores1 <- predict(logreg1, type = "response")
+ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
+cat('\n\n')
+plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
+```
+The AUC on the training data is 0.95429 and on the testing data 0.95410. The difference is very small. This model is a good contender. However, we will try to add some interactions between variables.
+```{r}
+frm2 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Class+Class*IsLoyal+IsFemale*Age
+# Fit the model:
+logreg2 <- glm(formula = frm2, data = Airlines_binned_train, family = "binomial")
+# Investigate the model:
+summary(logreg2)
+```
+We notice that all of the interactions are statistically significant and decide to keep them. Moreover, we see that FlightDistance is now not significant, so we leave it out of the model.
+
+```{r}
+frm3 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Class+Class*IsLoyal+IsFemale*Age-FlightDistance
+# Fit the model:
+logreg3 <- glm(formula = frm3, data = Airlines_binned_train, family = "binomial")
+# Investigate the model:
+summary(logreg3)
+```
+We notice that according to this model
+• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones
+• satisfaction level is higher for females and loyal customers
+• passengers at the age of 40s and 50s have a higher satisfaction level than the others
+• satisfaction level is lower for long and medium flight distances than for the short ones
+• the higher entertainment notes, seat notes, eBooking notes, eSupport notes, leg room notes, clean notes and baggage notes, the higher the satisfaction level
+• satisfaction level is lower for low and medium service notes that for the high ones
+• satisfaction level is higher for high check-in notes and lower for the low ones
+• satisfaction level is higher for medium wifi notes than for the high ones
+• satisfaction level is lower for high food notes than for the medium ones
+• females travelling business class are less satisfied than the ones from eco plus class. Analogically, for loyal customers. 
+
+Now we will check the performance of the model using few criteria.
+```{r rocr, fig.cap=c("The ROC (receiver operating curve) for our model", "The lift of the model (bottom): the cumulative percentage of responders (ones) captured by the model")}
+AUC_logreg3_train <- fAUC(logreg3, data = Airlines_binned_train, type = "response")
+AUC_logreg3_test <- fAUC(logreg3, data = Airlines_binned_test, type = "response")
+pred3 <- prediction(predict(logreg3, type = "response"), Airlines_binned_train$IsSatisfied)
+
+# Visualize the ROC curve:
+plot(performance(pred3, "tpr", "fpr"), col="blue", lwd = 3)
+AUC3 <- attr(performance(pred3, "auc"), "y.values")[[1]]
+perf3 <- performance(pred3, "tpr", "fpr")
+ks3 <- max(attr(perf3,'y.values')[[1]] - attr(perf3,'x.values')[[1]])
+predScores3 <- predict(logreg3, type = "response")
+ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3)
+cat('\n\n')
+plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3)
+```
+
+The third model has an AUC of 0.9564 on the training data and 0.9574 on the testing data. The difference is very small. The KS is 0.79096. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. These findings are great and we will proceed now to calculate the optimal cutoff.
+```{r}
+#The optimal cutoff:
+optimalCutoff(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3, optimiseFor = "misclasserror")
+```
+
+The optimal cut-off (that gives the minimum mis-clasification error) is 0.48998. Above this cufoff level we assume satisfaction. 
 
 ### Validation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+To validate the model we will use the cross validation method and opt for the Monte Carlo Cross Validation.
+```{r}
+pctTrain <- 0.7
+set.seed(18901229)
+nRuns = 200
+```
+We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 200 times a training data-set of 0.7 and study the AUC on the testing data-set.
+```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
+cv_mc <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
+mods <- map(cv_mc$train, ~ glm(frm3, data = ., family = "binomial"))
+#AUCs <- map2_dbl(mods, cv_mc$test, fAUC)
+RMSE <- map2_dbl(mods, cv_mc$test, rmse)
+AUCs_train <- numeric(0)
+AUCs_test <- numeric(0)
+for(k in 1:nRuns) {
+AUCs_test[k] <- fAUC(mods[[k]], as.data.frame(cv_mc$test[[k]]))
+AUCs_train[k] <- fAUC(mods[[k]], as.data.frame(cv_mc$train[[k]]))
+}
+allAUCs <- rbind(tibble(model = "train data", AUC = AUCs_train),
+tibble(model = "test data", AUC = AUCs_test))
+p1 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
+p2 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + stat_ecdf()
+grid.arrange(p1, p2, ncol = 1)
+mean(AUCs_test)
+sd(AUCs_test)
+
+```
+We notice that the model is a little over-fit, but even for the test data-set the performance is acceptable. All variables retained have at least one of the categories with a $p − value$ that is smaller than $0.01$. We could consider to leave out the categories that have a higher $p − value$ to make the model more robust. We choose, however, not to do that because all coefficients are somehow logical.\\
+The median of the observed values for the AUC of the test data is 0.9571835, the average is 0.9571316 with a standard deviation of 0.0008522686.
 
 ## State-of-the-art: Neural Network model
 
