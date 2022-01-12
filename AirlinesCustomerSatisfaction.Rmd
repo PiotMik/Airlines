@@ -179,7 +179,7 @@ grid.arrange(h17, h18, h19, h20,ncol=2)
 grid.arrange(h21, h22, h23,ncol=2)
 library("vioplot")
 vioplot(AirlinesRaw)
-plot(AirlinesRaw)
+plot(sample_n(AirlinesRaw, 500))
 ```
 
 ## Data Preprocessing
@@ -603,7 +603,7 @@ To validate the model we will use the cross validation method and opt for the Mo
 ```{r}
 pctTrain <- 0.7
 set.seed(18901229)
-nRuns = 200
+nRuns = 10
 ```
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 200 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
@@ -626,7 +626,7 @@ mean(AUCs_test)
 sd(AUCs_test)
 
 ```
-We notice that the model is a little over-fit, but even for the test data-set the performance is acceptable. All variables retained have at least one of the categories with a $p − value$ that is smaller than $0.01$. We could consider to leave out the categories that have a higher $p − value$ to make the model more robust. We choose, however, not to do that because all coefficients are somehow logical.\\
+We notice that the model is a little over-fit, but even for the test data-set the performance is acceptable. All variables retained have at least one of the categories with a $p - value$ that is smaller than $0.01$. We could consider to leave out the categories that have a higher $p - value$ to make the model more robust. We choose, however, not to do that because all coefficients are somehow logical.\\
 The median of the observed values for the AUC of the test data is 0.9571835, the average is 0.9571316 with a standard deviation of 0.0008522686.
 
 ## State-of-the-art: Neural Network model
