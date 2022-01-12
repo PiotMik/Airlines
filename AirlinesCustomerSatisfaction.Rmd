@@ -469,6 +469,13 @@ AirlinesEncoded_binned %>% glimpse()
 N <- nrow(Airlines_binned)
 train_index <- sample(1:N, 0.8 * N)
 test_index  <- setdiff(1:N, train_index)
+
+# Set "L" as the base level
+Airlines_binned <- 
+  Airlines_binned %>% 
+  mutate_at(vars(ends_with("Note")), ~relevel(. , "L")) %>%
+  mutate_at(vars(ends_with("FlightDistance")), ~relevel(. , "L"))
+
 # Then we build the training and test data set:
 Airlines_binned_train <- Airlines_binned[train_index, ]
 Airlines_binned_test  <- Airlines_binned[test_index, ]

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  12 JAN 2022 14:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  12 JAN 2022 17:49
 entering extended mode
 **./AirlinesCustomerSatisfaction.tex
 (AirlinesCustomerSatisfaction.tex
@@ -1384,8 +1384,8 @@ z|)[]
  []
 
 
-Overfull \hbox (29.8722pt too wide) in paragraph at lines 880--880
-[]\T1/lmtt/m/n/12 ## (Intercept)             -5.984293   0.104589 -57.217  < 2e
+Overfull \hbox (29.85818pt too wide) in paragraph at lines 880--880
+[]\T1/lmtt/m/n/12 ## (Intercept)             -7.031166   0.101184 -69.489  < 2e
 -16 ***[] 
  []
 
@@ -1494,14 +1494,14 @@ Overfull \hbox (29.8722pt too wide) in paragraph at lines 880--880
 
 
 Overfull \hbox (29.8722pt too wide) in paragraph at lines 880--880
-[]\T1/lmtt/m/n/12 ## ServiceNoteM            -0.486029   0.031227 -15.564  < 2e
+[]\T1/lmtt/m/n/12 ## ServiceNoteH             0.687019   0.048365  14.205  < 2e
 -16 ***[] 
  []
 
 
 Overfull \hbox (29.8722pt too wide) in paragraph at lines 880--880
-[]\T1/lmtt/m/n/12 ## ServiceNoteL            -0.687019   0.048365 -14.205  < 2e
--16 ***[] 
+[]\T1/lmtt/m/n/12 ## ServiceNoteM             0.200990   0.046923   4.283 1.84e
+-05 ***[] 
  []
 
 
@@ -1554,13 +1554,13 @@ Overfull \hbox (29.8862pt too wide) in paragraph at lines 880--880
 
 
 Overfull \hbox (29.8792pt too wide) in paragraph at lines 880--880
-[]\T1/lmtt/m/n/12 ## CheckInNoteL            -0.359854   0.029073 -12.378  < 2e
+[]\T1/lmtt/m/n/12 ## CheckInNoteM             0.359854   0.029073  12.378  < 2e
 -16 ***[] 
  []
 
 
-Overfull \hbox (29.85818pt too wide) in paragraph at lines 880--880
-[]\T1/lmtt/m/n/12 ## CheckInNoteH             0.616922   0.031803  19.398  < 2e
+Overfull \hbox (29.8792pt too wide) in paragraph at lines 880--880
+[]\T1/lmtt/m/n/12 ## CheckInNoteH             0.976777   0.038301  25.503  < 2e
 -16 ***[] 
  []
 
@@ -1658,8 +1658,8 @@ z|)[]
  []
 
 
-Overfull \hbox (29.85118pt too wide) in paragraph at lines 947--947
-[]\T1/lmtt/m/n/12 ## (Intercept)             -5.949878   0.099744 -59.652  < 2e
+Overfull \hbox (29.83017pt too wide) in paragraph at lines 947--947
+[]\T1/lmtt/m/n/12 ## (Intercept)             -6.996915   0.096219 -72.719  < 2e
 -16 ***[] 
  []
 
@@ -1754,15 +1754,15 @@ Overfull \hbox (29.8862pt too wide) in paragraph at lines 947--947
  []
 
 [28]
-Overfull \hbox (29.8862pt too wide) in paragraph at lines 947--947
-[]\T1/lmtt/m/n/12 ## ServiceNoteM            -0.485719   0.031222 -15.557  < 2e
+Overfull \hbox (29.8792pt too wide) in paragraph at lines 947--947
+[]\T1/lmtt/m/n/12 ## ServiceNoteH             0.686734   0.048355  14.202  < 2e
 -16 ***[] 
  []
 
 
-Overfull \hbox (29.8792pt too wide) in paragraph at lines 947--947
-[]\T1/lmtt/m/n/12 ## ServiceNoteL            -0.686734   0.048355 -14.202  < 2e
--16 ***[] 
+Overfull \hbox (29.8862pt too wide) in paragraph at lines 947--947
+[]\T1/lmtt/m/n/12 ## ServiceNoteM             0.201015   0.046921   4.284 1.83e
+-05 ***[] 
  []
 
 
@@ -1815,13 +1815,13 @@ Overfull \hbox (29.8792pt too wide) in paragraph at lines 947--947
 
 
 Overfull \hbox (29.8722pt too wide) in paragraph at lines 947--947
-[]\T1/lmtt/m/n/12 ## CheckInNoteL            -0.360304   0.029071 -12.394  < 2e
+[]\T1/lmtt/m/n/12 ## CheckInNoteM             0.360304   0.029071  12.394  < 2e
 -16 ***[] 
  []
 
 
 Overfull \hbox (29.86519pt too wide) in paragraph at lines 947--947
-[]\T1/lmtt/m/n/12 ## CheckInNoteH             0.616952   0.031801  19.400  < 2e
+[]\T1/lmtt/m/n/12 ## CheckInNoteH             0.977256   0.038299  25.517  < 2e
 -16 ***[] 
  []
 
@@ -1974,7 +1974,7 @@ x86)/MiKTeX/fonts/type1/public/lm/lmri12.pfb><D:/Program Files (x86)/MiKTeX/fon
 ts/type1/public/lm/lmss17.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public
 /lm/lmssbx10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmsy10.pf
 b><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (34 pages, 6333777 bytes).
+Output written on AirlinesCustomerSatisfaction.pdf (34 pages, 6346890 bytes).
 PDF statistics:
  512 PDF objects out of 1000 (max. 8388607)
  96 named destinations out of 1000 (max. 500000)
