@@ -180,6 +180,7 @@ grid.arrange(h21, h22, h23,ncol=2)
 library("vioplot")
 vioplot(AirlinesRaw)
 plot(AirlinesRaw)
+#ADD SOME COMMENTS!!!!!!!
 ```
 
 ## Data Preprocessing
@@ -554,7 +555,7 @@ summary(logreg2)
 ```
 We notice that all of the interactions are statistically significant and decide to keep them. Moreover, we see that FlightDistance is now not significant, so we leave it out of the model.
 
-```{r}
+```{r, echo=TRUE}
 frm3 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Class+Class*IsLoyal+IsFemale*Age-FlightDistance
 # Fit the model:
 logreg3 <- glm(formula = frm3, data = Airlines_binned_train, family = "binomial")
@@ -590,20 +591,14 @@ cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3)
 ```
 
-The third model has an AUC of 0.9564 on the training data and 0.9574 on the testing data. The difference is very small. The KS is 0.79096. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. These findings are great and we will proceed now to calculate the optimal cutoff.
-```{r}
-#The optimal cutoff:
-optimalCutoff(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3, optimiseFor = "misclasserror")
-```
-
-The optimal cut-off (that gives the minimum mis-clasification error) is 0.48998. Above this cufoff level we assume satisfaction. 
+The third model has an AUC of 0.9598 on the training data and 0.9602 on the testing data. The difference is very small. The KS is 0.7993. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect.
 
 ### Validation
 To validate the model we will use the cross validation method and opt for the Monte Carlo Cross Validation.
 ```{r}
 pctTrain <- 0.7
 set.seed(18901229)
-nRuns = 200
+nRuns = 50
 ```
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 200 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
@@ -622,12 +617,13 @@ tibble(model = "test data", AUC = AUCs_test))
 p1 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
 p2 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
+median(AUCs_test)
 mean(AUCs_test)
 sd(AUCs_test)
 
 ```
 We notice that the model is a little over-fit, but even for the test data-set the performance is acceptable. All variables retained have at least one of the categories with a $p − value$ that is smaller than $0.01$. We could consider to leave out the categories that have a higher $p − value$ to make the model more robust. We choose, however, not to do that because all coefficients are somehow logical.\\
-The median of the observed values for the AUC of the test data is 0.9571835, the average is 0.9571316 with a standard deviation of 0.0008522686.
+The median of the observed values for the AUC of the test data is 0.9599344, the average is 0.959875 with a standard deviation of 0.0008979887. We find these results great.
 
 ## State-of-the-art: Neural Network model
 
