@@ -436,10 +436,10 @@ AirlinesEncoded_binned_train <- AirlinesEncoded_binned[train_index, ]
 AirlinesEncoded_binned_test  <- AirlinesEncoded_binned[test_index, ]
 ```
 
-# Baseline Model
+# Baseline Models
 
-Before jumping straight into cutting-edge mathematical models, sometimes it can be very teaching to fit a simple model and analyze how well it performs on the data. It sets ground zero for any more complicated model that follow and allows to adjust the own expectations.
-
+Before jumping straight into cutting-edge mathematical models, sometimes it can be very teaching to fit a simple models and analyze how well they perform on the data. It sets ground zero for any more complicated models that follow and allows to adjust own expectations.
+Therefore we will fit two simple models: a perceptron and a decision tree to the training set, and evaluate their performance using a reserved test set.
 
 ## Fitting and performance
 
@@ -484,6 +484,22 @@ preds <- preds %>% as.numeric()
 
 
 confusionMatrix(table(preds, unlist(y_test, use.names = F)))
+```
+
+```{r}
+library(rpart)
+library(rattle)
+modelDecTree <- rpart(IsSatisfied ~ ., data = AirlinesEncoded_binned_train)
+fancyRpartPlot(modelDecTree)
+
+
+preds <- modelDecTree %>% predict(AirlinesEncoded_binned_test, type = "class")
+preds <- preds %>% as.character() %>% as.numeric()
+
+
+confusionMatrix(table(preds, unlist(AirlinesEncoded_binned_test$IsSatisfied,
+                                    use.names = F)))
+
 ```
 
 ## Validation
