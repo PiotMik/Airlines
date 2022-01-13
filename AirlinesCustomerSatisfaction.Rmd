@@ -139,14 +139,14 @@ Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
 ## Exploratory Data Analysis
 Before data wrangling and trying to fit some models, it is great to get an overview of our data set and verify whether it makes sense. We start from summarizing our to see basic statistical analysis. For each quantitive variable we get the minimum, maximum, mean, median and the inter quartile range information. However, for each categorical variable we get the number of observations in each category. 
-```{r,echo=true}
+```{r,echo=TRUE}
 summary(AirlinesRaw)
 ```
 \\
 In this project we will predict the satisfaction level of a customer in function of the other variables based on past data. All results seems to be reasonable. It is noteworthy that the numbers of satisfied and dissatisfied customers are similar, which means that the data is valuable for future predictions. Moreover, we have almost the same number of males and females, and of business and eco class passengers. However, we have significantly more opinions from loyal customers than from disloyal ones. This may cause some unreliability in data since loyal customers might give greater notes because of some discounts for flights etc. We can also look at each variable connected with customers' notes and check which aspects are considered better and which worse. What we also notice is the fact that there are missing values in some columns. Nevertheless, we will take care about it later.\\
 
 Additionally, we plot some histograms to view the distribution of quatitive variables.\\
-```{r,echo=true}
+```{r,echo=TRUE}
 attach(AirlinesRaw)
 h4<-histogram(AirlinesRaw$Age,AirlinesRaw,col='blue',type='count')
 h7<-histogram(AirlinesRaw$`Flight Distance`,AirlinesRaw,col='blue',type='count')
@@ -575,7 +575,7 @@ nRuns = 100
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 100 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
 cv_mc <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
-mods <- map(cv_mc$train, ~ glm(frm3, data = ., family = "binomial"))
+mods <- map(cv_mc$train, ~ glm(frm2, data = ., family = "binomial"))
 #AUCs <- map2_dbl(mods, cv_mc$test, fAUC)
 RMSE <- map2_dbl(mods, cv_mc$test, rmse)
 AUCs_train <- numeric(0)
