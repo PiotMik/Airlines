@@ -138,50 +138,28 @@ Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
 
 
 ## Exploratory Data Analysis
-Before data wrangling and trying to fit some models, it is great to get an overview of our data set and verify whether it makes sense. We start from reviewing the few top lines of our data and summarizing it to see basic statistical analysis. For each quantitive variable we get the minimum, maximum, mean, median and the inter quartile range information. However, for each categorical variable we get the number of observations in each category. 
-```{r}
-head(AirlinesRaw)
+Before data wrangling and trying to fit some models, it is great to get an overview of our data set and verify whether it makes sense. We start from summarizing our to see basic statistical analysis. For each quantitive variable we get the minimum, maximum, mean, median and the inter quartile range information. However, for each categorical variable we get the number of observations in each category. 
+```{r,echo=true}
 summary(AirlinesRaw)
 ```
-In this project we will predict the satisfaction level of a customer in function
-of the other variables based on past data. All results seems to be reasonable, but we notice that there are missing values in some columns. However, we will take care about it later.\\
+\\
+In this project we will predict the satisfaction level of a customer in function of the other variables based on past data. All results seems to be reasonable. It is noteworthy that the numbers of satisfied and dissatisfied customers are similar, which means that the data is valuable for future predictions. Moreover, we have almost the same number of males and females, and of business and eco class passengers. However, we have significantly more opinions from loyal customers than from disloyal ones. This may cause some unreliability in data since loyal customers might give greater notes because of some discounts for flights etc. We can also look at each variable connected with customers' notes and check which aspects are considered better and which worse. What we also notice is the fact that there are missing values in some columns. Nevertheless, we will take care about it later.\\
 
-Additionally, we plot some histograms and vioplots to view overall data distribution and scatterplots for relationships between variables.
-```{r}
-h1<-histogram(AirlinesRaw$satisfaction,AirlinesRaw,type='count',col='blue')
-h2<-histogram(AirlinesRaw$Gender,AirlinesRaw,col='blue',type='count')
-h3<-histogram(AirlinesRaw$`Customer Type`,AirlinesRaw,col='blue',type='count')
+Additionally, we plot some histograms to view the distribution of quatitive variables.\\
+```{r,echo=true}
+attach(AirlinesRaw)
 h4<-histogram(AirlinesRaw$Age,AirlinesRaw,col='blue',type='count')
-h5<-histogram(AirlinesRaw$`Type of Travel`,AirlinesRaw,col='blue',type='count')
-h6<-histogram(AirlinesRaw$Class,AirlinesRaw,col='blue',type='count')
 h7<-histogram(AirlinesRaw$`Flight Distance`,AirlinesRaw,col='blue',type='count')
-h8<-histogram(AirlinesRaw$`Seat comfort`,AirlinesRaw,col='blue',type='count')
-h9<-histogram(AirlinesRaw$`Departure/Arrival time convenient`,AirlinesRaw,col='blue',type='count')
-h10<-histogram(AirlinesRaw$`Food and drink`,AirlinesRaw,col='blue',type='count')
-h11<-histogram(AirlinesRaw$`Gate location`,AirlinesRaw,col='blue',type='count')
-h12<-histogram(AirlinesRaw$`Inflight wifi service`,AirlinesRaw,col='blue',type='count')
-h13<-histogram(AirlinesRaw$`Inflight entertainment`,AirlinesRaw,col='blue',type='count')
-h14<-histogram(AirlinesRaw$`Online support`,AirlinesRaw,col='blue',type='count')
-h15<-histogram(AirlinesRaw$`Ease of Online booking`,AirlinesRaw,col='blue',type='count')
-h16<-histogram(AirlinesRaw$`On-board service`,AirlinesRaw,col='blue',type='count')
-h17<-histogram(AirlinesRaw$`Leg room service`,AirlinesRaw,col='blue',type='count')
-h18<-histogram(AirlinesRaw$`Baggage handling`,AirlinesRaw,col='blue',type='count')
-h19<-histogram(AirlinesRaw$`Checkin service`,AirlinesRaw,col='blue',type='count')
-h20<-histogram(AirlinesRaw$Cleanliness,AirlinesRaw,col='blue',type='count')
-h21<-histogram(AirlinesRaw$`Online boarding`,AirlinesRaw,col='blue',type='count')
 h22<-histogram(AirlinesRaw$`Departure Delay in Minutes`,AirlinesRaw,col='blue',type='count')
 h23<-histogram(AirlinesRaw$`Arrival Delay in Minutes`,AirlinesRaw,col='blue',type='count')
-grid.arrange(h1, h2, h3, h4,ncol=2)
-grid.arrange(h5, h6, h7, h8,ncol=2)
-grid.arrange(h9, h10, h11, h12,ncol=2)
-grid.arrange(h13, h14, h15, h16,ncol=2)
-grid.arrange(h17, h18, h19, h20,ncol=2)
-grid.arrange(h21, h22, h23,ncol=2)
-library("vioplot")
-vioplot(AirlinesRaw)
-plot(AirlinesRaw)
-#ADD SOME COMMENTS!!!!!!!
+grid.arrange(h4,h7, h22, h23,ncol=2)
 ```
+We see that:\\
+• departure and arrivals delays are mostly small,\\
+• the most common flight distance is around 2000 kilometers,\\
+• the age differs from few years to more than 80, but the biggest number of customers is between 20 and 60.\\
+
+Now, when we have an initial overview of our data set, we can move to preprocessing. 
 
 ## Data Preprocessing
 
@@ -470,6 +448,13 @@ AirlinesEncoded_binned %>% glimpse()
 N <- nrow(Airlines_binned)
 train_index <- sample(1:N, 0.8 * N)
 test_index  <- setdiff(1:N, train_index)
+
+# Set "L" as the base level
+Airlines_binned <- 
+  Airlines_binned %>% 
+  mutate_at(vars(ends_with("Note")), ~relevel(. , "L")) %>%
+  mutate_at(vars(ends_with("FlightDistance")), ~relevel(. , "L"))
+
 # Then we build the training and test data set:
 Airlines_binned_train <- Airlines_binned[train_index, ]
 Airlines_binned_test  <- Airlines_binned[test_index, ]
@@ -500,7 +485,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Logistic Regression
 
 ### Fitting and performance
-The next model that we will study is a logistic regression. We name it for future reference \textit{logistic1}.
+The next model that we will study is a logistic regression. We start from the most basic model which takes all the variables. 
 ```{r}
 # Define the formula:
 frm <- IsSatisfied ~.
@@ -510,16 +495,14 @@ logreg1 <- glm(formula = frm, data = Airlines_binned_train, family = "binomial")
 summary(logreg1)
 
 ```
-We notice that according to this model
-• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones
-• satisfaction level is higher for females and loyal customers
-• passengers at the age of 40s and 50s have a higher satisfaction level than the others
-• satisfaction level is lower for long and medium flight distances than for the short ones
-• the higher entertainment notes, seat notes, eBooking notes, eSupport notes, eBoarding, leg room notes, clean notes and baggage notes, the higher the satisfaction level
-• satisfaction level is lower for low and medium service notes that for the high ones
-• satisfaction level is higher for high check-in notes and lower for the low ones
-• satisfaction level is higher for medium wifi notes than for the high ones
-• satisfaction level is lower for high food notes than for the medium ones
+We notice that according to this model:\\
+• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones,\\
+• satisfaction level is higher for females and loyal customers,\\
+• passengers at the age of 40s and 50s have a higher satisfaction level than the others,\\
+• satisfaction level is lower for long and medium flight distances than for the short ones,\\
+• the higher entertainment, seat, eBooking, eSupport, service, leg room, clean, baggage and check-in notes, the higher the satisfaction level.\\
+
+What we find weird is that taking into account wifi, food and eBoarding the satisfaction level is higher for medium notes than for the high ones. This may be a consequence of the fact that something went wrong and the airlines wanted to compensate for this for example with food. Another reason could be connected with the flight distance. Wifi and more food are usually available during long flights. However, the longer the flight, the more things can go wrong and the more people are tired, uncomfortable etc. Nevertheless, we don't have enough background information to make such conclusions. We decide to leave these variables in our model for now and check its performance, but later we will try do improve it.
 ```{r}
 library(ROCR)
 # function to get AUC
@@ -545,62 +528,51 @@ ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScore
 cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
 ```
-The AUC on the training data is 0.95429 and on the testing data 0.95410. The difference is very small. This model is a good contender. However, we will try to add some interactions between variables.
+The AUC on the training data is `r AUC1` and on the testing data `r AUC_logreg1_test`. The difference is small. KS plot and the ROC curve also looks great. This model is a good contender. However, we decide to try adding some interactions between variables as some of them seem natural. After many attempts we opt for including the interactions between gender&loyalty, gender&class, gender&age and class&flight distance. We tried also for example class&food or class&service, but they didn't improve our model. What is more, we decided not to include WifiNote as after adding interactions it was the least significant and the relationship was weird. Thus we get the final logistic regression model, which is summarized below.\\
 ```{r}
-frm2 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Class+Class*IsLoyal+IsFemale*Age
+frm2 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Age+IsFemale*Class+Class*FlightDistance-WifiNote
 # Fit the model:
 logreg2 <- glm(formula = frm2, data = Airlines_binned_train, family = "binomial")
 # Investigate the model:
 summary(logreg2)
 ```
-We notice that all of the interactions are statistically significant and decide to keep them. Moreover, we see that FlightDistance is now not significant, so we leave it out of the model.
 
-```{r, echo=TRUE}
-frm3 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Class+Class*IsLoyal+IsFemale*Age-FlightDistance
-# Fit the model:
-logreg3 <- glm(formula = frm3, data = Airlines_binned_train, family = "binomial")
-# Investigate the model:
-summary(logreg3)
-```
-We notice that according to this model
-• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones
-• satisfaction level is higher for females and loyal customers
-• passengers at the age of 40s and 50s have a higher satisfaction level than the others
-• satisfaction level is lower for long and medium flight distances than for the short ones
-• the higher entertainment notes, seat notes, eBooking notes, eSupport notes, leg room notes, clean notes and baggage notes, the higher the satisfaction level
-• satisfaction level is lower for low and medium service notes that for the high ones
-• satisfaction level is higher for high check-in notes and lower for the low ones
-• satisfaction level is higher for medium wifi notes than for the high ones
-• satisfaction level is lower for high food notes than for the medium ones
-• females travelling business class are less satisfied than the ones from eco plus class. Analogically, for loyal customers. 
+We notice that according to our model:\\
+• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones,\\
+• satisfaction level is higher for females and loyal customers,\\
+• passengers at the age of 40s and 50s have a higher satisfaction level than the others,\\
+• the higher entertainment, seat, eBooking, eSupport, service, leg room, clean, baggage and check-in notes, the higher the satisfaction level,\\
+• generally, the longer the flight distance, the less satisfied people are. However, this is not the case in business cass, where people are more satisfied on longer distances,\\
+• females travelling business and eco plus class are less satisfied than the ones from eco class and females over 60 are more satisfied than the younger ones.
+
 
 Now we will check the performance of the model using few criteria.
 ```{r rocr, fig.cap=c("The ROC (receiver operating curve) for our model", "The lift of the model (bottom): the cumulative percentage of responders (ones) captured by the model")}
-AUC_logreg3_train <- fAUC(logreg3, data = Airlines_binned_train, type = "response")
-AUC_logreg3_test <- fAUC(logreg3, data = Airlines_binned_test, type = "response")
-pred3 <- prediction(predict(logreg3, type = "response"), Airlines_binned_train$IsSatisfied)
+AUC_logreg2_train <- fAUC(logreg2, data = Airlines_binned_train, type = "response")
+AUC_logreg2_test <- fAUC(logreg2, data = Airlines_binned_test, type = "response")
+pred2 <- prediction(predict(logreg2, type = "response"), Airlines_binned_train$IsSatisfied)
 
 # Visualize the ROC curve:
-plot(performance(pred3, "tpr", "fpr"), col="blue", lwd = 3)
-AUC3 <- attr(performance(pred3, "auc"), "y.values")[[1]]
-perf3 <- performance(pred3, "tpr", "fpr")
-ks3 <- max(attr(perf3,'y.values')[[1]] - attr(perf3,'x.values')[[1]])
-predScores3 <- predict(logreg3, type = "response")
-ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3)
+plot(performance(pred2, "tpr", "fpr"), col="blue", lwd = 3)
+AUC2 <- attr(performance(pred2, "auc"), "y.values")[[1]]
+perf2 <- performance(pred2, "tpr", "fpr")
+ks2 <- max(attr(perf2,'y.values')[[1]] - attr(perf2,'x.values')[[1]])
+predScores2 <- predict(logreg2, type = "response")
+ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores2)
 cat('\n\n')
-plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores3)
+plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores2)
 ```
 
-The third model has an AUC of 0.9598 on the training data and 0.9602 on the testing data. The difference is very small. The KS is 0.7993. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect.
+The logistic regression model has an AUC of `r AUC2` on the training data and `r AUC_logreg2_test`on the testing data. The difference is very small. The KS is `r ks2`. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. Therefore, we will move forward to the validation part. 
 
 ### Validation
 To validate the model we will use the cross validation method and opt for the Monte Carlo Cross Validation.
 ```{r}
 pctTrain <- 0.7
 set.seed(18901229)
-nRuns = 50
+nRuns = 100
 ```
-We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 200 times a training data-set of 0.7 and study the AUC on the testing data-set.
+We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 100 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
 cv_mc <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
 mods <- map(cv_mc$train, ~ glm(frm3, data = ., family = "binomial"))
@@ -622,8 +594,7 @@ mean(AUCs_test)
 sd(AUCs_test)
 
 ```
-We notice that the model is a little over-fit, but even for the test data-set the performance is acceptable. All variables retained have at least one of the categories with a $p − value$ that is smaller than $0.01$. We could consider to leave out the categories that have a higher $p − value$ to make the model more robust. We choose, however, not to do that because all coefficients are somehow logical.\\
-The median of the observed values for the AUC of the test data is 0.9599344, the average is 0.959875 with a standard deviation of 0.0008979887. We find these results great.
+We are satisfied with the performance of our model. The median of the observed values for the AUC of the test data is `r median(AUCs_test)`, the average is `r mean(AUCs_test)` with a standard deviation of `r sd(AUCs_test)`. We find these results great.
 
 ## State-of-the-art: Neural Network model
 
@@ -639,3 +610,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 # Bibliography
+De Brouwer, Philippe J.S. 2020. The Big r-Book: From Data Science to Learning Machines and Big Data. New York: John Wiley & Sons, Ltd.
