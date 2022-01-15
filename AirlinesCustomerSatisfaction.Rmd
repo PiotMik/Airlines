@@ -437,15 +437,23 @@ AirlinesEncoded_binned_train <- AirlinesEncoded_binned[train_index, ]
 AirlinesEncoded_binned_test  <- AirlinesEncoded_binned[test_index, ]
 ```
 
-# Baseline Models
+# Baseline Model
 
-Before jumping straight into cutting-edge mathematical models, sometimes it can be very teaching to fit a simple models and analyze how well they perform on the data. It sets ground zero for any more complicated models that follow and allows to adjust own expectations.
-Therefore we will fit a simple perceptron on our train set and evaluate the performance on test set, to understand the complexity of our problem.
+Before jumping straight into cutting-edge mathematical models it can be very teaching to fit a simple one and analyze how well it can perform on a given problem. It sets a ground zero for any more complicated models to follow, and gives an idea about how complex is the problem at hand.
+
+Therefore we will fit a simple adaptive linear neuron ([Adaline](https://sebastianraschka.com/faq/docs/diff-perceptron-adaline-neuralnet.html)) to our train set and evaluate it's performance on the test set. It is a binary classification model, designed to find a decision boundary for *linearly separable* datasets. However even if the data is not perfectly separable, we can still fit the algorithm and optimize a chosen loss function - *MSE* in our case.
+
 ## Fitting and performance
 
-Conceptually, perceptron consists of two simple parts: a linear combination of inputs, and the sigmoid activation function. Perceptron optimizes the weights of the components of the linear sum, to arrive at the best fit on the training set.
+Conceptually, Adaline is just a single layer neural network. It consists of two parts:
 
-In our case, the fitted weights are presented in 
+* A linear combination of inputs which is piped through an identity activation function - this is used for learning weights
+* A unit step decision function - this part enables performing binary predictions.
+
+Adaline optimizes the weights of that linear combination (a.k.a. the *net input*) to arrive at the best fit on the training set.
+
+We will put our own spin on the adaline algorithm to avoid overfitting. Additional *L2* regularization during training will give the model an incentive to opt for smaller weights, and an *early stopping* callback will halt the training for us, should the validation loss start to plateau and stop decreasing for at least $3$ consecutive epochs.
+
 ```{r results='asis'}
 library(keras)
 X_train <- 
@@ -471,46 +479,81 @@ y_test <- y_test %>%
 
 model <- keras_model_sequential()
 model %>%
-  layer_dense(units = 1, activation = 'sigmoid')
+  layer_dense(units = 1, 
+              kernel_regularizer = regularizer_l2())
 
 model %>% compile(
   optimizer = 'adam', 
-  loss = 'binary_crossentropy',
+  loss = 'mean_squared_error',
   metrics = c('accuracy'))
 
 model %>% fit(as.matrix(X_train), as.matrix(y_train),
-              validation_split= 0.3, batch_size=50,
-              epochs = 10, verbose = 2)
+              validation_data = list(as.matrix(X_test), as.matrix(y_test)),
+              batch_size=32,
+              epochs = 10, verbose = 1,
+              callbacks = list(callback_early_stopping(patience = 3,
+                                                       min_delta = 0.01,
+                                                       mode="min",
+                                                       verbose = 1)))
+
 w <- data.frame(Feature = colnames(X_train), Weight = round(get_weights(model)[[1]], 3))
 b <- get_weights(model)[[2]]
 
-w <- cbind(w[1:11, ], w[12:22, ], w[23:33, ])
-
-#knitr::kable(htmlTable(w,
-#                       cgroup = c("Weights", "Weights", "Weights"),
-#                       n.cgroup = c(2, 2, 2),
-#                       rnames = FALSE),
-#             "latex")
-knitr::kable(
-  list(w[1:11, ], w[12:22, ], w[23:33, ]),
-  caption = 'Perceptron weights for the baseline model.',
-  booktabs = TRUE
-)
 ```
 
-```{r perceptron evaluation}
-preds <- model %>% predict(as.matrix(X_test)) > 0.5
-preds <- preds %>% as.numeric()
+For the baseline model we won't be performing costly cross-validation, but rather only compare key model performance indicators across train and test sets. Figure \ref{fig:Adaline evaluation} presents that there are no significant performance differences between training and test sets across a selection of metrics, therefore we conclude that the model is able to generalize the learned rules well for unseen data and is not overfitted.  
 
-cm <- confusionMatrix(table(preds, unlist(y_test, use.names = F)))
-metrics <- c(cm$overall['Accuracy'], cm$byClass[1:2], cm$byClass[5:6])
-knitr::kable(data.frame('Perceptron_metrics'=metrics))
+```{r adaline evaluation, fig.width=5, fig.height=3, fig.cap="\\label{fig:Adaline evaluation} Performance metrics for the baseline Adaline model."}
+get_metrics <- function(confMatrix){
+  sMetrics <- c('Accuracy', 'Sensitivity', 'Specificity', 'Precision', 'Recall')
+  metrics <- 
+    c(confMatrix$overall['Accuracy'], 
+    confMatrix$byClass[1:2],
+    confMatrix$byClass[5:6]) %>% as.data.frame() %>% 
+    t() %>% t() %>% as_tibble() %>%
+    mutate("Metric" = sMetrics)
+  colnames(metrics) <- c("Value", "Metrics")
+  return(metrics)
+}
+
+preds_train <- model %>% predict(as.matrix(X_train)) > 0.5
+preds_train <- preds_train %>% as.numeric()
+
+preds_test <- (model %>% predict(as.matrix(X_test))) > 0.5
+preds_test <- preds_test %>% as.numeric()
+
+
+cm_train <- confusionMatrix(table(preds_train, unlist(y_train, use.names = F)))
+cm_test <- confusionMatrix(table(preds_test, unlist(y_test, use.names = F)))
+
+metrics_train <- get_metrics(cm_train) %>% mutate("Set" = "Train")
+metrics_test <- get_metrics(cm_test) %>% mutate("Set" = "Test")
+
+test_acc <- filter(metrics_test, Metrics=="Accuracy")['Value'] %>% as.numeric()
+rbind(metrics_train, metrics_test) %>%
+  mutate_at(all_of(c("Metrics", "Set")), ~ as_factor(.), levels=c("Train", "Test")) %>%
+  ggplot(aes(x=Metrics, fill=Set, y=Value, group=Set)) + 
+  geom_bar(stat='identity', position='dodge') +
+  scale_y_continuous(breaks = round(seq(0, 1, by = 0.1), 1)) +
+  theme_bw() + scale_fill_brewer(palette="Accent") +
+  coord_flip()
 ```
 
-## Validation
+In the case of our dataset, since we're working with one-hot-encoded binary features, the magnitudes and signs of fitted adaline weights can be used as proxies for the directions and magnitudes of the influence on the overall satisfaction for a particular feature. More precisely, the weights tell us by how much will the *net input* increase if a particular feature goes from $0$ to $1$. Once the net input (corrected for bias) exceeds $0.5$, this model will predict a satisfied passenger.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The top $3$ influencial feature-note pairs (in a positive and negative sense) according to Adaline model are summarized in table \ref{tab:Adaline_feature_importance}.  One should note that the coefficients translate to overall satisfaction **indirectly**, since e.g. `SeatNote.H=1` implies `SeatNote.M=0`, and these effects offset in the overall net input. However the coefficients should be sufficient to analyze at least the overall importance of particular features. 
 
+We see that solid `Entertaiment` and `Seat` notes can severely sway the satisfaction in the positive direction. On the other hand, we have low `Service` notes that moderately drag down the final satisfaction. The biggest negative coefficients that we see are corresponding to `Food`, but they don't seem make intuitive sense. Here a high food note would impact satisfaction more negatively that a low food note. However it is entirely possible that this is due to some missing variable interactions which Adaline is not designed to pick up.
+```{r }
+w %>%
+  arrange(desc(Weight)) %>%
+  mutate(Rank = seq(1, dim(w)[1])) %>%
+  select(c("Rank", "Feature", "Weight")) %>%
+  filter(Rank <= 3 | Rank >= 31) %>%
+  knitr::kable(caption = 'Top $3$ positive and negative weights for the Adaline baseline model.\\label{tab:Adaline_feature_importance}')
+```
+
+Since Adaline's accuracy on the test set is `r round(test_acc, 3)`, we can infer that our data is not hard to separate, or at least it is relatively easy to reach a reasonable performance. For all challenger models we will be aiming to achieve better metrics, which must compensate for additional model complexity.
 
 # The Challenger Models
 
