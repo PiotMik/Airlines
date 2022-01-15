@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  13 JAN 2022 03:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  14 JAN 2022 04:37
 entering extended mode
 **./AirlinesCustomerSatisfaction.tex
 (AirlinesCustomerSatisfaction.tex
@@ -526,7 +526,7 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Warning: Reference `fig:Multicollinearity' on page 6 undefined on input l
 ine 267.
 
-<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=93
+<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=91
 , 289.08pt x 289.08pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf G
 raphic file (type pdf)
@@ -560,7 +560,7 @@ aset with NAs.
  []
 
 <AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf, id=
-94, 216.81pt x 216.81pt>
+92, 216.81pt x 216.81pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf>
@@ -572,7 +572,7 @@ _Collinearity-1.pdf  used on input line 275.
 
 LaTeX Warning: Reference `fig:loess' on page 7 undefined on input line 287.
 
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf, id=105,
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf, id=103,
  361.35pt x 578.16pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf Gra
 phic file (type pdf)
@@ -758,7 +758,7 @@ Overfull \hbox (6.48662pt too wide) in paragraph at lines 449--450
 
 [10] [11]
 <AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf, id=
-160, 505.89pt x 433.62pt>
+158, 505.89pt x 433.62pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf>
@@ -971,36 +971,21 @@ Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 1, 1, 1, 1, 1, 1,...[] 
  []
 
-[14]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-613.
-("D:\Program Files (x86)\MiKTeX\tex/latex/lm\ts1lmtt.fd"
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-12-1.pdf, id=185
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-12-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-12-1.pdf  used on input line 615.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-[15 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-12-1.pdf>]
-[16] [17] [18] (AirlinesCustomerSatisfaction.aux)
+[14] [15] [16] [17] (AirlinesCustomerSatisfaction.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13335 strings out of 479730
- 197955 string characters out of 2875469
- 520402 words of memory out of 3000000
- 29936 multiletter control sequences out of 15000+200000
- 472688 words of font info for 147 fonts, out of 3000000 for 9000
+ 13292 strings out of 479730
+ 196874 string characters out of 2875469
+ 529189 words of memory out of 3000000
+ 29896 multiletter control sequences out of 15000+200000
+ 472564 words of font info for 148 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  79i,7n,85p,1027b,526s stack positions out of 5000i,500n,10000p,200000b,50000s
-{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Program File
-s (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Program Files (x86)/MiKTeX/
+{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Program F
+iles (x86)/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Program Files (x86)/MiKTeX/
 fonts/enc/dvips/lm/lm-ec.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/
 lm-mathit.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<D:/P
 rogram Files (x86)/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><D:/Program Files (x
@@ -1012,9 +997,9 @@ x86)/MiKTeX/fonts/type1/public/lm/lmri12.pfb><D:/Program Files (x86)/MiKTeX/fon
 ts/type1/public/lm/lmss17.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public
 /lm/lmssbx10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmsy10.pf
 b><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (18 pages, 3381222 bytes).
+Output written on AirlinesCustomerSatisfaction.pdf (17 pages, 3346061 bytes).
 PDF statistics:
- 361 PDF objects out of 1000 (max. 8388607)
- 79 named destinations out of 1000 (max. 500000)
- 39127 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 335 PDF objects out of 1000 (max. 8388607)
+ 77 named destinations out of 1000 (max. 500000)
+ 39114 words of extra memory for PDF output out of 42996 (max. 10000000)
 

@@ -51,6 +51,7 @@ library(purrr)
 library(httr)
 library(caret)
 library(woeBinning)
+library(htmlTable)
 
 # SETUP
 # Some config variables
@@ -439,11 +440,13 @@ AirlinesEncoded_binned_test  <- AirlinesEncoded_binned[test_index, ]
 # Baseline Models
 
 Before jumping straight into cutting-edge mathematical models, sometimes it can be very teaching to fit a simple models and analyze how well they perform on the data. It sets ground zero for any more complicated models that follow and allows to adjust own expectations.
-Therefore we will fit two simple models: a perceptron and a decision tree to the training set, and evaluate their performance using a reserved test set.
-
+Therefore we will fit a simple perceptron on our train set and evaluate the performance on test set, to understand the complexity of our problem.
 ## Fitting and performance
 
-```{r}
+Conceptually, perceptron consists of two simple parts: a linear combination of inputs, and the sigmoid activation function. Perceptron optimizes the weights of the components of the linear sum, to arrive at the best fit on the training set.
+
+In our case, the fitted weights are presented in 
+```{r results='asis'}
 library(keras)
 X_train <- 
   AirlinesEncoded_binned_train %>% select(-IsSatisfied)
@@ -478,28 +481,30 @@ model %>% compile(
 model %>% fit(as.matrix(X_train), as.matrix(y_train),
               validation_split= 0.3, batch_size=50,
               epochs = 10, verbose = 2)
+w <- data.frame(Feature = colnames(X_train), Weight = round(get_weights(model)[[1]], 3))
+b <- get_weights(model)[[2]]
 
+w <- cbind(w[1:11, ], w[12:22, ], w[23:33, ])
+
+#knitr::kable(htmlTable(w,
+#                       cgroup = c("Weights", "Weights", "Weights"),
+#                       n.cgroup = c(2, 2, 2),
+#                       rnames = FALSE),
+#             "latex")
+knitr::kable(
+  list(w[1:11, ], w[12:22, ], w[23:33, ]),
+  caption = 'Perceptron weights for the baseline model.',
+  booktabs = TRUE
+)
+```
+
+```{r perceptron evaluation}
 preds <- model %>% predict(as.matrix(X_test)) > 0.5
 preds <- preds %>% as.numeric()
 
-
-confusionMatrix(table(preds, unlist(y_test, use.names = F)))
-```
-
-```{r}
-library(rpart)
-library(rattle)
-modelDecTree <- rpart(IsSatisfied ~ ., data = AirlinesEncoded_binned_train)
-fancyRpartPlot(modelDecTree)
-
-
-preds <- modelDecTree %>% predict(AirlinesEncoded_binned_test, type = "class")
-preds <- preds %>% as.character() %>% as.numeric()
-
-
-confusionMatrix(table(preds, unlist(AirlinesEncoded_binned_test$IsSatisfied,
-                                    use.names = F)))
-
+cm <- confusionMatrix(table(preds, unlist(y_test, use.names = F)))
+metrics <- c(cm$overall['Accuracy'], cm$byClass[1:2], cm$byClass[5:6])
+knitr::kable(data.frame('Perceptron_metrics'=metrics))
 ```
 
 ## Validation
