@@ -60,7 +60,7 @@ bRunComputationallyHeavyStuff <- FALSE # set ```{r eval=bRunComputationallyHeavy
 
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
-setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
+setwd("C:/Users/Joann/Desktop/Airlines")
 ```
 
 \newpage
@@ -488,26 +488,28 @@ RanForest1<-randomForest(frm,Airlines_binned_train,importance=TRUE)
 #Investigate the model
 RanForest1
 ```
-After running Random Forest algorithm on basic model we can be quite pleased with the results. Only 6.18% of the observations were misqualified thus we obtained model with 93.82% accuracy. \\ 
+After running Random Forest algorithm on basic model we can be quite pleased with the results. Only 6.18% of the observations were misqualified thus we obtained model with 93.82% accuracy.\
 
 We denote number of variables tried at each split as \textbf{mtry}. This parameter allows us to choose optimal number of generated decision trees. By optimal we mean such \textbf{mtry} that value of OOB estimate of error rate is the lowest.
 ```{r}
 set.seed(12428)
 mtry<-tuneRF(Airlines_binned_train[-2],Airlines_binned_train$IsSatisfied,ntreeTry=500,stepFactor=1.5,improve=0.01,trace=TRUE,plot=TRUE)
 ```
-As we see, the value chosen by deafult is the best one.\\
+As we see, the value chosen by deafult is the best one.\
 
-Random Forest enables us to determine how important each variable is in the model, two criteria are used:\\•MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set. \\•MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
+Random Forest enables us to determine how important each variable is in the model, two criteria are used:\
+•MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set. \
+•MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
 ```{r}
 varImpPlot(RanForest1)
 ```
-In terms of accuracy of the model, eBoardingNote, WifiNote and ServiceNote seem to be the least important. The most influential are SeatNote, CheckInNote and eSupportNote. The accuracy of the model could drop significantly if we left them out. As for Gini coefficient the most important are EntertainmentNote, SeatNote and eBookingNote and the least ServiceNote, WifiNote and eBoardingNote.\\
+In terms of accuracy of the model, eBoardingNote, WifiNote and ServiceNote seem to be the least important. The most influential are SeatNote, CheckInNote and eSupportNote. The accuracy of the model could drop significantly if we left them out. As for Gini coefficient, the most important are EntertainmentNote, SeatNote and eBookingNote and the least ServiceNote, WifiNote and eBoardingNote.\
 
-SeatNote is placed high on both plots, so we may assume that this variable has strong influence on satisfaction level. The same applies to eSupportNote and EntertainmentNote. While thinking of clients' satisfaction, the airline should definitely focus on providing them with comfortable seats and proper online customer support. Moreover, making sure that passengers are entertained throughout the flight (e.g. movies, headphones with music) will definitely help them look back at the flight with nothing but enjoyment.\\
+SeatNote is placed high on both plots, so we may assume that this variable has strong influence on satisfaction level. The same applies to eSupportNote and EntertainmentNote. While thinking of clients' satisfaction, the airline should definitely focus on providing them with comfortable seats and proper online customer support. Moreover, making sure that passengers are entertained throughout the flight (e.g. movies, headphones with music) will definitely help them look back at the flight with nothing but enjoyment.\
 
-While thinking of the least important variables we have one immediate candidate - WifiNote - it seems like availability and quality of WiFi service does not matter that much to the customers.\\
+While thinking of the least important variables we have one immediate candidate - WifiNote - it seems like availability and quality of WiFi service does not matter that much to the customers.\
 
-As we see, there are some variables we can try and exclude out of the model with expectations for better results. As for now, we check the performance of basic model. After that, we will take into consideration changes in the variables e.g. interactions or ommiting them.
+Now, with the help of the ROCurve, we will check the performance of this model.
  
 ```{r}
 # function to get AUC
@@ -533,14 +535,18 @@ ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_R
 cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
 ```
-The model has an AUC of `r AUC1_RF` on training data and `r AUC_RanForest1_test` on testing data. As the difference between them is small we may presume that this model would be a good choice, plots also look satisfying. Just to make sure that we don't miss out on any better model, we decided to check some of the options for improvement. Excluding any variables resulted in making accuracy worse. Adding interactions didn't change accuracy or performance of the model at all. Our final choice is the basic model. We can now approach validation part.
+The model has an AUC of `r AUC1_RF` on training data and `r AUC_RanForest1_test` on testing data. As the difference between them is small we may presume that this model would be a good choice, plots also look satisfying.\
+
+Just to make sure that we don't miss out on any better model, we decided to check some of the options for improvement but did not succeed. Excluding any variables resulted in making accuracy worse. Adding interactions didn't change accuracy or performance of the model at all. Our final choice is the basic model. \
+
+We can now approach validation part.
 
 ### Validation
-Similarly as in Logistic Regression we will validate the model using the cross validation method and opt for the Monte Carlo Cross Validation. As before, we will draw 100 times a training data-set containing 70% of observations and then study the AUC on the testing data-set.
+We will validate the model using the cross validation method and opt for the Monte Carlo Cross Validation. We will draw 100 times a training data-set containing 70% of observations and then study the AUC on the testing data-set.
 ```{r}
 pctTrain <- 0.7
 set.seed(1201984)
-nRuns = 100
+nRuns = 10
 ```
 
 ```{r fig.cap='The results of the cross validation for the random forest.\\label{fig:MCxvalrf1}'}
@@ -557,11 +563,8 @@ tibble(model = "test data", AUC = AUCs_test_RF))
 p1 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
 p2 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
-median(AUCs_test_RF)
-mean(AUCs_test_RF)
-sd(AUCs_test_RF)
 ```
-Observed values for the AUC of the test data have the median equal to `r median(AUCs_test_RF)`, the average equal to `r average(AUCs_test_RF)` and standard deviation equal to `r sd(AUCs_test_RF)`. Given the plots and parameters we are content with the results and find this model valid.
+Observed values for the AUC of the test data have the median equal to `r median(AUCs_test_RF)`, the average equal to `r mean(AUCs_test_RF)` and standard deviation equal to `r sd(AUCs_test_RF)`. Given the plots and parameters we are content with the results, AUCs of training and test sets keep in line with each other. The model does not over-fit so we find it valid.
 
 
 ## Logistic Regression
@@ -652,7 +655,7 @@ To validate the model we will use the cross validation method and opt for the Mo
 ```{r}
 pctTrain <- 0.7
 set.seed(18901229)
-nRuns = 100
+nRuns = 10
 ```
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 100 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
