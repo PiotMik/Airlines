@@ -61,7 +61,7 @@ bRunComputationallyHeavyStuff <- FALSE # set ```{r eval=bRunComputationallyHeavy
 
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
-setwd("D:/Classes/Mgr/Semestr_3/Quantitative_Analysis_for_Managerial_Decisions/Airlines") # change for your main directory
+setwd("C:/Users/Joann/Desktop/Airlines")
 ```
 
 \newpage
@@ -586,10 +586,95 @@ Since Adaline's accuracy on the test set is `r round(test_acc, 3)`, we can infer
 ## Random Forest
 
 ### Fitting and performance
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+We will try out Random Forest method. Firstly, we consider model including all of the variables.
+```{r}
+library(randomForest)
+#Define the formula
+frm<-IsSatisfied~.
+#Fit the model
+set.seed(12428)
+RanForest1<-randomForest(frm,Airlines_binned_train,importance=TRUE)
+#Investigate the model
+RanForest1
+```
+After running Random Forest algorithm on basic model we can be quite pleased with the results. Only 6.18% of the observations were misqualified thus we obtained model with 93.82% accuracy.\
+
+We denote number of variables tried at each split as \textbf{mtry}. This parameter allows us to choose optimal number of generated decision trees. By optimal we mean such \textbf{mtry} that value of OOB estimate of error rate is the lowest.
+```{r}
+set.seed(12428)
+mtry<-tuneRF(Airlines_binned_train[-2],Airlines_binned_train$IsSatisfied,ntreeTry=500,stepFactor=1.5,improve=0.01,trace=TRUE,plot=TRUE)
+```
+As we see, the value chosen by deafult is the best one.\
+
+Random Forest enables us to determine how important each variable is in the model, two criteria are used:\
+•MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set. \
+•MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
+```{r}
+varImpPlot(RanForest1)
+```
+In terms of accuracy of the model, eBoardingNote, WifiNote and ServiceNote seem to be the least important. The most influential are SeatNote, CheckInNote and eSupportNote. The accuracy of the model could drop significantly if we left them out. As for Gini coefficient, the most important are EntertainmentNote, SeatNote and eBookingNote and the least ServiceNote, WifiNote and eBoardingNote.\
+
+SeatNote is placed high on both plots, so we may assume that this variable has strong influence on satisfaction level. The same applies to eSupportNote and EntertainmentNote. While thinking of clients' satisfaction, the airline should definitely focus on providing them with comfortable seats and proper online customer support. Moreover, making sure that passengers are entertained throughout the flight (e.g. movies, headphones with music) will definitely help them look back at the flight with nothing but enjoyment.\
+
+While thinking of the least important variables we have one immediate candidate - WifiNote - it seems like availability and quality of WiFi service does not matter that much to the customers.\
+
+Now, with the help of the ROCurve, we will check the performance of this model.
+ 
+```{r}
+# function to get AUC
+fAUC_RF <- function(model, data, ...) {
+  y <- all.vars(formula(model))[1]
+  pred1 <- as.numeric(predict(model, newdata = data, ...))
+  pred <- ROCR::prediction(pred1, data[[y]])
+  perf <- performance(pred, "auc")
+  AUC <- attr(perf, "y.values")[[1]]
+  AUC
+}
+AUC_RanForest1_train <- fAUC_RF(RanForest1, data = Airlines_binned_train, type = "response")
+AUC_RanForest1_test <- fAUC_RF(RanForest1, data = Airlines_binned_test, type = "response")
+pred1_RF <- prediction(as.numeric(predict(RanForest1, type = "prob")[ ,2]), Airlines_binned_train$IsSatisfied)
+
+# Visualize the ROC curve:
+plot(performance(pred1_RF, "tpr", "fpr"), col="blue", lwd = 3)
+AUC1_RF <- attr(performance(pred1_RF, "auc"), "y.values")[[1]]
+perf1_RF <- performance(pred1_RF, "tpr", "fpr")
+ks1_RF <- max(attr(perf1_RF,'y.values')[[1]] - attr(perf1_RF,'x.values')[[1]])
+predSc1_RF <- as.numeric(predict(RanForest1, type = "prob")[ ,2])
+ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
+cat('\n\n')
+plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
+```
+The model has an AUC of `r AUC1_RF` on training data and `r AUC_RanForest1_test` on testing data. As the difference between them is small we may presume that this model would be a good choice, plots also look satisfying.\
+
+Just to make sure that we don't miss out on any better model, we decided to check some of the options for improvement but did not succeed. Excluding any variables resulted in making accuracy worse. Adding interactions didn't change accuracy or performance of the model at all. Our final choice is the basic model. \
+
+We can now approach validation part.
 
 ### Validation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+We will validate the model using the cross validation method and opt for the Monte Carlo Cross Validation. We will draw 100 times a training data-set containing 70% of observations and then study the AUC on the testing data-set.
+```{r}
+pctTrain <- 0.7
+set.seed(1201984)
+nRuns = 10
+```
+
+```{r fig.cap='The results of the cross validation for the random forest.\\label{fig:MCxvalrf1}'}
+cv_mc_RF <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
+mods_RF<-map(cv_mc_RF$train,~RanForest1)
+AUCs_train_RF <- numeric(0)
+AUCs_test_RF <- numeric(0)
+for(k in 1:nRuns) {
+AUCs_test_RF[k] <- fAUC_RF(mods_RF[[k]], as.data.frame(cv_mc_RF$test[[k]]))
+AUCs_train_RF[k] <- fAUC_RF(mods_RF[[k]], as.data.frame(cv_mc_RF$train[[k]]))
+}
+allAUCs_RF <- rbind(tibble(model = "train data", AUC = AUCs_train_RF),
+tibble(model = "test data", AUC = AUCs_test_RF))
+p1 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
+p2 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + stat_ecdf()
+grid.arrange(p1, p2, ncol = 1)
+```
+Observed values for the AUC of the test data have the median equal to `r median(AUCs_test_RF)`, the average equal to `r mean(AUCs_test_RF)` and standard deviation equal to `r sd(AUCs_test_RF)`. Given the plots and parameters we are content with the results, AUCs of training and test sets keep in line with each other. The model does not over-fit so we find it valid.
+
 
 ## Logistic Regression
 
@@ -679,7 +764,7 @@ To validate the model we will use the cross validation method and opt for the Mo
 ```{r}
 pctTrain <- 0.7
 set.seed(18901229)
-nRuns = 100
+nRuns = 10
 ```
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 100 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
