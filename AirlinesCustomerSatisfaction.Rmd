@@ -523,14 +523,14 @@ fAUC_RF <- function(model, data, ...) {
 }
 AUC_RanForest1_train <- fAUC_RF(RanForest1, data = Airlines_binned_train, type = "response")
 AUC_RanForest1_test <- fAUC_RF(RanForest1, data = Airlines_binned_test, type = "response")
-pred1_RF <- prediction(as.numeric(predict(RanForest1, type = "response")), Airlines_binned_train$IsSatisfied)
+pred1_RF <- prediction(as.numeric(predict(RanForest1, type = "prob")[ ,2]), Airlines_binned_train$IsSatisfied)
 
 # Visualize the ROC curve:
 plot(performance(pred1_RF, "tpr", "fpr"), col="blue", lwd = 3)
 AUC1_RF <- attr(performance(pred1_RF, "auc"), "y.values")[[1]]
 perf1_RF <- performance(pred1_RF, "tpr", "fpr")
 ks1_RF <- max(attr(perf1_RF,'y.values')[[1]] - attr(perf1_RF,'x.values')[[1]])
-predSc1_RF <- as.numeric(predict(RanForest1, type = "response"))
+predSc1_RF <- as.numeric(predict(RanForest1, type = "prob")[ ,2])
 ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
 cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
