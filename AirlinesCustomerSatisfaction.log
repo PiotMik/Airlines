@@ -1,90 +1,88 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.15)  16 JAN 2022 10:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.11) (preloaded format=pdflatex 2020.12.7)  15 JAN 2022 19:08
 entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
 **./AirlinesCustomerSatisfaction.tex
 (AirlinesCustomerSatisfaction.tex
-LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2021-11-22> (C:\Users\Joann\AppData\Local\Programs\MiKTeX
-\tex/latex/base\article.cls
-Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
-File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+LaTeX2e <2020-10-01> patch level 2
+L3 programming layer <2020-12-03> xparse <2020-03-03> ("D:\Program Files (x86)\
+MiKTeX\tex/latex/base\article.cls"
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+("D:\Program Files (x86)\MiKTeX\tex/latex/base\size12.clo"
+File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
-\c@part=\count183
-\c@section=\count184
-\c@subsection=\count185
-\c@subsubsection=\count186
-\c@paragraph=\count187
-\c@subparagraph=\count188
-\c@figure=\count189
-\c@table=\count190
+\c@part=\count177
+\c@section=\count178
+\c@subsection=\count179
+\c@subsubsection=\count180
+\c@paragraph=\count181
+\c@subparagraph=\count182
+\c@figure=\count183
+\c@table=\count184
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
-Package: amsmath 2021/10/15 v2.17l AMS math features
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/amsmath\amsmath.sty"
+Package: amsmath 2020/09/23 v2.17i AMS math features
 \@mathmargin=\skip49
 For additional information on amsmath, use the `?' option.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
-Package: amstext 2021/08/26 v2.01 AMS text
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+("D:\Program Files (x86)\MiKTeX\tex/latex/amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+("D:\Program Files (x86)\MiKTeX\tex/latex/amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks16
+\@emptytoks=\toks15
 \ex@=\dimen139
-)) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+)) ("D:\Program Files (x86)\MiKTeX\tex/latex/amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen140
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
-Package: amsopn 2021/08/26 v2.02 operator names
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count191
+\inf@bad=\count185
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count192
-\leftroot@=\count193
+\uproot@=\count186
+\leftroot@=\count187
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count194
-\DOTSCASE@=\count195
+\classnum@=\count188
+\DOTSCASE@=\count189
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box50
-\strutbox@=\box51
+\Mathstrutbox@=\box47
+\strutbox@=\box48
 \big@size=\dimen141
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count196
-\c@MaxMatrixCols=\count197
+\macc@depth=\count190
+\c@MaxMatrixCols=\count191
 \dotsspace@=\muskip16
-\c@parentequation=\count198
-\dspbrk@lvl=\count199
-\tag@help=\toks17
-\row@=\count266
-\column@=\count267
-\maxfields@=\count268
-\andhelp@=\toks18
+\c@parentequation=\count192
+\dspbrk@lvl=\count193
+\tag@help=\toks16
+\row@=\count194
+\column@=\count195
+\maxfields@=\count196
+\andhelp@=\toks17
 \eqnshift@=\dimen142
 \alignsep@=\dimen143
 \tagshift@=\dimen144
 \tagwidth@=\dimen145
 \totwidth@=\dimen146
 \lineht@=\dimen147
-\@envbody=\toks19
+\@envbody=\toks18
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks20
-LaTeX Info: Redefining \[ on input line 2938.
-LaTeX Info: Redefining \] on input line 2939.
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+("D:\Program Files (x86)\MiKTeX\tex/latex/amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
+)) ("D:\Program Files (x86)\MiKTeX\tex/latex/lm\lmodern.sty"
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -118,455 +116,391 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/iftex\iftex.sty"
 Package: iftex 2020/03/06 v1.0d TeX engine tests
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
-Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/base\fontenc.sty"
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
 2.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
-Package: inputenc 2021/02/14 v1.3d Input encoding file
-\inpenc@prehook=\toks21
-\inpenc@posthook=\toks22
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
+)) ("D:\Program Files (x86)\MiKTeX\tex/latex/base\inputenc.sty"
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks20
+\inpenc@posthook=\toks21
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/base\textcomp.sty"
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/upquote\upquote.sty"
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
-Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/microtype\microtype.sty"
+Package: microtype 2021/10/31 v3.0 Micro-typographical refinements (RS)
+("D:\Program Files (x86)\MiKTeX\tex/latex/graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks23
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+\KV@toks@=\toks22
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/etoolbox\etoolbox.sty"
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count269
+\etb@tempcnta=\count197
 )
-\MT@toks=\toks24
-\MT@count=\count270
-\MT@tempbox=\box52
-LaTeX Info: Redefining \leftprotrusion on input line 1010.
-LaTeX Info: Redefining \rightprotrusion on input line 1018.
-LaTeX Info: Redefining \textls on input line 1173.
-\MT@outer@kern=\dimen148
-LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
-\MT@listname@count=\count271
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdf
-tex.def
-File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
-
-LaTeX Info: Redefining \lsstyle on input line 897.
-LaTeX Info: Redefining \lslig on input line 897.
+\MT@toks=\toks23
+\MT@count=\count198
+\MT@tempbox=\box49
+\MT@leftmarginkern=\dimen148
+\MT@rightmarginkern=\dimen149
+LaTeX Info: Redefining \textls on input line 1114.
+\MT@outer@kern=\dimen150
+LaTeX Info: Redefining \textmicrotypecontext on input line 1700.
+\MT@listname@count=\count199
+("D:\Program Files (x86)\MiKTeX\tex/latex/microtype\microtype-pdftex.def"
+File: microtype-pdftex.def 2021/10/31 v3.0 Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 915.
+LaTeX Info: Redefining \lslig on input line 915.
 \MT@outer@space=\skip52
 )
 Package microtype Info: Loading configuration file microtype.cfg.
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg
-File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
-)) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
-Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+("D:\Program Files (x86)\MiKTeX\tex/latex/microtype\microtype.cfg"
+File: microtype.cfg 2021/10/31 v3.0 microtype main configuration file (RS)
+)) ("D:\Program Files (x86)\MiKTeX\tex/latex/parskip\parskip.sty"
+Package: parskip 2020-06-15 v2.0f non-zero parskip adjustments
+("D:\Program Files (x86)\MiKTeX\tex/latex/kvoptions\kvoptions.sty"
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+("D:\Program Files (x86)\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty"
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.s
-ty
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.sty"
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-))) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
-Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+))) ("D:\Program Files (x86)\MiKTeX\tex/latex/xcolor\xcolor.sty"
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+("D:\Program Files (x86)\MiKTeX\tex/latex/graphics-cfg\color.cfg"
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 227.
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+("D:\Program Files (x86)\MiKTeX\tex/latex/graphics-def\pdftex.def"
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 )
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
-Package xcolor Info: Model `RGB' extended on input line 1368.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/xurl\xurl.sty
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/xurl\xurl.sty"
 Package: xurl 2020/12/30 v 0.09a modify URL breaks
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+("D:\Program Files (x86)\MiKTeX\tex/latex/url\url.sty"
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.st
-y
+)) ("D:\Program Files (x86)\MiKTeX\tex/latex/bookmark\bookmark.sty"
 Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
-.sty
+("D:\Program Files (x86)\MiKTeX\tex/latex/hyperref\hyperref.sty"
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+("D:\Program Files (x86)\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty"
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
-ty
+("D:\Program Files (x86)\MiKTeX\tex/generic/infwarerr\infwarerr.sty"
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
-keys.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty"
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
-ty
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/pdfescape\pdfescape.sty"
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/hycolor\hycolor.sty"
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro
-.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty"
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/auxhook\auxhook.sty"
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-\@linkdim=\dimen149
-\Hy@linkcounter=\count272
-\Hy@pagecounter=\count273
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
-File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
+\@linkdim=\dimen151
+\Hy@linkcounter=\count266
+\Hy@pagecounter=\count267
+("D:\Program Files (x86)\MiKTeX\tex/latex/hyperref\pd1enc.def"
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref-langp
-atches.def
-File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
-nguages
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/intcalc\intcalc.sty"
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/etexcmds\etexcmds.sty"
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count274
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
-File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
+\Hy@SavedSpaceFactor=\count268
+Package hyperref Info: Option `unicode' set `true' on input line 4338.
+("D:\Program Files (x86)\MiKTeX\tex/latex/hyperref\puenc.def"
+File: puenc.def 2020-05-15 v7.00e Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `unicode' set `true' on input line 4073.
-Package hyperref Info: Hyper figures OFF on input line 4192.
-Package hyperref Info: Link nesting OFF on input line 4197.
-Package hyperref Info: Hyper index ON on input line 4200.
-Package hyperref Info: Plain pages OFF on input line 4207.
-Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count275
-LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen150
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count269
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen152
+("D:\Program Files (x86)\MiKTeX\tex/generic/bitset\bitset.sty"
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
-.sty
+("D:\Program Files (x86)\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty"
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count276
-\Field@Width=\dimen151
-\Fld@charsize=\dimen152
-Package hyperref Info: Hyper figures OFF on input line 6076.
-Package hyperref Info: Link nesting OFF on input line 6081.
-Package hyperref Info: Hyper index ON on input line 6084.
-Package hyperref Info: backreferencing OFF on input line 6091.
-Package hyperref Info: Link coloring OFF on input line 6096.
-Package hyperref Info: Link coloring with OCG OFF on input line 6101.
-Package hyperref Info: PDF/A mode OFF on input line 6106.
-LaTeX Info: Redefining \ref on input line 6146.
-LaTeX Info: Redefining \pageref on input line 6150.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
-Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
-package with kernel methods
-)
-\Hy@abspage=\count277
-\c@Item=\count278
-\c@Hfootnote=\count279
-)
-Package hyperref Info: Driver (autodetected): hpdftex.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
-kage
+\Fld@menulength=\count270
+\Field@Width=\dimen153
+\Fld@charsize=\dimen154
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+("D:\Program Files (x86)\MiKTeX\tex/latex/base\atbegshi-ltx.sty"
+Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
+ge
 with kernel methods
 )
-\Fld@listcount=\count280
-\c@bookmark@seq@number=\count281
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
-echeck.sty
+\Hy@abspage=\count271
+\c@Item=\count272
+\c@Hfootnote=\count273
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+("D:\Program Files (x86)\MiKTeX\tex/latex/hyperref\hpdftex.def"
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+("D:\Program Files (x86)\MiKTeX\tex/latex/base\atveryend-ltx.sty"
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
+e
+with kernel methods
+)
+\Fld@listcount=\count274
+\c@bookmark@seq@number=\count275
+("D:\Program Files (x86)\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty"
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
-ounter.sty
+("D:\Program Files (x86)\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty"
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 )
 \Hy@SectionHShift=\skip53
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/bookmark\bkm-pdftex.def"
 File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
-\BKM@id=\count282
-)) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.st
-y
-Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
-\FV@CodeLineNo=\count283
-\FV@InFile=\read2
-\FV@TabBox=\box53
-\c@FancyVerbLine=\count284
-\FV@StepNumber=\count285
-\FV@OutFile=\write3
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/framed\framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip54
-\fb@frw=\dimen153
-\fb@frh=\dimen154
-\FrameRule=\dimen155
-\FrameSep=\dimen156
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
-Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip55
-\LTright=\skip56
-\LTpre=\skip57
-\LTpost=\skip58
-\LTchunksize=\count286
-\LTcapwidth=\dimen157
-\LT@head=\box54
-\LT@firsthead=\box55
-\LT@foot=\box56
-\LT@lastfoot=\box57
-\LT@gbox=\box58
-\LT@cols=\count287
-\LT@rows=\count288
-\c@LT@tables=\count289
-\c@LT@chunks=\count290
-\LT@p@ftn=\toks25
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+\BKM@id=\count276
+)) ("D:\Program Files (x86)\MiKTeX\tex/latex/tools\longtable.sty"
+Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
+\LTleft=\skip54
+\LTright=\skip55
+\LTpre=\skip56
+\LTpost=\skip57
+\LTchunksize=\count277
+\LTcapwidth=\dimen155
+\LT@head=\box50
+\LT@firsthead=\box51
+\LT@foot=\box52
+\LT@lastfoot=\box53
+\LT@cols=\count278
+\LT@rows=\count279
+\c@LT@tables=\count280
+\c@LT@chunks=\count281
+\LT@p@ftn=\toks24
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/booktabs\booktabs.sty"
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen158
-\lightrulewidth=\dimen159
-\cmidrulewidth=\dimen160
-\belowrulesep=\dimen161
-\belowbottomsep=\dimen162
-\aboverulesep=\dimen163
-\abovetopsep=\dimen164
-\cmidrulesep=\dimen165
-\cmidrulekern=\dimen166
-\defaultaddspace=\dimen167
-\@cmidla=\count291
-\@cmidlb=\count292
-\@aboverulesep=\dimen168
-\@belowrulesep=\dimen169
-\@thisruleclass=\count293
-\@lastruleclass=\count294
-\@thisrulewidth=\dimen170
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
-Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen171
-\ar@mcellbox=\box59
-\extrarowheight=\dimen172
-\NC@list=\toks26
-\extratabsurround=\skip59
-\backup@length=\skip60
-\ar@cellbox=\box60
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
+\heavyrulewidth=\dimen156
+\lightrulewidth=\dimen157
+\cmidrulewidth=\dimen158
+\belowrulesep=\dimen159
+\belowbottomsep=\dimen160
+\aboverulesep=\dimen161
+\abovetopsep=\dimen162
+\cmidrulesep=\dimen163
+\cmidrulekern=\dimen164
+\defaultaddspace=\dimen165
+\@cmidla=\count282
+\@cmidlb=\count283
+\@aboverulesep=\dimen166
+\@belowrulesep=\dimen167
+\@thisruleclass=\count284
+\@lastruleclass=\count285
+\@thisrulewidth=\dimen168
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/tools\array.sty"
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen169
+\ar@mcellbox=\box54
+\extrarowheight=\dimen170
+\NC@list=\toks25
+\extratabsurround=\skip58
+\backup@length=\skip59
+\ar@cellbox=\box55
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/tools\calc.sty"
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count295
-\calc@Bcount=\count296
-\calc@Adimen=\dimen173
-\calc@Bdimen=\dimen174
-\calc@Askip=\skip61
-\calc@Bskip=\skip62
+\calc@Acount=\count286
+\calc@Bcount=\count287
+\calc@Adimen=\dimen171
+\calc@Bdimen=\dimen172
+\calc@Askip=\skip60
+\calc@Bskip=\skip61
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count297
-\calc@Cskip=\skip63
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/footnotehyper\footnoteh
-yper.sty
+\calc@Ccount=\count288
+\calc@Cskip=\skip62
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/footnotehyper\footnotehyper.sty"
 Package: footnotehyper 2021/08/13 v1.1e hyperref aware footnote.sty (JFB)
-\FNH@notes=\box61
-\FNH@width=\dimen175
-\FNH@toks=\toks27
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
-Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
-Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
-Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
-fg
+\FNH@notes=\box56
+\FNH@width=\dimen173
+\FNH@toks=\toks26
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+("D:\Program Files (x86)\MiKTeX\tex/latex/graphics\graphics.sty"
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+("D:\Program Files (x86)\MiKTeX\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/graphics-cfg\graphics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 107.
+Package graphics Info: Driver file: pdftex.def on input line 105.
 )
-\Gin@req@height=\dimen176
-\Gin@req@width=\dimen177
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/titling\titling.sty
+\Gin@req@height=\dimen174
+\Gin@req@width=\dimen175
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/titling\titling.sty"
 Package: titling 2009/09/04 v2.1d maketitle typesetting
-\thanksmarkwidth=\skip64
-\thanksmargin=\skip65
-\droptitle=\skip66
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
-tex.def
-File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count298
-\l__pdf_internal_box=\box62
+\thanksmarkwidth=\skip63
+\thanksmargin=\skip64
+\droptitle=\skip65
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def"
+File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count289
+\l__pdf_internal_box=\box57
 ) (AirlinesCustomerSatisfaction.aux)
 \openout1 = `AirlinesCustomerSatisfaction.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 122.
-LaTeX Font Info:    ... okay on input line 122.
-LaTeX Info: Redefining \microtypecontext on input line 122.
-Package microtype Info: Applying patch `item' on input line 122.
-Package microtype Info: Applying patch `toc' on input line 122.
-Package microtype Info: Applying patch `eqnum' on input line 122.
-Package microtype Info: Applying patch `footnote' on input line 122.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Info: Redefining \microtypecontext on input line 82.
+Package microtype Info: Applying patch `item' on input line 82.
+Package microtype Info: Applying patch `toc' on input line 82.
+Package microtype Info: Applying patch `eqnum' on input line 82.
+Package microtype Info: Applying patch `footnote' on input line 82.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 122.
+LaTeX Info: Redefining \showhyphens on input line 82.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
+("D:\Program Files (x86)\MiKTeX\tex/latex/microtype\mt-cmr.cfg"
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
-ii
+) ("D:\Program Files (x86)\MiKTeX\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count299
-\scratchdimen=\dimen178
-\scratchbox=\box63
-\nofMPsegments=\count300
-\nofMParguments=\count301
-\everyMPshowfont=\toks28
-\MPscratchCnt=\count302
-\MPscratchDim=\dimen179
-\MPnumerator=\count303
-\makeMPintoPDFobject=\count304
-\everyMPtoPDFconversion=\toks29
-)
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
-ase.sty
+\scratchcounter=\count290
+\scratchdimen=\dimen176
+\scratchbox=\box58
+\nofMPsegments=\count291
+\nofMParguments=\count292
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count293
+\MPscratchDim=\dimen177
+\MPnumerator=\count294
+\makeMPintoPDFobject=\count295
+\everyMPtoPDFconversion=\toks28
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty"
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
-fg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))
-Package hyperref Info: Link coloring OFF on input line 122.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
-Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
-Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
-lestring.sty
+Package hyperref Info: Link coloring OFF on input line 82.
+("D:\Program Files (x86)\MiKTeX\tex/latex/hyperref\nameref.sty"
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+("D:\Program Files (x86)\MiKTeX\tex/latex/refcount\refcount.sty"
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) ("D:\Program Files (x86)\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+"
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count305
+\c@section@level=\count296
 )
-LaTeX Info: Redefining \ref on input line 122.
-LaTeX Info: Redefining \pageref on input line 122.
-LaTeX Info: Redefining \nameref on input line 122.
+LaTeX Info: Redefining \ref on input line 82.
+LaTeX Info: Redefining \pageref on input line 82.
+LaTeX Info: Redefining \nameref on input line 82.
 <img/logo3AGH.png, id=3, 386.44376pt x 661.47125pt>
 File: img/logo3AGH.png Graphic file (type png)
 <use img/logo3AGH.png>
-Package pdftex.def Info: img/logo3AGH.png  used on input line 123.
+Package pdftex.def Info: img/logo3AGH.png  used on input line 83.
 (pdftex.def)             Requested size: 66.48471pt x 113.80112pt.
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
-23.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmss.fd
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 8
+3.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-23.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 8
+3.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-23.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 8
+3.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-123.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+83.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-123.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+83.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 123.
+(Font)              <14.4> on input line 83.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 123.
+(Font)              <10> on input line 83.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 123.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 123
-.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+(Font)              <7> on input line 83.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 83.
+
+("D:\Program Files (x86)\MiKTeX\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 123
-.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+LaTeX Font Info:    Trying to load font information for U+msb on input line 83.
+
+("D:\Program Files (x86)\MiKTeX\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
+) ("D:\Program Files (x86)\MiKTeX\tex/latex/microtype\mt-msb.cfg"
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) [1
 
-{C:/Users/Joann/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./img/logo3A
-GH.png>] (AirlinesCustomerSatisfaction.toc
+{C:/Users/admin/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./img/logo3AGH.
+png>] (AirlinesCustomerSatisfaction.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -574,1140 +508,508 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 3.
 )
-\tf@toc=\write4
-\openout4 = `AirlinesCustomerSatisfaction.toc'.
+\tf@toc=\write3
+\openout3 = `AirlinesCustomerSatisfaction.toc'.
 
 [2]
-Overfull \hbox (9.25664pt too wide) in paragraph at lines 181--182
+Overfull \hbox (9.25664pt too wide) in paragraph at lines 141--142
 []|\T1/lmr/m/n/12 (-20) satisfied/dissatisfied|  
  []
 
-[3]
+[3] [4] [5]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-24.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+53.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (73.12523pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##        satisfaction      Gender                Customer Ty
-pe         Age[] 
- []
 
+LaTeX Warning: Reference `fig:Multicollinearity' on page 6 undefined on input l
+ine 267.
 
-Overfull \hbox (103.97223pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  satisfied   :71087   Female:65899   Loyal Customer   :106
-100   Min.   : 7.00[] 
- []
-
-[4]
-Overfull \hbox (103.97923pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  dissatisfied:58793   Male  :63981   disloyal Customer: 23
-780   1st Qu.:27.00[] 
- []
-
-
-Overfull \hbox (104.00024pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                                           
-      Median :40.00[] 
- []
-
-
-Overfull \hbox (103.99324pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                                           
-      Mean   :39.43[] 
- []
-
-
-Overfull \hbox (104.00024pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                                           
-      3rd Qu.:51.00[] 
- []
-
-
-Overfull \hbox (104.00024pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                                           
-      Max.   :85.00[] 
- []
-
-
-Overfull \hbox (60.77522pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##          Type of Travel       Class       Flight Distance 
-Seat comfort[] 
- []
-
-
-Overfull \hbox (29.8862pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  Personal Travel:40187   Eco     :58309   Min.   :  50    
-0: 4797[] 
- []
-
-
-Overfull \hbox (29.84418pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  Business travel:89693   Business:62160   1st Qu.:1359    
-1:20949[] 
- []
-
-
-Overfull \hbox (29.8792pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                          Eco Plus: 9411   Median :1925    
-4:28398[] 
- []
-
-
-Overfull \hbox (29.8932pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                           Mean   :1981    
-5:17827[] 
- []
-
-
-Overfull \hbox (29.8932pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                           3rd Qu.:2544    
-2:28726[] 
- []
-
-
-Overfull \hbox (29.8792pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##                                           Max.   :6951    
-3:29183[] 
- []
-
-
-Overfull \hbox (17.5502pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  Departure/Arrival time convenient Food and drink Gate loc
-ation[] 
- []
-
-
-Overfull \hbox (85.47523pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  Ease of Online booking On-board service Leg room service 
-Baggage handling[] 
- []
-
-
-Overfull \hbox (29.9002pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  3:22418                3:27037          0:  444          
-3:24485[] 
- []
-
-
-Overfull \hbox (29.85818pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  2:19951                4:40675          4:39698          
-4:48240[] 
- []
-
-
-Overfull \hbox (29.8722pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  1:13436                1:13265          3:22467          
-1: 7975[] 
- []
-
-
-Overfull \hbox (29.9002pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  5:34137                2:17174          2:21745          
-2:13432[] 
- []
-
-
-Overfull \hbox (29.8862pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  4:39920                5:31724          5:34385          
-5:35748[] 
- []
-
-[5]
-Overfull \hbox (66.95023pt too wide) in paragraph at lines 286--286
-[]\T1/lmtt/m/n/12 ##  Checkin service Cleanliness Online boarding Departure Del
-ay in Minutes[] 
- []
-
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-286.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmtt.fd
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [6]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-3-1.pdf, id=94, 
-469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-3-1.pdf Gra
-phic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-3-1.pdf  used on input line 317.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-18.
-(C:\Users\Joann\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Underfull \hbox (badness 10000) in paragraph at lines 317--323
-[][]
- []
-
-[7 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-3-1.pdf>] [
-8]
-
-LaTeX Warning: Reference `fig:Multicollinearity' on page 9 undefined on input l
-ine 415.
-
-<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=11
-6, 289.08pt x 289.08pt>
+<AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf, id=91
+, 289.08pt x 289.08pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf G
 raphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Multic
-ollinearity-1.pdf  used on input line 419.
+ollinearity-1.pdf  used on input line 271.
 (pdftex.def)             Requested size: 289.09251pt x 289.09251pt.
 
-Underfull \hbox (badness 1552) in paragraph at lines 410--420
+Underfull \hbox (badness 1552) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) high lin-ear re-la-tion-ship be-tween \T1/lmtt/m/n/12 Arri
 valDelay \T1/lmr/m/n/12 (+20) and \T1/lmtt/m/n/12 DepartureDelay\T1/lmr/m/n/12 
 (+20) ,
  []
 
 
-Underfull \hbox (badness 2875) in paragraph at lines 410--420
+Underfull \hbox (badness 2875) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) vis-i-ble both in the cor-re-la-tion ma-trix (fig. []) and
  on fig-ure []1[].
  []
 
 
-Underfull \hbox (badness 2027) in paragraph at lines 410--420
+Underfull \hbox (badness 2027) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) We can safely drop \T1/lmtt/m/n/12 ArrivalDelay\T1/lmr/m/n
 /12 (+20) , since it doesn't in-tro-duce new
  []
 
 
-Underfull \hbox (badness 4673) in paragraph at lines 410--420
+Underfull \hbox (badness 4673) in paragraph at lines 262--272
 \T1/lmr/m/n/12 (+20) in-for-ma-tion and ad-di-tion-ally con-tam-i-nates the dat
 aset with NAs.
  []
 
 <AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf, id=
-117, 216.81pt x 216.81pt>
+92, 216.81pt x 216.81pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf>
 
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Delays
-_Collinearity-1.pdf  used on input line 423.
+_Collinearity-1.pdf  used on input line 275.
 (pdftex.def)             Requested size: 216.81938pt x 216.81938pt.
-[9]
+[6]
 
-LaTeX Warning: Reference `fig:loess' on page 10 undefined on input line 435.
+LaTeX Warning: Reference `fig:loess' on page 7 undefined on input line 287.
 
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-6-1.pdf, id=126,
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf, id=103,
  361.35pt x 578.16pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-6-1.pdf Gra
+File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf Gra
 phic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-6-1.pdf>
+<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-6-1.pdf  used on input line 442.
+d-chunk-4-1.pdf  used on input line 294.
 (pdftex.def)             Requested size: 342.82843pt x 548.52548pt.
-[10 <./AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>
-]
+[7 <./AirlinesCustomerSatisfaction_files/figure-latex/Multicollinearity-1.pdf>]
+
 Overfull \vbox (274.17818pt too high) has occurred while \output is active []
 
-[11 <./AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pd
-f> <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-6-1.pdf>] [
-12]
-Overfull \hbox (15.99626pt too wide) in paragraph at lines 568--569
+[8 <./AirlinesCustomerSatisfaction_files/figure-latex/Delays_Collinearity-1.pdf
+> <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-4-1.pdf>] [9
+]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
+67.
+("D:\Program Files (x86)\MiKTeX\tex/latex/lm\ts1lmr.fd"
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Overfull \hbox (15.99626pt too wide) in paragraph at lines 420--421
 []\T1/lmr/m/n/12 (-20) Final.Bin  
  []
 
 
-Overfull \hbox (23.34601pt too wide) in paragraph at lines 570--571
+Overfull \hbox (23.34601pt too wide) in paragraph at lines 422--423
  []\T1/lmr/m/n/12 (-20) Total.Count
  []
 
 
-Overfull \hbox (13.41656pt too wide) in paragraph at lines 572--573
+Overfull \hbox (13.41656pt too wide) in paragraph at lines 424--425
 []\T1/lmr/m/n/12 (-20) Total.Distr.  
  []
 
 
-Overfull \hbox (13.69266pt too wide) in paragraph at lines 574--575
+Overfull \hbox (13.69266pt too wide) in paragraph at lines 426--427
  []\T1/lmr/m/n/12 (-20) 1.Count
  []
 
 
-Overfull \hbox (14.28015pt too wide) in paragraph at lines 576--577
+Overfull \hbox (14.28015pt too wide) in paragraph at lines 428--429
  []\T1/lmr/m/n/12 (-20) 0.Count
  []
 
 
-Overfull \hbox (6.57736pt too wide) in paragraph at lines 578--579
+Overfull \hbox (6.57736pt too wide) in paragraph at lines 430--431
 []\T1/lmr/m/n/12 (-20) 1.Distr.  
  []
 
 
-Overfull \hbox (7.16486pt too wide) in paragraph at lines 580--581
+Overfull \hbox (7.16486pt too wide) in paragraph at lines 432--433
 []\T1/lmr/m/n/12 (-20) 0.Distr.  
  []
 
 
-Overfull \hbox (10.22273pt too wide) in paragraph at lines 582--583
+Overfull \hbox (10.22273pt too wide) in paragraph at lines 434--435
 []\T1/lmr/m/n/12 (-20) 0.Rate  
  []
 
 
-Overfull \hbox (5.13524pt too wide) in paragraph at lines 584--585
+Overfull \hbox (5.13524pt too wide) in paragraph at lines 436--437
 []\T1/lmr/m/n/12 (-20) WOE  
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 590--590
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 442--442
  []|\T1/lmr/m/n/12 (-20) 10152|
  []
 
 
-Overfull \hbox (1.86563pt too wide) in paragraph at lines 590--590
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 442--442
 []|\T1/lmr/m/n/12 (-20) 18.6%|  
  []
 
 
-Overfull \hbox (7.50684pt too wide) in paragraph at lines 590--590
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 442--442
 []|\T1/lmr/m/n/12 (-20) 86.7%|  
  []
 
 
-Overfull \hbox (3.37442pt too wide) in paragraph at lines 590--590
+Overfull \hbox (3.37442pt too wide) in paragraph at lines 442--442
 \T1/lmr/m/n/12 (-20) 203.8|  
  []
 
 
-Overfull \hbox (6.48662pt too wide) in paragraph at lines 591--592
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 443--444
 []|\T1/lmr/m/n/12 (-20) 0.329|  
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 592--592
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 444--444
  []|\T1/lmr/m/n/12 (-20) 11063|
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 592--592
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 444--444
  []|\T1/lmr/m/n/12 (-20) 26947|
  []
 
 
-Overfull \hbox (1.86563pt too wide) in paragraph at lines 592--592
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 444--444
 []|\T1/lmr/m/n/12 (-20) 17.1%|  
  []
 
 
-Overfull \hbox (1.86563pt too wide) in paragraph at lines 592--592
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 444--444
 []|\T1/lmr/m/n/12 (-20) 49.3%|  
  []
 
 
-Overfull \hbox (7.50684pt too wide) in paragraph at lines 592--592
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 444--444
 []|\T1/lmr/m/n/12 (-20) 70.9%|  
  []
 
 
-Overfull \hbox (3.08067pt too wide) in paragraph at lines 593--593
+Overfull \hbox (3.08067pt too wide) in paragraph at lines 445--445
 \T1/lmr/m/n/12 (-20) 105.6|  
  []
 
 
-Overfull \hbox (6.48662pt too wide) in paragraph at lines 593--594
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 445--446
 []|\T1/lmr/m/n/12 (-20) 0.340|  
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 594--594
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 446--446
  []|\T1/lmr/m/n/12 (-20) 51945|
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 594--594
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 446--446
  []|\T1/lmr/m/n/12 (-20) 17587|
  []
 
 
-Overfull \hbox (1.86563pt too wide) in paragraph at lines 594--594
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 446--446
 []|\T1/lmr/m/n/12 (-20) 80.4%|  
  []
 
 
-Overfull \hbox (1.86563pt too wide) in paragraph at lines 594--594
+Overfull \hbox (1.86563pt too wide) in paragraph at lines 446--446
 []|\T1/lmr/m/n/12 (-20) 32.2%|  
  []
 
 
-Overfull \hbox (7.50684pt too wide) in paragraph at lines 594--594
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 446--446
 []|\T1/lmr/m/n/12 (-20) 25.3%|  
  []
 
 
-Overfull \hbox (6.48662pt too wide) in paragraph at lines 595--596
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 447--448
 []|\T1/lmr/m/n/12 (-20) 0.443|  
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 596--596
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 448--448
  []|\T1/lmr/m/n/12 (-20) 64569|
  []
 
 
-Overfull \hbox (3.4085pt too wide) in paragraph at lines 596--596
+Overfull \hbox (3.4085pt too wide) in paragraph at lines 448--448
  []|\T1/lmr/m/n/12 (-20) 54686|
  []
 
 
-Overfull \hbox (7.62312pt too wide) in paragraph at lines 596--596
+Overfull \hbox (7.62312pt too wide) in paragraph at lines 448--448
 []|\T1/lmr/m/n/12 (-20) 100.0%|  
  []
 
 
-Overfull \hbox (7.62312pt too wide) in paragraph at lines 596--596
+Overfull \hbox (7.62312pt too wide) in paragraph at lines 448--448
 []|\T1/lmr/m/n/12 (-20) 100.0%|  
  []
 
 
-Overfull \hbox (7.50684pt too wide) in paragraph at lines 596--596
+Overfull \hbox (7.50684pt too wide) in paragraph at lines 448--448
 []|\T1/lmr/m/n/12 (-20) 45.9%|  
  []
 
 
-Overfull \hbox (6.48662pt too wide) in paragraph at lines 597--598
+Overfull \hbox (6.48662pt too wide) in paragraph at lines 449--450
 []|\T1/lmr/m/n/12 (-20) 1.111|  
  []
 
-[13] [14]
+[10] [11]
 <AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf, id=
-180, 505.89pt x 433.62pt>
+158, 505.89pt x 433.62pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf
  Graphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pdf>
 
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/Catego
-ricalSpearman-1.pdf  used on input line 645.
+ricalSpearman-1.pdf  used on input line 497.
 (pdftex.def)             Requested size: 390.00737pt x 334.29204pt.
-[15 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pd
+[12 <./AirlinesCustomerSatisfaction_files/figure-latex/CategoricalSpearman-1.pd
 f>]
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ EntertainmentNote.M <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ EntertainmentNote.H <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ SeatNote.M          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ SeatNote.H          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ eBookingNote.H      <fct> 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 
-1, 1, 1, 0, 1, 0, 1,~[] 
+1, 1, 1, 0, 1, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ eBookingNote.M      <fct> 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 
-0, 0, 0, 1, 0, 1, 0,~[] 
+0, 0, 0, 1, 0, 1,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ eSupportNote.M      <fct> 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-1, 0, 0, 1, 1, 0, 0,~[] 
+1, 0, 0, 1, 1, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ eSupportNote.H      <fct> 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 
-0, 0, 1, 0, 0, 0, 0,~[] 
+0, 0, 1, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ ServiceNote.M       <fct> 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 
-0, 0, 1, 0, 0, 1, 0,~[] 
+0, 0, 1, 0, 0, 1,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ ServiceNote.L       <fct> 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 
-0, 0, 0, 0, 1, 0, 1,~[] 
+0, 0, 0, 0, 1, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ eBoardingNote.H     <fct> 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 
-1, 0, 1, 1, 1, 0, 1,~[] 
+1, 0, 1, 1, 1, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ eBoardingNote.M     <fct> 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ LegRoomNote.M       <fct> 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 
-1, 0, 1, 1, 0, 0, 1,~[] 
+1, 0, 1, 1, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ LegRoomNote.H       <fct> 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 
-0, 0, 0, 0, 0, 1, 0,~[] 
+0, 0, 0, 0, 0, 1,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ BaggageNote.M       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 1, 0, 0, 0, 0, 0,~[] 
+0, 1, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ BaggageNote.H       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ CleanNote.M         <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 1, 0, 0, 0, 0, 0,~[] 
+0, 1, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ CleanNote.H         <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ CheckInNote.L       <fct> 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 
-1, 0, 0, 0, 0, 0, 0,~[] 
+1, 0, 0, 0, 0, 0,...[] 
  []
 
-[16]
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+[13]
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ CheckInNote.H       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ WifiNote.H          <fct> 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 
-1, 1, 1, 0, 1, 0, 1,~[] 
+1, 1, 1, 0, 1, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ WifiNote.M          <fct> 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 
-0, 0, 0, 0, 0, 1, 0,~[] 
+0, 0, 0, 0, 0, 1,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ FoodNote.M          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ FoodNote.H          <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ Age.30s             <fct> 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 
-0, 0, 0, 0, 1, 0, 0,~[] 
+0, 0, 0, 0, 1, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ Age.40s50s          <fct> 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 
-1, 0, 1, 0, 0, 1, 1,~[] 
+1, 0, 1, 0, 0, 1,...[] 
  []
 
 
-Overfull \hbox (116.34325pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.16824pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ Age.60plus          <fct> 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
-0, 1, 0, 0, 0, 0, 0,~[] 
+0, 1, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ FlightDistance.M    <fct> 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 
-1, 0, 1, 1, 0, 0, 0,~[] 
+1, 0, 1, 1, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ FlightDistance.H    <fct> 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 1, 1,~[] 
+0, 0, 0, 0, 0, 1,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ Class.Business      <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 1, 0, 0, 0, 0, 0,~[] 
+0, 1, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ Class.EcoPlus       <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 1, 1, 0,~[] 
+0, 0, 0, 0, 1, 1,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ IsSatisfied         <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ IsFemale            <fct> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0,~[] 
+0, 0, 0, 0, 0, 0,...[] 
  []
 
 
-Overfull \hbox (116.35025pt too wide) in paragraph at lines 717--717
+Overfull \hbox (110.17525pt too wide) in paragraph at lines 569--569
 []\T1/lmtt/m/n/12 ## $ IsLoyal             <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-1, 1, 1, 1, 1, 1, 1,~[] 
- []
-
-[17]
-Overfull \hbox (104.00024pt too wide) in paragraph at lines 773--773
-[]\T1/lmtt/m/n/12 ##  randomForest(formula = frm, data = Airlines_binned_train,
- importance = TRUE)[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 775--778
-
- []
-
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-14-1.pdf, id=205
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-14-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-14-1.pdf  used on input line 794.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 794--796
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 794--796
-
- []
-
-[18]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-15-1.pdf, id=213
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-15-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-15-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-15-1.pdf  used on input line 803.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 797--810
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 797--810
-
- []
-
-[19 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-14-1.pdf>]
-
-Underfull \hbox (badness 10000) in paragraph at lines 811--819
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 820--823
-
- []
-
-[20 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-15-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-1.pdf, id=233
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-16-1.pdf  used on input line 827.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-2.pdf, id=234
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-2.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-2.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-16-2.pdf  used on input line 828.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 827--829
-[][]
- []
-
-[21 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-3.pdf, id=244
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-3.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-3.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-16-3.pdf  used on input line 830.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 830--834
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 830--834
-
- []
-
-[22 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-2.pdf> 
-<./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-16-3.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 835--840
-
- []
-
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-18-1.pdf, id=260
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-18-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-18-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-18-1.pdf  used on input line 851.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 851--857
-[][]
- []
-
-[23 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-18-1.pdf>]
-
-Overfull \hbox (54.60022pt too wide) in paragraph at lines 923--923
-[]\T1/lmtt/m/n/12 ## glm(formula = frm, family = "binomial", data = Airlines_bi
-nned_train)[] 
- []
-
-[24]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 923--923
-[]\T1/lmtt/m/n/12 ## Signif. codes:  0 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 ***\TS
-1/lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.001 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 **\TS1/
-lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.01 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 *\TS1/lmtt
-/m/n/12 ' \T1/lmtt/m/n/12 0.05 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 .\TS1/lmtt/m/n
-/12 ' \T1/lmtt/m/n/12 0.1 \TS1/lmtt/m/n/12 ' ' \T1/lmtt/m/n/12 1[] 
- []
-
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf, id=282
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-20-1.pdf  used on input line 947.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-2.pdf, id=283
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-2.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-2.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-20-2.pdf  used on input line 948.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 936--949
-[]
- []
-
-[25] [26 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.
-pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-3.pdf, id=298
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-3.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-3.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-20-3.pdf  used on input line 950.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 950--962
-[][]
- []
-
-[27 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-2.pdf> 
-<./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-3.pdf>]
-Overfull \hbox (60.77522pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## glm(formula = frm2, family = "binomial", data = Airlines_b
-inned_train)[] 
- []
-
-
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ##                               Estimate Std. Error z value 
-Pr(>|z|)[] 
- []
-
-
-Overfull \hbox (60.7332pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## (Intercept)                   -7.23908    0.09822 -73.699 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassBusiness                  1.74811    0.06208  28.159 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassEcoPlus                   0.42848    0.11666   3.673 
-0.000240 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## IsFemale1                      1.15594    0.07710  14.992 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## IsLoyal1                       1.40869    0.05355  26.307 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## Age30s                         0.21245    0.04727   4.494 
-6.99e-06 ***[] 
- []
-
-
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## Age40s50s                      0.55289    0.04442  12.447 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## Age60plus                     -0.33849    0.06615  -5.117 
-3.10e-07 ***[] 
- []
-
-
-Overfull \hbox (60.76822pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## FlightDistanceM               -0.22820    0.04753  -4.801 
-1.58e-06 ***[] 
- []
-
-
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## FlightDistanceH               -0.44938    0.08464  -5.310 
-1.10e-07 ***[] 
- []
-
-
-Overfull \hbox (60.7332pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## EntertainmentNoteM             1.75566    0.02894  60.658 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## EntertainmentNoteH             2.84328    0.04440  64.040 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## SeatNoteM                      0.84514    0.03383  24.985 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## SeatNoteH                      5.15478    0.11218  45.949 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## eBookingNoteH                  1.55519    0.05784  26.888 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## eBookingNoteM                  0.92479    0.05355  17.270 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## eSupportNoteM                  0.16166    0.03321   4.868 
-1.13e-06 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## eSupportNoteH                  0.42142    0.03776  11.161 
- < 2e-16 ***[] 
- []
-
-[28]
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ServiceNoteH                   0.69248    0.04817  14.377 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ServiceNoteM                   0.17398    0.04644   3.747 
-0.000179 ***[] 
- []
-
-
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## eBoardingNoteH                 0.22947    0.03721   6.168 
-6.94e-10 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## eBoardingNoteM                 0.33404    0.03464   9.644 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (36.0612pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## LegRoomNoteM                  -0.02540    0.04874  -0.521 
-0.602319[] 
- []
-
-
-Overfull \hbox (60.7262pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## LegRoomNoteH                   0.66935    0.04891  13.686 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.76822pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## BaggageNoteM                   0.11801    0.03457   3.414 
-0.000640 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## BaggageNoteH                   0.50288    0.03998  12.577 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (54.5722pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## CleanNoteM                     0.10369    0.03610   2.872 
-0.004076 **[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## CleanNoteH                     0.55564    0.04111  13.516 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## CheckInNoteM                   0.34630    0.02908  11.909 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## CheckInNoteH                   0.94897    0.03817  24.862 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## FoodNoteM                     -0.47547    0.03481 -13.660 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## FoodNoteH                     -0.51726    0.04323 -11.966 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## IsFemale1:IsLoyal1             1.08540    0.07105  15.276 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## IsFemale1:Age30s              -0.39527    0.06544  -6.041 
-1.54e-09 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## IsFemale1:Age40s50s           -0.57123    0.06321  -9.038 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (36.0542pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## IsFemale1:Age60plus           -0.06771    0.09023  -0.750 
-0.453013[] 
- []
-
-
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassBusiness:IsFemale1       -1.53533    0.05220 -29.412 
- < 2e-16 ***[] 
- []
-
-
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassEcoPlus:IsFemale1        -0.48121    0.09760  -4.930 
-8.20e-07 ***[] 
- []
-
-
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassBusiness:FlightDistanceM  0.49425    0.06107   8.093 
-5.82e-16 ***[] 
- []
-
-
-Overfull \hbox (48.41121pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassEcoPlus:FlightDistanceM  -0.19410    0.10774  -1.802 
-0.071615 .[] 
- []
-
-
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassBusiness:FlightDistanceH  0.73526    0.09554   7.696 
-1.41e-14 ***[] 
- []
-
-
-Overfull \hbox (36.0542pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## ClassEcoPlus:FlightDistanceH  -0.12560    0.20768  -0.605 
-0.545328[] 
- []
-
-
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 1026--1026
-[]\T1/lmtt/m/n/12 ## Signif. codes:  0 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 ***\TS
-1/lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.001 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 **\TS1/
-lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.01 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 *\TS1/lmtt
-/m/n/12 ' \T1/lmtt/m/n/12 0.05 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 .\TS1/lmtt/m/n
-/12 ' \T1/lmtt/m/n/12 0.1 \TS1/lmtt/m/n/12 ' ' \T1/lmtt/m/n/12 1[] 
- []
-
-[29]
-<AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf, id=322, 469.755pt 
-x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf Graphic file (
-type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/rocr-1
-.pdf  used on input line 1044.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf, id=323, 469.755pt 
-x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf Graphic file (
-type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/rocr-2
-.pdf  used on input line 1045.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1043--1046
-[]
- []
-
-<AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf, id=324, 469.755pt 
-x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf Graphic file (
-type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/rocr-3
-.pdf  used on input line 1049.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-[30 <./AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-23-1.pdf, id=334
-, 469.755pt x 325.215pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-23-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-23-1.pdf  used on input line 1069.
-(pdftex.def)             Requested size: 389.9969pt x 269.99785pt.
-[31 <./AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf>] [32 <./Airl
-inesCustomerSatisfaction_files/figure-latex/rocr-3.pdf>] [33 <./AirlinesCustome
-rSatisfaction_files/figure-latex/unnamed-chunk-23-1.pdf>] [34] (AirlinesCustome
-rSatisfaction.aux)
+1, 1, 1, 1, 1, 1,...[] 
+ []
+
+[14]
+<AirlinesCustomerSatisfaction_files/figure-latex/adaline evaluation-1.pdf, id=1
+85, 361.35pt x 216.81pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/adaline evaluation-1.pdf 
+Graphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/adaline evaluation-1.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/adalin
+e evaluation-1.pdf  used on input line 625.
+(pdftex.def)             Requested size: 361.34912pt x 216.80946pt.
+[15 <./AirlinesCustomerSatisfaction_files/figure-latex/adaline evaluation-1.pdf
+>] [16] [17] [18] (AirlinesCustomerSatisfaction.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14248 strings out of 478659
- 235601 string characters out of 2845920
- 566769 words of memory out of 3000000
- 31809 multiletter control sequences out of 15000+600000
- 474300 words of font info for 166 fonts, out of 8000000 for 9000
+ 13314 strings out of 479730
+ 197530 string characters out of 2875469
+ 520529 words of memory out of 3000000
+ 29903 multiletter control sequences out of 15000+200000
+ 473216 words of font info for 154 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,7n,77p,1027b,567s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Joann/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
-:/Users/Joann/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C
-:/Users/Joann/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C
-:/Users/Joann/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/U
-sers/Joann/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/Users
-/Joann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users
-/Joann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users
-/Joann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users
-/Joann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/
-Joann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/J
-oann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/Jo
-ann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Joan
-n/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/Joan
-n/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss17.pfb><C:/Users/Joan
-n/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/Jo
-ann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Jo
-ann/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/Joa
-nn/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (34 pages, 3657359 bytes).
+ 79i,7n,85p,1027b,526s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/Program F
+iles (x86)/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{D:/Program Files (x86)/MiKTeX/
+fonts/enc/dvips/lm/lm-ec.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/
+lm-mathit.enc}{D:/Program Files (x86)/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}<D:/P
+rogram Files (x86)/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><D:/Program Files (x
+86)/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><D:/Program Files (x86)/MiKTeX/font
+s/type1/public/lm/lmmi12.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/
+lm/lmr10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmr12.pfb><D:
+/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmr17.pfb><D:/Program Files (
+x86)/MiKTeX/fonts/type1/public/lm/lmri12.pfb><D:/Program Files (x86)/MiKTeX/fon
+ts/type1/public/lm/lmss17.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public
+/lm/lmssbx10.pfb><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmsy10.pf
+b><D:/Program Files (x86)/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
+Output written on AirlinesCustomerSatisfaction.pdf (18 pages, 3355408 bytes).
 PDF statistics:
- 534 PDF objects out of 1000 (max. 8388607)
- 96 named destinations out of 1000 (max. 500000)
- 39192 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 350 PDF objects out of 1000 (max. 8388607)
+ 79 named destinations out of 1000 (max. 500000)
+ 39119 words of extra memory for PDF output out of 42996 (max. 10000000)
 
