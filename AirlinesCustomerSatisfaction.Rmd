@@ -52,6 +52,11 @@ library(httr)
 library(caret)
 library(woeBinning)
 library(htmlTable)
+library(dplyr)
+library(magrittr)
+library(tensorflow)
+library(keras)
+library(ROCR)
 
 # SETUP
 # Some config variables
@@ -61,7 +66,7 @@ bRunComputationallyHeavyStuff <- FALSE # set ```{r eval=bRunComputationallyHeavy
 
 apiCredentials <- list(username = "piotrmikler",
                        key = "8453a8073400c47671d87e6a1b0fe7da")  # leave as-is
-setwd("C:/Users/Joann/Desktop/Airlines")
+setwd(".") # change for your main directory
 ```
 
 \newpage
@@ -390,9 +395,24 @@ table_ <- output %>% arrange(IV) %>% filter(IV < 0.1)
 knitr::kable(arrange(output, IV), 
              caption = "Information Value for all variables.\\label{tab:CategoricalFeatureSelection}")
 ```
+```{r}
+colnames(Airlines_binned)
+```
+```{r}
+all_of(c(vars_to_drop))
+```
+```{r}
+class(vars_to_drop)
+```
+
+
 
 ```{r}
 Airlines_binned <- Airlines_binned %>% select(-all_of(c(vars_to_drop)))
+```
+
+```{r}
+colnames(Airlines_binned)
 ```
 
 ```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant colinear relationships in ordinal variables"}
@@ -481,35 +501,34 @@ Adaline optimizes the weights of that linear combination (a.k.a. the *net input*
 We will put our own spin on the adaline algorithm to avoid overfitting. Additional *L2* regularization during training will give the model an incentive to opt for smaller weights, and an *early stopping* callback will halt the training for us, should the validation loss start to plateau and stop decreasing for at least $3$ consecutive epochs.
 
 ```{r results='asis'}
-library(keras)
-X_train <- 
+X_train <-
   AirlinesEncoded_binned_train %>% select(-IsSatisfied)
 
 y_train <-
   AirlinesEncoded_binned_train %>% select(IsSatisfied)
 
-X_test <- 
+X_test <-
   AirlinesEncoded_binned_test %>% select(-IsSatisfied)
 
-y_test <- 
-  AirlinesEncoded_binned_test %>% select(IsSatisfied) 
+y_test <-
+  AirlinesEncoded_binned_test %>% select(IsSatisfied)
 
-X_train <- X_train %>% 
+X_train <- X_train %>%
   mutate_all(as.character) %>% mutate_all(as.numeric) %>% mutate_all(scale)
 y_train <- y_train %>%
   mutate_all(as.character) %>% mutate_all(as.numeric)
-X_test <- X_test %>% 
+X_test <- X_test %>%
   mutate_all(as.character) %>% mutate_all(as.numeric) %>% mutate_all(scale)
 y_test <- y_test %>%
   mutate_all(as.character) %>% mutate_all(as.numeric)
 
 model <- keras_model_sequential()
 model %>%
-  layer_dense(units = 1, 
+  layer_dense(units = 1,
               kernel_regularizer = regularizer_l2())
 
 model %>% compile(
-  optimizer = 'adam', 
+  optimizer = 'adam',
   loss = 'mean_squared_error',
   metrics = c('accuracy'))
 
@@ -527,15 +546,15 @@ b <- get_weights(model)[[2]]
 
 ```
 
-For the baseline model we won't be performing costly cross-validation, but rather only compare key model performance indicators across train and test sets. Figure \ref{fig:Adaline evaluation} presents that there are no significant performance differences between training and test sets across a selection of metrics, therefore we conclude that the model is able to generalize the learned rules well for unseen data and is not overfitted.  
+For the baseline model we won't be performing costly cross-validation, but rather only compare key model performance indicators across train and test sets. Figure \ref{fig:Adaline evaluation} presents that there are no significant performance differences between training and test sets across a selection of metrics, therefore we conclude that the model is able to generalize the learned rules well for unseen data and is not overfitted.
 
 ```{r adaline evaluation, fig.width=5, fig.height=3, fig.cap="\\label{fig:Adaline evaluation} Performance metrics for the baseline Adaline model."}
 get_metrics <- function(confMatrix){
   sMetrics <- c('Accuracy', 'Sensitivity', 'Specificity', 'Precision', 'Recall')
-  metrics <- 
-    c(confMatrix$overall['Accuracy'], 
+  metrics <-
+    c(confMatrix$overall['Accuracy'],
     confMatrix$byClass[1:2],
-    confMatrix$byClass[5:6]) %>% as.data.frame() %>% 
+    confMatrix$byClass[5:6]) %>% as.data.frame() %>%
     t() %>% t() %>% as_tibble() %>%
     mutate("Metric" = sMetrics)
   colnames(metrics) <- c("Value", "Metrics")
@@ -558,7 +577,7 @@ metrics_test <- get_metrics(cm_test) %>% mutate("Set" = "Test")
 test_acc <- filter(metrics_test, Metrics=="Accuracy")['Value'] %>% as.numeric()
 rbind(metrics_train, metrics_test) %>%
   mutate_at(all_of(c("Metrics", "Set")), ~ as_factor(.), levels=c("Train", "Test")) %>%
-  ggplot(aes(x=Metrics, fill=Set, y=Value, group=Set)) + 
+  ggplot(aes(x=Metrics, fill=Set, y=Value, group=Set)) +
   geom_bar(stat='identity', position='dodge') +
   scale_y_continuous(breaks = round(seq(0, 1, by = 0.1), 1)) +
   theme_bw() + scale_fill_brewer(palette="Accent") +
@@ -567,7 +586,7 @@ rbind(metrics_train, metrics_test) %>%
 
 In the case of our dataset, since we're working with one-hot-encoded binary features, the magnitudes and signs of fitted adaline weights can be used as proxies for the directions and magnitudes of the influence on the overall satisfaction for a particular feature. More precisely, the weights tell us by how much will the *net input* increase if a particular feature goes from $0$ to $1$. Once the net input (corrected for bias) exceeds $0.5$, this model will predict a satisfied passenger.
 
-The top $3$ influencial feature-note pairs (in a positive and negative sense) according to Adaline model are summarized in table \ref{tab:Adaline_feature_importance}.  One should note that the coefficients translate to overall satisfaction **indirectly**, since e.g. `SeatNote.H=1` implies `SeatNote.M=0`, and these effects offset in the overall net input. However the coefficients should be sufficient to analyze at least the overall importance of particular features. 
+The top $3$ influencial feature-note pairs (in a positive and negative sense) according to Adaline model are summarized in table \ref{tab:Adaline_feature_importance}.  One should note that the coefficients translate to overall satisfaction **indirectly**, since e.g. `SeatNote.H=1` implies `SeatNote.M=0`, and these effects offset in the overall net input. However the coefficients should be sufficient to analyze at least the overall importance of particular features.
 
 We see that solid `Entertaiment` and `Seat` notes can severely sway the satisfaction in the positive direction. On the other hand, we have low `Service` notes that moderately drag down the final satisfaction. The biggest negative coefficients that we see are corresponding to `Food`, but they don't seem make intuitive sense. Here a high food note would impact satisfaction more negatively that a low food note. However it is entirely possible that this is due to some missing variable interactions which Adaline is not designed to pick up.
 ```{r }
@@ -587,13 +606,22 @@ Since Adaline's accuracy on the test set is `r round(test_acc, 3)`, we can infer
 
 ### Fitting and performance
 We will try out Random Forest method. Firstly, we consider model including all of the variables.
+
 ```{r}
 library(randomForest)
 #Define the formula
 frm<-IsSatisfied~.
-#Fit the model
-set.seed(12428)
-RanForest1<-randomForest(frm,Airlines_binned_train,importance=TRUE)
+#Fit the model or restore result from file
+
+rf_model_path <- "./random_forest/rf_model.rds"
+RanForest1 <- if(file.exists(rf_model_path)){
+                  readRDS(rf_model_path)
+              }else{
+                  set.seed(12428)
+                  randomForest(frm,Airlines_binned_train,importance=TRUE) %T>%
+                  saveRDS(rf_model_path)
+              }
+
 #Investigate the model
 RanForest1
 ```
@@ -601,17 +629,30 @@ After running Random Forest algorithm on basic model we can be quite pleased wit
 
 We denote number of variables tried at each split as \textbf{mtry}. This parameter allows us to choose optimal number of generated decision trees. By optimal we mean such \textbf{mtry} that value of OOB estimate of error rate is the lowest.
 ```{r}
-set.seed(12428)
-mtry<-tuneRF(Airlines_binned_train[-2],Airlines_binned_train$IsSatisfied,ntreeTry=500,stepFactor=1.5,improve=0.01,trace=TRUE,plot=TRUE)
+rf_mtry_path <- "./random_forest/rf_mtry.rds"
+
+mtry <- if(file.exists(rf_mtry_path)){
+                  readRDS(rf_mtry_path)
+              }else{
+                  set.seed(12428)
+                  tuneRF(Airlines_binned_train[-2],
+                         Airlines_binned_train$IsSatisfied,
+                         ntreeTry=500,stepFactor=1.5,improve=0.01,
+                         trace=TRUE,plot=TRUE) %T>%
+                    saveRDS(rf_mtry_path)
+              }
+mtry
 ```
 As we see, the value chosen by deafult is the best one.\
 
 Random Forest enables us to determine how important each variable is in the model, two criteria are used:\
 •MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set. \
 •MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
+
 ```{r}
 varImpPlot(RanForest1)
 ```
+
 In terms of accuracy of the model, eBoardingNote, WifiNote and ServiceNote seem to be the least important. The most influential are SeatNote, CheckInNote and eSupportNote. The accuracy of the model could drop significantly if we left them out. As for Gini coefficient, the most important are EntertainmentNote, SeatNote and eBookingNote and the least ServiceNote, WifiNote and eBoardingNote.\
 
 SeatNote is placed high on both plots, so we may assume that this variable has strong influence on satisfaction level. The same applies to eSupportNote and EntertainmentNote. While thinking of clients' satisfaction, the airline should definitely focus on providing them with comfortable seats and proper online customer support. Moreover, making sure that passengers are entertained throughout the flight (e.g. movies, headphones with music) will definitely help them look back at the flight with nothing but enjoyment.\
@@ -619,7 +660,7 @@ SeatNote is placed high on both plots, so we may assume that this variable has s
 While thinking of the least important variables we have one immediate candidate - WifiNote - it seems like availability and quality of WiFi service does not matter that much to the customers.\
 
 Now, with the help of the ROCurve, we will check the performance of this model.
- 
+
 ```{r}
 # function to get AUC
 fAUC_RF <- function(model, data, ...) {
@@ -630,6 +671,7 @@ fAUC_RF <- function(model, data, ...) {
   AUC <- attr(perf, "y.values")[[1]]
   AUC
 }
+
 AUC_RanForest1_train <- fAUC_RF(RanForest1, data = Airlines_binned_train, type = "response")
 AUC_RanForest1_test <- fAUC_RF(RanForest1, data = Airlines_binned_test, type = "response")
 pred1_RF <- prediction(as.numeric(predict(RanForest1, type = "prob")[ ,2]), Airlines_binned_train$IsSatisfied)
@@ -644,6 +686,7 @@ ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_R
 cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
 ```
+
 The model has an AUC of `r AUC1_RF` on training data and `r AUC_RanForest1_test` on testing data. As the difference between them is small we may presume that this model would be a good choice, plots also look satisfying.\
 
 Just to make sure that we don't miss out on any better model, we decided to check some of the options for improvement but did not succeed. Excluding any variables resulted in making accuracy worse. Adding interactions didn't change accuracy or performance of the model at all. Our final choice is the basic model. \
@@ -659,22 +702,33 @@ nRuns = 10
 ```
 
 ```{r fig.cap='The results of the cross validation for the random forest.\\label{fig:MCxvalrf1}'}
-cv_mc_RF <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
-mods_RF<-map(cv_mc_RF$train,~RanForest1)
-AUCs_train_RF <- numeric(0)
-AUCs_test_RF <- numeric(0)
-for(k in 1:nRuns) {
-AUCs_test_RF[k] <- fAUC_RF(mods_RF[[k]], as.data.frame(cv_mc_RF$test[[k]]))
-AUCs_train_RF[k] <- fAUC_RF(mods_RF[[k]], as.data.frame(cv_mc_RF$train[[k]]))
-}
-allAUCs_RF <- rbind(tibble(model = "train data", AUC = AUCs_train_RF),
-tibble(model = "test data", AUC = AUCs_test_RF))
+allAUCs_RF_path <- "./random_forest/rf_allAUCs_RF.rds"
+AUCs_test_RF_path <- "./random_forest/rf_test_AUCs_RF.rds"
+
+allAUCs_RF <- if(file.exists(allAUCs_RF_path)){
+                    readRDS(allAUCs_RF_path)
+              }else{
+                    cv_mc_RF <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
+                    mods_RF<-map(cv_mc_RF$train,~RanForest1)
+                    AUCs_train_RF <- numeric(0)
+                    AUCs_test_RF <- numeric(0)
+                    for(k in 1:nRuns) {
+                        AUCs_test_RF[k] <- fAUC_RF(mods_RF[[k]], as.data.frame(cv_mc_RF$test[[k]]))
+                        AUCs_train_RF[k] <- fAUC_RF(mods_RF[[k]], as.data.frame(cv_mc_RF$train[[k]]))
+                    }
+                    saveRDS(AUCs_test_RF, AUCs_test_RF_path)
+                    
+                    allAUCs_RF <- rbind(
+                      tibble(model = "train data", AUC = AUCs_train_RF),
+                      tibble(model = "test data", AUC = AUCs_test_RF)) %T>%
+                      saveRDS(allAUCs_RF_path)
+              }
+AUCs_test_RF <- readRDS(AUCs_test_RF_path)
 p1 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
 p2 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
 ```
 Observed values for the AUC of the test data have the median equal to `r median(AUCs_test_RF)`, the average equal to `r mean(AUCs_test_RF)` and standard deviation equal to `r sd(AUCs_test_RF)`. Given the plots and parameters we are content with the results, AUCs of training and test sets keep in line with each other. The model does not over-fit so we find it valid.
-
 
 ## Logistic Regression
 
@@ -780,7 +834,7 @@ AUCs_train[k] <- fAUC(mods[[k]], as.data.frame(cv_mc$train[[k]]))
 }
 allAUCs <- rbind(tibble(model = "train data", AUC = AUCs_train),
 tibble(model = "test data", AUC = AUCs_test))
-p1 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
+p1 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5) + xlim(0.9520, 0.9620)
 p2 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
 median(AUCs_test)
@@ -792,11 +846,173 @@ We are satisfied with the performance of our model. The median of the observed v
 
 ## State-of-the-art: Neural Network model
 
+We have also made an attempt to solve the problem with a neural network.
+
+```{r}
+nn_model_path <- "./neural_net/nn_model.h5"
+nn_history_path <- "./neural_net/nn_learning_history.rds"
+nn_cv_data_path <- "./neural_net/nn_cv.rds"
+```
+
+```{r}
+train_matrix <- AirlinesEncoded_binned_train %>%
+                mutate_all(as.character) %>%
+                mutate_all(as.numeric) %>%
+                as.matrix
+```
+
+```{r, message = FALSE, warning = FALSE}
+train_input_x <- train_matrix[, colnames(train_matrix) != "IsSatisfied"]
+train_input_y <- to_categorical(train_matrix[, colnames(train_matrix) == "IsSatisfied"], 2)
+```
+
+The network consists of the following layers:
+
+* input with 34 nodes,
+* 3 hidden ones with 24, 16, 8 nodes respectively,
+* output with 2 nodes.
+
+In each layer we have used dropout = 0.3
+and ReLU (Rectified Linear Unit) activation function.
+
+```{r, echo = TRUE}
+create_nn_model <- function() {
+  nn_model <- keras_model_sequential() %>%
+    layer_dense(units = 34, activation = 'relu',
+                input_shape = dim(train_input_x)[2]) %>%
+    layer_dropout(rate = 0.3) %>%
+    layer_dense(units = 24, activation = 'relu') %>%
+    layer_dropout(rate = 0.3) %>%
+    layer_dense(units = 16, activation = 'relu') %>%
+    layer_dropout(rate = 0.3) %>%
+    layer_dense(units = 8, activation = 'relu') %>%
+    layer_dropout(rate = 0.3) %>%
+    layer_dense(units = 2, activation = 'softmax')
+  nn_model %>% compile(
+    loss = 'categorical_crossentropy',
+    optimizer = optimizer_adam(lr = 0.01),
+    metrics = c('accuracy')
+  )
+  nn_model
+}
+nn_model <- create_nn_model()
+```
+
 ### Fitting and performance
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+We performed model matching on binned and encoded data in 50 epochs.
+
+```{r}
+# NN training or restoring
+fit_nn_model <- function(model, data_x, data_y) {
+  history <- model %>%
+      fit(data_x, data_y, epochs = 50, batch_size = 64,
+          validation_split = 0.1)
+  history
+}
+
+history <- if(file.exists(nn_history_path) & file.exists(nn_model_path)){
+                nn_model <- load_model_hdf5(nn_model_path)
+                readRDS(nn_history_path)
+          }else{
+              h <- fit_nn_model(nn_model, train_input_x, train_input_y) %T>%
+                saveRDS(nn_history_path)
+              nn_model %>% save_model_hdf5(nn_model_path)
+              h
+            }
+```
+
+
+```{r, include = TRUE}
+plot(history$metrics$loss, main="Model Loss", xlab = "epoch", ylab="loss", ylim= c(0, 1), col="blue", type="l")
+lines(history$metrics$val_loss, col="red")
+legend("topright", c("train","validation"), col=c("blue", "red"), lty=c(1,1))
+```
+
+```{r, include = TRUE}
+plot(history$metrics$acc, main="Model Accuracy", xlab = "epoch", ylab="accuracy", ylim= c(0, 1), col="blue", type="l")
+lines(history$metrics$val_acc, col="red")
+legend("bottomright", c("train","validation"), col=c("blue", "red"), lty=c(1,1))
+```
+
+Surprisingly, the neural network has achieved most of its performance after only one epoch.
+This can be seen in the charts above.
+
+```{r}
+fAUC_NN <- function(model, data_x, data_y) {
+  pred1 <- predict(model, data_x)
+  pred <- ROCR::prediction(pred1, data_y)
+  perf <- performance(pred, "auc")
+  AUC <- attr(perf, "y.values")[[1]]
+  AUC
+}
+AUC_nn_train <- fAUC_NN(nn_model, train_input_x, train_input_y)
+```
+
+```{r}
+pred1 <- prediction(predict(nn_model, train_input_x), train_input_y)
+plot(performance(pred1, "tpr", "fpr"), col="blue", lwd = 3)
+AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
+perf1 <- performance(pred1, "tpr", "fpr")
+ks1 <- max(attr(perf1,'y.values')[[1]] - attr(perf1,'x.values')[[1]])
+```
+
+```{r}
+# Visualize the ROC curve:
+predScores1 <- predict(nn_model, train_input_x)
+ks_plot(actuals = as.numeric(train_input_y), predictedScores = as.numeric(predScores1))
+plotROC(actuals = train_input_y, predictedScores = predScores1)
+```
 
 ### Validation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+To keep the convention we have also used Monte Carlo Cross Validation
+despite the high computational cost.
+
+```{r}
+nn_cv_data_path <- "./neural_net/cv.rds"
+
+allAUCs_NN<-if(file.exists(nn_cv_data_path)){
+              readRDS(nn_cv_data_path)
+            }else{
+              pctTrain <- 0.7
+              set.seed(67789)
+              nRuns = 5
+                
+              AUCs_train_NN <- numeric(0)
+              AUCs_test_NN <- numeric(0)
+              N <- nrow(train_matrix)
+                for(k in 1:nRuns) {
+                  train_index <- sample(1:N, pctTrain * N)
+                  test_index  <- setdiff(1:N, train_index)
+                
+                  k_model <- create_nn_model()
+                  fit_nn_model(k_model,
+                          train_matrix[train_index, colnames(train_matrix) != "IsSatisfied"],
+                          to_categorical(train_matrix[train_index, colnames(train_matrix) == "IsSatisfied"]))
+                
+                  AUCs_train_NN[k] <- fAUC_NN(k_model,
+                          train_matrix[train_index, colnames(train_matrix) != "IsSatisfied"],
+                          to_categorical(train_matrix[train_index, colnames(train_matrix) == "IsSatisfied"]))
+                  AUCs_test_NN[k] <- fAUC_NN(k_model,
+                          train_matrix[test_index, colnames(train_matrix) != "IsSatisfied"],
+                          to_categorical(train_matrix[test_index, colnames(train_matrix) == "IsSatisfied"]))
+                  }
+
+              allAUCs_NN <- rbind(
+                  tibble(model = "train data", AUC = AUCs_train_NN),
+                  tibble(model = "test data", AUC = AUCs_test_NN)) %T>%
+                saveRDS(nn_cv_data_path)}
+
+p1 <- ggplot(allAUCs_NN, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5) + xlim(0.975, 0.985)
+p2 <- ggplot(allAUCs_NN, aes(AUC, fill = model, colour = model)) + stat_ecdf()
+grid.arrange(p1, p2, ncol = 1)
+```
+Validation showed that the model is highly effective.
+
+The AUC for the neural network model on training data have:
+* the median equal to `r median(AUCs_test_RF)`,
+* the average equal to `r mean(AUCs_test_RF)`,
+* the standard deviation equal to `r sd(AUCs_test_RF)`.
 
 
 # Conclusion
