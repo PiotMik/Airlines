@@ -175,9 +175,9 @@ Now, as when we have an initial overview of our data set, we move to data prepro
 
 ## Data Preprocessing
 
-As both academia and business point out, the data-related operations typically constitute about $80\%$ of the whole effort of a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be easily proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees. For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
+As both academia and business point out, the data-related operations typically constitute about $90\%$ of the whole effort in a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees. For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
 
-During data preprocessing step we will gain insight about data statistics and information it conveys. First, we'll deal with NAs and outliers. Then we will refactor the features with variable binning and select a subset of features which are likely to display predictive power for our problem. In the end we will encode the variables and prepare a train-test split for model development.
+During data preprocessing step we will gain insight about data statistics and the information it conveys. First, we'll deal with NAs and outliers. Then we will refactor the features with variable binning and select a subset of features which display predictive power for our problem. In the end we will encode the variables and prepare a train-validation split for model development.
 
 ```{r}
 # Encoding Categorical Binary Features
@@ -216,7 +216,6 @@ Airlines <-
 
 ### Missing data treatment
 
-
 ```{r NA_structure}
 # Summarize NAs
 
@@ -235,7 +234,7 @@ knitr::kable(NA_structure,
              caption= "NA breakdown per feature. NAs span a small portion of data \\label{tab:NA_structure}")
 ```
 
-After examining the data it seems we don't have any critical issue related to missing values. *NAs* are present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see fig. \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that NAs constitute roughly `r round(mean(Airlines %>% is.na() %>% rowSums() > 0), 2)` of all observations, even if we drop them we would still have `r (Airlines %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data. 
+After examining the data missingness it seems we don't have any critical issue related to missing values. *NAs* are present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see table \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that roughly `r round(mean(Airlines %>% is.na() %>% rowSums() > 0), 2)` of all rows contain an *NA*, and even if we drop them we would still have `r (Airlines %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data.
 
 ```{r}
 gg_miss_upset(Airlines)
