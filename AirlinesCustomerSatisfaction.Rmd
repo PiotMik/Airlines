@@ -481,7 +481,20 @@ Airlines_binned_train <- Airlines_binned[train_index, ]
 Airlines_binned_test  <- Airlines_binned[test_index, ]
 AirlinesEncoded_binned_train <- AirlinesEncoded_binned[train_index, ]
 AirlinesEncoded_binned_test  <- AirlinesEncoded_binned[test_index, ]
+
+#Split test data into test_data_splits dataframes
+test_data_splits <- 20
+Airlines_binned_test_splited <- Airlines_binned_test %>%
+                                    split(sample(1:test_data_splits,
+                                             nrow(Airlines_binned_test),
+                                             replace=T))
+
+AirlinesEncoded_binned_test_splited <- AirlinesEncoded_binned_test %>%
+                                    split(sample(1:test_data_splits,
+                                             nrow(AirlinesEncoded_binned_test),
+                                             replace=T))
 ```
+
 
 # Baseline Model
 
@@ -501,17 +514,17 @@ Adaline optimizes the weights of that linear combination (a.k.a. the *net input*
 We will put our own spin on the adaline algorithm to avoid overfitting. Additional *L2* regularization during training will give the model an incentive to opt for smaller weights, and an *early stopping* callback will halt the training for us, should the validation loss start to plateau and stop decreasing for at least $3$ consecutive epochs.
 
 ```{r results='asis'}
-X_train <-
-  AirlinesEncoded_binned_train %>% select(-IsSatisfied)
+X_train <- AirlinesEncoded_binned_train %>%
+  select(-IsSatisfied)
 
-y_train <-
-  AirlinesEncoded_binned_train %>% select(IsSatisfied)
+y_train <- AirlinesEncoded_binned_train %>%
+  select(IsSatisfied)
 
-X_test <-
-  AirlinesEncoded_binned_test %>% select(-IsSatisfied)
+X_test <- AirlinesEncoded_binned_test %>%
+  select(-IsSatisfied)
 
-y_test <-
-  AirlinesEncoded_binned_test %>% select(IsSatisfied)
+y_test <- AirlinesEncoded_binned_test %>%
+  select(IsSatisfied)
 
 X_train <- X_train %>%
   mutate_all(as.character) %>% mutate_all(as.numeric) %>% mutate_all(scale)
@@ -567,14 +580,13 @@ preds_train <- preds_train %>% as.numeric()
 preds_test <- (model %>% predict(as.matrix(X_test))) > 0.5
 preds_test <- preds_test %>% as.numeric()
 
-
 cm_train <- confusionMatrix(table(preds_train, unlist(y_train, use.names = F)))
 cm_test <- confusionMatrix(table(preds_test, unlist(y_test, use.names = F)))
 
 metrics_train <- get_metrics(cm_train) %>% mutate("Set" = "Train")
 metrics_test <- get_metrics(cm_test) %>% mutate("Set" = "Test")
 
-test_acc <- filter(metrics_test, Metrics=="Accuracy")['Value'] %>% as.numeric()
+AUC_baseline_test <- filter(metrics_test, Metrics=="Accuracy")['Value'] %>% as.numeric()
 rbind(metrics_train, metrics_test) %>%
   mutate_at(all_of(c("Metrics", "Set")), ~ as_factor(.), levels=c("Train", "Test")) %>%
   ggplot(aes(x=Metrics, fill=Set, y=Value, group=Set)) +
@@ -598,7 +610,7 @@ w %>%
   knitr::kable(caption = 'Top $3$ positive and negative weights for the Adaline baseline model.\\label{tab:Adaline_feature_importance}')
 ```
 
-Since Adaline's accuracy on the test set is `r round(test_acc, 3)`, we can infer that our data is not hard to separate, or at least it is relatively easy to reach a reasonable performance. For all challenger models we will be aiming to achieve better metrics, which must compensate for additional model complexity.
+Since Adaline's accuracy on the test set is `r round(AUC_baseline_test, 3)`, we can infer that our data is not hard to separate, or at least it is relatively easy to reach a reasonable performance. For all challenger models we will be aiming to achieve better metrics, which must compensate for additional model complexity.
 
 # The Challenger Models
 
@@ -676,6 +688,9 @@ AUC_RanForest1_train <- fAUC_RF(RanForest1, data = Airlines_binned_train, type =
 AUC_RanForest1_test <- fAUC_RF(RanForest1, data = Airlines_binned_test, type = "response")
 pred1_RF <- prediction(as.numeric(predict(RanForest1, type = "prob")[ ,2]), Airlines_binned_train$IsSatisfied)
 
+wrapped_fauc_rf <- function(d){fAUC_RF(RanForest1, data = d, type = "response")}
+AUC_RF1_toConclusion <- lapply(Airlines_binned_test_splited, wrapped_fauc_rf)
+
 # Visualize the ROC curve:
 plot(performance(pred1_RF, "tpr", "fpr"), col="blue", lwd = 3)
 AUC1_RF <- attr(performance(pred1_RF, "auc"), "y.values")[[1]]
@@ -698,7 +713,7 @@ We will validate the model using the cross validation method and opt for the Mon
 ```{r}
 pctTrain <- 0.7
 set.seed(1201984)
-nRuns = 10
+nRuns = 20
 ```
 
 ```{r fig.cap='The results of the cross validation for the random forest.\\label{fig:MCxvalrf1}'}
@@ -766,6 +781,9 @@ AUC_logreg1_train <- fAUC(logreg1, data = Airlines_binned_train, type = "respons
 AUC_logreg1_test <- fAUC(logreg1, data = Airlines_binned_test, type = "response")
 pred1 <- prediction(predict(logreg1, type = "response"), Airlines_binned_train$IsSatisfied)
 
+wrapped_fauc_lr <- function(d){fAUC(logreg1, data = d, type = "response")}
+AUC_LR1_toConclusion <- lapply(Airlines_binned_test_splited, wrapped_fauc_lr)
+
 # Visualize the ROC curve:
 plot(performance(pred1, "tpr", "fpr"), col="blue", lwd = 3)
 AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
@@ -776,6 +794,7 @@ ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScore
 cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
 ```
+
 The AUC on the training data is `r AUC1` and on the testing data `r AUC_logreg1_test`. The difference is small. KS plot and the ROC curve also looks great. This model is a good contender. However, we decide to try adding some interactions between variables as some of them seem natural. After many attempts we opt for including the interactions between gender&loyalty, gender&class, gender&age and class&flight distance. We tried also for example class&food or class&service, but they didn't improve our model. What is more, we decided not to include WifiNote as after adding interactions it was the least significant and the relationship was weird. Thus we get the final logistic regression model, which is summarized below.\\
 ```{r}
 frm2 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Age+IsFemale*Class+Class*FlightDistance-WifiNote
@@ -800,6 +819,9 @@ AUC_logreg2_train <- fAUC(logreg2, data = Airlines_binned_train, type = "respons
 AUC_logreg2_test <- fAUC(logreg2, data = Airlines_binned_test, type = "response")
 pred2 <- prediction(predict(logreg2, type = "response"), Airlines_binned_train$IsSatisfied)
 
+wrapped_fauc_lr2 <- function(d){fAUC(logreg2, data = d, type = "response")}
+AUC_LR2_toConclusion <- lapply(Airlines_binned_test_splited, wrapped_fauc_lr2)
+
 # Visualize the ROC curve:
 plot(performance(pred2, "tpr", "fpr"), col="blue", lwd = 3)
 AUC2 <- attr(performance(pred2, "auc"), "y.values")[[1]]
@@ -818,7 +840,7 @@ To validate the model we will use the cross validation method and opt for the Mo
 ```{r}
 pctTrain <- 0.7
 set.seed(18901229)
-nRuns = 10
+nRuns = 20
 ```
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 100 times a training data-set of 0.7 and study the AUC on the testing data-set.
 ```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
@@ -832,10 +854,10 @@ for(k in 1:nRuns) {
 AUCs_test[k] <- fAUC(mods[[k]], as.data.frame(cv_mc$test[[k]]))
 AUCs_train[k] <- fAUC(mods[[k]], as.data.frame(cv_mc$train[[k]]))
 }
-allAUCs <- rbind(tibble(model = "train data", AUC = AUCs_train),
+allAUCs_lr2 <- rbind(tibble(model = "train data", AUC = AUCs_train),
 tibble(model = "test data", AUC = AUCs_test))
-p1 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5) + xlim(0.9520, 0.9620)
-p2 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + stat_ecdf()
+p1 <- ggplot(allAUCs_lr2, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5) + xlim(0.9520, 0.9620)
+p2 <- ggplot(allAUCs_lr2, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
 median(AUCs_test)
 mean(AUCs_test)
@@ -859,11 +881,19 @@ train_matrix <- AirlinesEncoded_binned_train %>%
                 mutate_all(as.character) %>%
                 mutate_all(as.numeric) %>%
                 as.matrix
+
+test_matrix <- AirlinesEncoded_binned_test %>%
+                mutate_all(as.character) %>%
+                mutate_all(as.numeric) %>%
+                as.matrix
 ```
 
 ```{r, message = FALSE, warning = FALSE}
 train_input_x <- train_matrix[, colnames(train_matrix) != "IsSatisfied"]
 train_input_y <- to_categorical(train_matrix[, colnames(train_matrix) == "IsSatisfied"], 2)
+
+test_input_x <- test_matrix[, colnames(test_matrix) != "IsSatisfied"]
+test_input_y <- to_categorical(test_matrix[, colnames(test_matrix) == "IsSatisfied"], 2)
 ```
 
 The network consists of the following layers:
@@ -906,7 +936,7 @@ We performed model matching on binned and encoded data in 50 epochs.
 # NN training or restoring
 fit_nn_model <- function(model, data_x, data_y) {
   history <- model %>%
-      fit(data_x, data_y, epochs = 50, batch_size = 64,
+      fit(data_x, data_y, epochs = 25, batch_size = 64,
           validation_split = 0.1)
   history
 }
@@ -947,7 +977,29 @@ fAUC_NN <- function(model, data_x, data_y) {
   AUC
 }
 AUC_nn_train <- fAUC_NN(nn_model, train_input_x, train_input_y)
+AUC_nn_test <- fAUC_NN(nn_model, test_input_x, test_input_y)
 ```
+
+```{r}
+#to conclusion paragraph
+AUC_NN_toConclusion <- numeric(0)
+idx = 1
+for(i in AirlinesEncoded_binned_test_splited){
+  m <- i %>%
+       mutate_all(as.character) %>%
+       mutate_all(as.numeric) %>%
+       as.matrix
+  input_x <- m[, colnames(m) != "IsSatisfied"]
+  input_y <- to_categorical(m[, colnames(m) == "IsSatisfied"], 2)
+  AUC_NN_toConclusion[idx] <- fAUC_NN(nn_model, input_x, input_y)
+  idx = idx + 1
+}
+```
+
+```{r}
+AUC_NN_toConclusion
+```
+
 
 ```{r}
 pred1 <- prediction(predict(nn_model, train_input_x), train_input_y)
@@ -976,7 +1028,7 @@ allAUCs_NN<-if(file.exists(nn_cv_data_path)){
             }else{
               pctTrain <- 0.7
               set.seed(67789)
-              nRuns = 5
+              nRuns = 20
                 
               AUCs_train_NN <- numeric(0)
               AUCs_test_NN <- numeric(0)
@@ -1007,17 +1059,51 @@ p1 <- ggplot(allAUCs_NN, aes(AUC, fill = model, colour = model)) + geom_density(
 p2 <- ggplot(allAUCs_NN, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
 ```
+```{r}
+aucs_train_nn <- allAUCs_NN %>% filter(model == "train data") %>% select(AUC) %>% as.matrix()
+aucs_test_nn <- allAUCs_NN %>% filter(model == "test data") %>% select(AUC) %>% as.matrix()
+```
+
+
+
 Validation showed that the model is highly effective.
 
-The AUC for the neural network model on training data have:
-* the median equal to `r median(AUCs_test_RF)`,
-* the average equal to `r mean(AUCs_test_RF)`,
-* the standard deviation equal to `r sd(AUCs_test_RF)`.
+The AUC for the neural network model on training data has:
+* the median equal to `r median(aucs_train_nn)` for train data and `r median(aucs_test_nn)` for test data,
+* the average equal to `r mean(aucs_train_nn)` for train data and `r mean(aucs_test_nn)` for test data,
+* the standard deviation equal to `r sd(aucs_train_nn)` for train data and `r sd(aucs_test_nn)` for test data.
 
 
 # Conclusion
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```{r concl, fig.cap='The kernel density for the observed areas under the curve (top) and the cumulative probability density functions (bottom)for the challenger models. All AUCs shown are for the test data only.'}
+
+allAUCs <- rbind( tibble(model = "logistic reg1", AUC = AUC_LR1_toConclusion %>% unlist()),
+                  tibble(model = "logistic reg2", AUC = AUC_LR2_toConclusion %>% unlist()),
+                  tibble(model = "random forest", AUC = AUC_RF1_toConclusion %>% unlist()),
+                  tibble(model = "neural network", AUC = AUC_NN_toConclusion %>% unlist()))
+
+p1 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5)
+p2 <- ggplot(allAUCs, aes(AUC, fill = model, colour = model)) + stat_ecdf()
+grid.arrange(p1, p2, ncol = 1)
+```
+
+In the plots, we showed the accuracy of models with the data they had not seen before.
+As we can see, all challangers models performed well.
+The neural network model is the most accurate, but we recommend logistic regression 2 for implementation -
+It is transparent - its operation can be easily explained to the customer.
+Moreover, the effects achieved by logistic regression are only slightly worse.
+
+In the following table we summarise these results:
+
+
+Model   |   Mean AUC on Test Data | Mean AUC on Training Data
+--------+----------+----------------+--------------------------+----------------
+logistic regression 1     |  `r mean(AUC_LR1_toConclusion %>% unlist())`      | `r mean(AUC_logreg1_train)`
+logistic regression 2     |  `r mean(AUC_LR2_toConclusion %>% unlist())` | `r mean(allAUCs_lr2$AUC)`
+random forest     |  `r mean(AUC_RF1_toConclusion %>% unlist())` | `r mean(allAUCs_RF$AUC)`
+neural network    |  `r mean(AUC_NN_toConclusion %>% unlist())`        | `r mean(allAUCs_NN$AUC)`
+
 
 # Bibliography
 De Brouwer, Philippe J.S. 2020. The Big r-Book: From Data Science to Learning Machines and Big Data. New York: John Wiley & Sons, Ltd.
