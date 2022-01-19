@@ -4,7 +4,7 @@ title: |
   | \vspace{4ex}
 author: "Joanna Krężel, Anna Matysek, Piotr Mikler, Adam Szczerba"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-abstract: "The project aims to analyze the data about satisfaction of Investico Airlines passengers. Having customer-granular observations about the cruise and a reported satisfaction level for particular aspects of the flight we try to fit models which predict whether they are satisfied with the service or not. The binary classification models used during the project are Adaline, Logistic regression, Random Forest and a Neural Network; out of which our recommendation is {tbd} based on {tbd}. This document describes the process we undertook and presents the results of data preprocessing, model selection and model validation."
+abstract: "The project aims to analyze the data about satisfaction of Investico Airlines passengers. Having customer-granular observations about the cruise and a reported satisfaction level for particular aspects of the flight we try to fit models which predict whether they are satisfied with the service or not. The binary classification models used during the project are Adaline, Logistic regression, Random Forest and a Neural Network; out of which our recommendation is Logistic Regression based on explainability and high performance metrics. This document describes the process we undertook and presents the results of data preprocessing, model selection and model validation."
 documentclass: article 
 classoption:
   - 12pt
@@ -158,7 +158,7 @@ Moreover, we have almost the same number of males and females, and of business a
 
 Additionally, we visualize histograms of features to view the distribution of continuous variables.
 
-```{r fig.width=4}
+```{r fig.width=7}
 AirlinesRaw %>%
   select(all_of(c("Age", "Flight Distance", "Departure Delay in Minutes", "Arrival Delay in Minutes"))) %>%
   mutate_all(as.numeric) %>%
@@ -177,7 +177,7 @@ Now, as when we have an initial overview of our data set, we move to data prepro
 
 As both academia and business point out, the data-related operations typically constitute about $90\%$ of the whole effort in a modeling pipeline. The performance of any model is heavily driven by the quality of it's inputs. It can be proven in a simple trial by combat that even a suboptimal model running on high quality data can oftentimes bring a sophisticated one with poor inputs to it's knees. For that reason it is of utmost importance to pay extra care and attention to the data which is fed to the decision making models.
 
-During data preprocessing step we will gain insight about data statistics and the information it conveys. First, we'll deal with NAs and outliers. Then we will refactor the features with variable binning and select a subset of features which display predictive power for our problem. In the end we will encode the variables and prepare a train-validation split for model development.
+During data preprocessing step we will raise questions about the information the data conveys. First, we'll deal with NAs and outliers. Then we will refactor the features using variable binning and select a subset of features displaying predictive power. In the end we will encode the variables and prepare a train-validation split for model development.
 
 ```{r}
 # Encoding Categorical Binary Features
@@ -237,7 +237,7 @@ knitr::kable(NA_structure,
 After examining the data missingness it seems we don't have any critical issue related to missing values. *NAs* are present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see table \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that roughly `r round(mean(Airlines %>% is.na() %>% rowSums() > 0), 2)` of all rows contain an *NA*, and even if we drop them we would still have `r (Airlines %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data.
 
 ```{r}
-gg_miss_upset(Airlines)
+#gg_miss_upset(Airlines)
 ```
 
 
@@ -248,14 +248,12 @@ Airlines <- drop_na(Airlines)
 
 ### Feature Engineering
 
-The more is not always the better. Feature engineering is a pre-modeling stage which serves identifying features which are significant and filtering out the ones that are not. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables or discretizing them we simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity (high linear codependency of explanatory variables) which kills stability and predictive power of some models.
-
-Across the following sections we are going to introduce a few additional modifications of variables to the dataset and see if it makes sense to keep them. Since we have a big share of $0s$ in column `DepartureDelay`, we wanted to check if it makes sense to include a binary variable $IsDelayed$ as a predictor. We are also going to try discretizing `Age`, `DepartureDelay` and `FlightDistance` continuous variables into bins based on Weight of Evidence metric and evaluate their predictive power.
+The more is not always the better. Feature engineering is a pre-modeling stage which serves identifying features which are significant and filtering out the ones that are not. *Filtering feature selection methods* allow one to discard redundant features in a model independent way. By reducing the number of variables or discretizing them we simplify the model and increase it's interpretability. It is also a step which tackles multicollinearity which kills stability and predictive power of some models.
 
 #### Continuous Features
 
-We have four continuous variables in our dataset: `Age`, `DepartureDelay`, `ArrivalDelay` and `FlightDistance`. We start the analysis by analyzing their codependence structure.
-We note a high linear relationship between `ArrivalDelay` and `DepartureDelay`, visible both in the correlation matrix  (fig. \ref{fig:Multicollinearity}) and on figure \ref{fig:Delays_Collinearity}. We can safely drop `ArrivalDelay`, since it doesn't introduce new information and additionally contaminates the dataset with NAs.
+We have four continuous variables in our dataset: `Age`, `DepartureDelay`, `ArrivalDelay` and `FlightDistance`. We start visualizing their co-dependence structure.
+We note a high linear relationship between `ArrivalDelay` and `DepartureDelay`, visible both in the correlation matrix  (fig. \ref{fig:Multicollinearity}) and on their scatterplot (fig. \ref{fig:Delays_Collinearity}). Therefore we can safely drop `ArrivalDelay`, since it doesn't introduce much new information.
 ```{r Multicollinearity, echo=FALSE, fig.width=4, fig.height=4, fig.cap="\\label{fig:Multicollinearity} Pearson correlation matrix only detects strong collinearity in Delays."}
 multicorr <- 
   Airlines %>% 
@@ -302,7 +300,7 @@ p3 <- qplot(data = Airlines_numeric, DepartureDelay, IsSatisfied, xlab = "", yla
 grid.arrange(p1, p2, p3, ncol=1)
 ```
 
-Now we are going to look at possible binnings of our features. We'll use `woeBinning::woe.binning` function which chooses the binning to maximize the information value of the feature. If the optimized binning will yield $IV < 0.1$, we will discard the variable. Otherwise we'll analyze the bins to ensure they are not over-optimized to an unreasonable degree. Based on loess plot shapes/regimes the expectation is to have not more than four bins for `Age` and `FlightDistance`, and a maximum of two bins for `DepartureDelay`.  
+Now we are going to look at possible binnings of our features. We'll use `woeBinning::woe.binning` function which chooses the binning to maximize the information value of the feature. If the optimized binning will still yield $IV < 0.1$, we will discard the variable. Otherwise we'll analyze the bins to ensure they are not over-optimized to an unreasonable degree. Based on loess plot shapes/regimes the expectation is to have not more than four bins for `Age` and `FlightDistance`, and a maximum of two bins for `DepartureDelay`.  
 
 ```{r, results='asis'}
 cols_to_bin <- Airlines %>% select(where(is.double)) %>% colnames
@@ -340,20 +338,20 @@ levels(Airlines_binned$Age) <- c("u30", "30s", "40s50s", "60plus", NA)
 
 #### Ordinal & Categorical Features
 
-The main challenge of the data preparation in this dataset is the proper treatment of passenger notes.
-Take for example the `SeatNote` feature which is a customer note describing their satisfaction level with the seating arrangement. One could ask himself the following questions:
+The main challenge of the data preparation in this dataset is the proper treatment of passenger survey notes.
+Take for example the `SeatNote` feature which is a note describing their satisfaction level with the seat. One could ask himself the following questions:
 
-* What did the passenger have in mind? Satisfaction with their seat location? Seat comfort? Possibility of choosing the seat?
+* Are we sure the passenger had seat comfort in mind? Maybe rather their seat location? Or a possibility of choosing the seat?
 * Does $`SeatNote`=3$ imply a negative attitude towards a service? Or it's a moderate 'OK'?
 * Is the satisfaction *"difference"* between notes $3$ and $2$ the same as between notes $5$ and $4$?
 * Is a note $`SeatNote`=5$ given $`Class`=`Eco`$ the same as $`SeatNote`=5$ given $`Class`=`Business`$?
 
 The same point is valid for any note-type variable in the dataset. The issue boils down to the problem that there is **no universal "unit" of satisfaction**. It is just as non-trivial to measure it as to predict it - simply because everyone perceives satisfaction in a subjective way. Our problem has an additional layer of complexity since we don't have information how precisely the survey questions have been described to the customers - so even if we *did* have some carefully designed satisfaction unit, we cannot be sure if all respondents referred to the same aspects of service when filling out the survey.
 
-We aim to overcome this problem, by binning notes into wider classes, depending on how well they explain and affect the overall satisfaction. Since we have a lot of 5-leveled `Note` factors, there's a strong suspicion that in such large set there must exist some adjacent levels such that overall satisfaction is invariant to displacements in that group of levels. In other words, we could collapse notes of $1, 2 \& 3$ to one group if they carried similar information. Hence we will again let `woe.binning` automatically select bins and then verify the result.
+We aim to overcome this problem, by binning notes into wider classes, depending on how well they explain and affect the overall satisfaction. Since we have a lot of 5-leveled `Note` factors, we strongly believe that not all levels differ in overall satisfaction contribution. In other words, perhaps we could collapse notes of $1, 2 \& 3$ to one group if they carried similar information. Hence we will again let `woe.binning` automatically select bins and then verify the result.
 
 Since there are $12$ `Note` variables, we will only display one of the WOE tables as an example. However for all it has been verified that **adjacent** levels have been binned, so the binning is plausible, and the $IV$ of the newly binned features are above $0.1$.
-```{r, results='asis'}
+```{r}
 cols_to_bin <- Airlines_binned %>% select(c(ends_with('Note'))) %>% colnames
 cutpoints <- Airlines_binned %>% as.data.frame() %>%
   woe.binning("IsSatisfied", cols_to_bin)
@@ -370,10 +368,11 @@ Airlines_binned <- Airlines_binned %>% as.data.frame() %>%
   mutate_at(vars(matches("Note")), ~as_factor(ifelse(grepl("1", .), "L",
                                                  ifelse(grepl("5", .), "H",
                                                         "M"))))
-binnings$`WOE Table for eBookingNote` %>% knitr::kable()
+binnings$`WOE Table for eBookingNote` %>% 
+  select(all_of(display_cols)) %>% knitr::kable()
 ```
 
-Next, we will check the information value for other categorical variables. They are binary, so binning has not been applied to them in the earlier step. The table \ref{tab:CategoricalFeatureSelection} presents features and their IV. We see that there are features with IV smaller than $0.1$ - we are going to drop those from the dataset. 
+The table \ref{tab:CategoricalFeatureSelection} presents all of the binned features and their IVs. We see that there are features with IV smaller than $0.1$ - we are going to drop those from the dataset. 
 
 Lastly, a brief look at the spearman rank correlation matrix (fig. \ref{fig:spearman_cor}) shows that there are no highly correlated "note" features among ordinal variables in the dataset.
 
@@ -405,27 +404,12 @@ table_ <- output %>% arrange(IV) %>% filter(IV < 0.1)
 knitr::kable(arrange(output, IV), 
              caption = "Information Value for all variables.\\label{tab:CategoricalFeatureSelection}")
 ```
-```{r}
-colnames(Airlines_binned)
-```
-```{r}
-all_of(c(vars_to_drop))
-```
-```{r}
-class(vars_to_drop)
-```
-
-
 
 ```{r}
 Airlines_binned <- Airlines_binned %>% select(-all_of(c(vars_to_drop)))
 ```
 
-```{r}
-colnames(Airlines_binned)
-```
-
-```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant colinear relationships in ordinal variables"}
+```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant collinear relationships in ordinal variables"}
 spearman_cor <-
   Airlines_binned %>%
   select(ends_with("Note")) %>%
@@ -440,11 +424,9 @@ spearman_cor %>%
 
 ### Feature Encoding
 
-Some machine learning algorithms require numerical data, so we considered **ordinal encoding** and **dummy encoding** to transform our data.
+Some machine learning algorithms which we'll use require numerical data, so we performed **dummy encoding** to transform our data. 
 
-We ran the following thought experiment to determine which encoding to employ. Say we use ordinal encoding and assign numbers to each factor level. We could encode `Class` this way and assign a mapping like: {'Eco': 1, 'EcoPlus': 2, 'Business': 3}. This type of representation ensures the quality of the service is properly represented in the numeric data, but the question is whether this translates the same to the overall satisfaction? Yes, the business class is clearly more comfortable to travel in, but the *expectations* (the baseline) of business-class passengers will also be quite higher than the expectations of say, passengers in the economic class.
-
-We chose to employ dummy encoding to encode `Class` - to avoid making assumptions about baseline satisfaction criteria across different passenger classes. For `Note` features however this problem is non-existent, since a higher note should correspond to higher satisfaction for any rational passenger. Here to avoid inflating the dataset with additional $4\cdot14 - 14 = 42$ sparse binary columns we will stick to the original ordinal encoding. This choice nonetheless should be revisited and controlled once we reach the stage of model choice and model fitting.
+That means for each level of factor in our data a separate binary column has been created, and in each factor one of those levels got dropped to avoid having perfect linear relationships.
 
 The resulting, encoded dataframe looks the following way:
 ```{r}
@@ -468,12 +450,15 @@ AirlinesEncoded_binned <-
   select(-all_of(vars_to_encode)) %>%  # drop old 'Class' feature
   mutate_all(as_factor) # ensure all are factors
 
-AirlinesEncoded_binned %>% glimpse()
+AirlinesEncoded_binned %>% glimpse(width = 50)
 ```  
 
 
+## A train-test split of data
 
-# A train-test split of data
+At this point, we have 2 dataframes, `Airlines_binned` and `AirlinesEncoded_binned` which we'll provide to the use of modellers. Before we start working on model fitting, we reserve a random $20\%$ of observations as a final test set, for comparing model performances.
+
+Modellers will have the remaining $80\%$ available for their needs regarding model fitting and validation.
 ```{r}
 # First we build the random indexes:
 N <- nrow(Airlines_binned)
@@ -569,7 +554,7 @@ b <- get_weights(model)[[2]]
 
 ```
 
-For the baseline model we won't be performing costly cross-validation, but rather only compare key model performance indicators across train and test sets. Figure \ref{fig:Adaline evaluation} presents that there are no significant performance differences between training and test sets across a selection of metrics, therefore we conclude that the model is able to generalize the learned rules well for unseen data and is not overfitted.
+For the baseline model, as it only serves the purposes of testing the waters, we won't be performing costly cross-validation - but rather only compare key model performance indicators across train and test sets to see what we should expect from the challenger models. Figure \ref{fig:Adaline evaluation} presents that there are no significant performance differences between training and test sets across a selection of metrics, therefore we conclude that the model is able to generalize the learned rules well for unseen data and is not overfitted.
 
 ```{r adaline evaluation, fig.width=5, fig.height=3, fig.cap="\\label{fig:Adaline evaluation} Performance metrics for the baseline Adaline model."}
 get_metrics <- function(confMatrix){
@@ -627,7 +612,7 @@ Since Adaline's accuracy on the test set is `r round(AUC_baseline_test, 3)`, we 
 ## Random Forest
 
 ### Fitting and performance
-We will try out Random Forest method. Firstly, we consider model including all of the variables.
+As the first modelling option we will try out the Random Forest model. First, we'll consider the below model which includes all of the variables.
 
 ```{r}
 library(randomForest)
@@ -647,9 +632,9 @@ RanForest1 <- if(file.exists(rf_model_path)){
 #Investigate the model
 RanForest1
 ```
-After running Random Forest algorithm on basic model we can be quite pleased with the results. Only 6.18% of the observations were misqualified thus we obtained model with 93.82% accuracy.\
+After running Random Forest with all variables we can already be quite pleased with the results. Only 6.18% of the observations were misqualified thus we obtained a model with 93.82% accuracy.
 
-We denote number of variables tried at each split as \textbf{mtry}. This parameter allows us to choose optimal number of generated decision trees. By optimal we mean such \textbf{mtry} that value of OOB estimate of error rate is the lowest.
+We denote number of variables sampled at each split as \textbf{mtry}. This parameter allows us to optimize the Random Forest to our problem. By optimize we mean choose \textbf{mtry} such that value of OOB estimate of error rate is the lowest.
 ```{r}
 rf_mtry_path <- "./random_forest/rf_mtry.rds"
 
@@ -665,19 +650,20 @@ mtry <- if(file.exists(rf_mtry_path)){
               }
 mtry
 ```
-As we see, the value chosen by deafult is the best one.\
+As we see, the value chosen by default is the best one.
 
-Random Forest enables us to determine how important each variable is in the model, two criteria are used:\
-•MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set. \
-•MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
+Random Forest enables us to determine how important each variable is in the model, two criteria are used:
+
+* MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set.
+* MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
 
 ```{r}
 varImpPlot(RanForest1)
 ```
 
-In terms of accuracy of the model, eBoardingNote, WifiNote and ServiceNote seem to be the least important. The most influential are SeatNote, CheckInNote and eSupportNote. The accuracy of the model could drop significantly if we left them out. As for Gini coefficient, the most important are EntertainmentNote, SeatNote and eBookingNote and the least ServiceNote, WifiNote and eBoardingNote.\
+In terms of accuracy of the model, eBoardingNote, WifiNote and ServiceNote seem to be the least important. The most influential are SeatNote, CheckInNote and eSupportNote. The accuracy of the model could drop significantly if we left them out. As for Gini coefficient, the most important are EntertainmentNote, SeatNote and eBookingNote and the least ServiceNote, WifiNote and eBoardingNote.
 
-SeatNote is placed high on both plots, so we may assume that this variable has strong influence on satisfaction level. The same applies to eSupportNote and EntertainmentNote. While thinking of clients' satisfaction, the airline should definitely focus on providing them with comfortable seats and proper online customer support. Moreover, making sure that passengers are entertained throughout the flight (e.g. movies, headphones with music) will definitely help them look back at the flight with nothing but enjoyment.\
+SeatNote is placed high on both plots, so we may assume that this variable has strong influence on satisfaction level. The same applies to eSupportNote and EntertainmentNote. While thinking of clients' satisfaction, the airline should definitely focus on providing them with comfortable seats and proper online customer support. Moreover, making sure that passengers are entertained throughout the flight (e.g. movies, headphones with music) will definitely help them look back at the flight with nothing but enjoyment.
 
 While thinking of the least important variables we have one immediate candidate - WifiNote - it seems like availability and quality of WiFi service does not matter that much to the customers.\
 
@@ -702,7 +688,6 @@ wrapped_fauc_rf <- function(d){fAUC_RF(RanForest1, data = d, type = "response")}
 AUC_RF1_toConclusion <- lapply(Airlines_binned_test_splited, wrapped_fauc_rf)
 
 # Visualize the ROC curve:
-plot(performance(pred1_RF, "tpr", "fpr"), col="blue", lwd = 3)
 AUC1_RF <- attr(performance(pred1_RF, "auc"), "y.values")[[1]]
 perf1_RF <- performance(pred1_RF, "tpr", "fpr")
 ks1_RF <- max(attr(perf1_RF,'y.values')[[1]] - attr(perf1_RF,'x.values')[[1]])
@@ -712,14 +697,14 @@ cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
 ```
 
-The model has an AUC of `r AUC1_RF` on training data and `r AUC_RanForest1_test` on testing data. As the difference between them is small we may presume that this model would be a good choice, plots also look satisfying.\
+The model has an AUC of `r AUC1_RF` on the train set and `r AUC_RanForest1_test` on the test set. As we observe a drop of AUC presume that this model shows signs of overfitting to the train set.
 
-Just to make sure that we don't miss out on any better model, we decided to check some of the options for improvement but did not succeed. Excluding any variables resulted in making accuracy worse. Adding interactions didn't change accuracy or performance of the model at all. Our final choice is the basic model. \
+We decided to explore some options to improveme the model but did not succeed. Excluding any variables resulted in making accuracy worse, and still not stable on the test set. Adding interactions didn't change accuracy or performance of the model at all. We therefore concluded on the original model as the for Random Forest representative.
 
 We can now approach validation part.
 
 ### Validation
-We will validate the model using the cross validation method and opt for the Monte Carlo Cross Validation. We will draw 100 times a training data-set containing 70% of observations and then study the AUC on the testing data-set.
+We will validate the model using the Monte Carlo Cross Validation. We will draw 100 times a training data-subset containing of 70% of observations, fit the model and then study the AUC on the train and test sets.
 ```{r}
 pctTrain <- 0.7
 set.seed(1201984)
@@ -753,7 +738,8 @@ p1 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + geom_density(
 p2 <- ggplot(allAUCs_RF, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
 ```
-Observed values for the AUC of the test data have the median equal to `r median(AUCs_test_RF)`, the average equal to `r mean(AUCs_test_RF)` and standard deviation equal to `r sd(AUCs_test_RF)`. Given the plots and parameters we are content with the results, AUCs of training and test sets keep in line with each other. The model does not over-fit so we find it valid.
+
+Observed values for the AUC of the test data have the median equal to `r median(AUCs_test_RF)`, the average equal to `r mean(AUCs_test_RF)` and standard deviation equal to `r sd(AUCs_test_RF)`. Even though from the plots it seems like we achieve a larger variance of AUCs on test set, it is nevertheless still a small number. This means our model has worse, yet stable performance on the test set. We are content with the results, as we have AUCs of training and test sets keep in line with each other. The model may be a bit over-fitted to train set, but manages to provide a consistent performance on the test set.
 
 ## Logistic Regression
 
@@ -768,14 +754,15 @@ logreg1 <- glm(formula = frm, data = Airlines_binned_train, family = "binomial")
 summary(logreg1)
 
 ```
-We notice that according to this model:\\
-• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones,\\
-• satisfaction level is higher for females and loyal customers,\\
-• passengers at the age of 40s and 50s have a higher satisfaction level than the others,\\
-• satisfaction level is lower for long and medium flight distances than for the short ones,\\
-• the higher entertainment, seat, eBooking, eSupport, service, leg room, clean, baggage and check-in notes, the higher the satisfaction level.\\
+We notice that according to this model:
 
-What we find weird is that taking into account wifi, food and eBoarding the satisfaction level is higher for medium notes than for the high ones. This may be a consequence of the fact that something went wrong and the airlines wanted to compensate for this for example with food. Another reason could be connected with the flight distance. Wifi and more food are usually available during long flights. However, the longer the flight, the more things can go wrong and the more people are tired, uncomfortable etc. Nevertheless, we don't have enough background information to make such conclusions. We decide to leave these variables in our model for now and check its performance, but later we will try do improve it.
+* business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones,
+* satisfaction level is higher for females and loyal customers,
+* passengers at the age of 40s and 50s have a higher satisfaction level than the others,
+* satisfaction level is lower for long and medium flight distances than for the short ones,
+* the higher entertainment, seat, eBooking, eSupport, service, leg room, clean, baggage and check-in notes, the higher the satisfaction level.
+
+What we find unintuitive is that taking into account wifi, food and eBoarding the satisfaction level is higher for medium notes than for the high ones. This may be a consequence of variable interactions: wifi and food are usually available during longer flights. However, the longer the flight, the more people are tired, uncomfortable etc. Nevertheless, we don't have enough background information to make such conclusions. We decide to leave these variables in our model for now and check its performance, but later we will try do improve it.
 ```{r}
 library(ROCR)
 # function to get AUC
@@ -795,7 +782,6 @@ wrapped_fauc_lr <- function(d){fAUC(logreg1, data = d, type = "response")}
 AUC_LR1_toConclusion <- lapply(Airlines_binned_test_splited, wrapped_fauc_lr)
 
 # Visualize the ROC curve:
-plot(performance(pred1, "tpr", "fpr"), col="blue", lwd = 3)
 AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
 perf1 <- performance(pred1, "tpr", "fpr")
 ks1 <- max(attr(perf1,'y.values')[[1]] - attr(perf1,'x.values')[[1]])
@@ -805,7 +791,11 @@ cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
 ```
 
-The AUC on the training data is `r AUC1` and on the testing data `r AUC_logreg1_test`. The difference is small. KS plot and the ROC curve also looks great. This model is a good contender. However, we decide to try adding some interactions between variables as some of them seem natural. After many attempts we opt for including the interactions between gender&loyalty, gender&class, gender&age and class&flight distance. We tried also for example class&food or class&service, but they didn't improve our model. What is more, we decided not to include WifiNote as after adding interactions it was the least significant and the relationship was weird. Thus we get the final logistic regression model, which is summarized below.\\
+The AUC on the training data is `r AUC1` and on the testing data `r AUC_logreg1_test`. The difference is marginal. KS plot and the ROC curve also look great. This model is already a good challenger. 
+
+However, we decided to add interactions between variables as some of them seem natural. After many attempts we opt for including the interactions between gender&loyalty, gender&class, gender&age and class&flight distance. We tried also for example class&food or class&service, but they didn't improve our model. 
+
+What is more, we decided to not include WifiNote as after adding interactions it was the least significant feature and the relationship was counterintuitive. Thus we get the final logistic regression model, which is summarized below.
 ```{r}
 frm2 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Age+IsFemale*Class+Class*FlightDistance-WifiNote
 # Fit the model:
@@ -814,16 +804,17 @@ logreg2 <- glm(formula = frm2, data = Airlines_binned_train, family = "binomial"
 summary(logreg2)
 ```
 
-We notice that according to our model:\\
-• business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones,\\
-• satisfaction level is higher for females and loyal customers,\\
-• passengers at the age of 40s and 50s have a higher satisfaction level than the others,\\
-• the higher entertainment, seat, eBooking, eSupport, service, leg room, clean, baggage and check-in notes, the higher the satisfaction level,\\
-• generally, the longer the flight distance, the less satisfied people are. However, this is not the case in business cass, where people are more satisfied on longer distances,\\
-• females travelling business and eco plus class are less satisfied than the ones from eco class and females over 60 are more satisfied than the younger ones.
+We notice that according to our model:
+
+* business class passengers have a much higher satisfaction level than eco plus class passengers, who in their turn have a higher satisfaction level than eco class ones,
+* satisfaction level is higher for females and loyal customers,
+* passengers at the age of 40s and 50s have a higher satisfaction level than the others,
+* the higher entertainment, seat, eBooking, eSupport, service, leg room, clean, baggage and check-in notes, the higher the satisfaction level,
+* generally, the longer the flight distance, the less satisfied people are. However, this is not the case in business cass, where people are more satisfied on longer distances,
+* females travelling business and eco plus class are less satisfied than the ones from eco class and females over 60 are more satisfied than the younger ones.
 
 
-Now we will check the performance of the model using few criteria.
+Now we will study the performance of the model.
 ```{r rocr, fig.cap=c("The ROC (receiver operating curve) for our model", "The lift of the model (bottom): the cumulative percentage of responders (ones) captured by the model")}
 AUC_logreg2_train <- fAUC(logreg2, data = Airlines_binned_train, type = "response")
 AUC_logreg2_test <- fAUC(logreg2, data = Airlines_binned_test, type = "response")
@@ -833,7 +824,6 @@ wrapped_fauc_lr2 <- function(d){fAUC(logreg2, data = d, type = "response")}
 AUC_LR2_toConclusion <- lapply(Airlines_binned_test_splited, wrapped_fauc_lr2)
 
 # Visualize the ROC curve:
-plot(performance(pred2, "tpr", "fpr"), col="blue", lwd = 3)
 AUC2 <- attr(performance(pred2, "auc"), "y.values")[[1]]
 perf2 <- performance(pred2, "tpr", "fpr")
 ks2 <- max(attr(perf2,'y.values')[[1]] - attr(perf2,'x.values')[[1]])
@@ -843,7 +833,7 @@ cat('\n\n')
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores2)
 ```
 
-The logistic regression model has an AUC of `r AUC2` on the training data and `r AUC_logreg2_test`on the testing data. The difference is very small. The KS is `r ks2`. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. Therefore, we will move forward to the validation part. 
+This logistic regression model has an AUC of `r AUC2` on the training data and `r AUC_logreg2_test`on the testing data. The difference is again marginal. The KS is `r ks2`. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. Therefore, we will move forward to the validation part. 
 
 ### Validation
 To validate the model we will use the cross validation method and opt for the Monte Carlo Cross Validation.
@@ -869,16 +859,16 @@ tibble(model = "test data", AUC = AUCs_test))
 p1 <- ggplot(allAUCs_lr2, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5) + xlim(0.9520, 0.9620)
 p2 <- ggplot(allAUCs_lr2, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
-median(AUCs_test)
-mean(AUCs_test)
-sd(AUCs_test)
+#median(AUCs_test)
+#mean(AUCs_test)
+#sd(AUCs_test)
 
 ```
-We are satisfied with the performance of our model. The median of the observed values for the AUC of the test data is `r median(AUCs_test)`, the average is `r mean(AUCs_test)` with a standard deviation of `r sd(AUCs_test)`. We find these results great.
+We are very satisfied with the performance of our model. The median of the observed values for the AUC of the test data is `r median(AUCs_test)`, the average is `r mean(AUCs_test)` with a standard deviation of `r sd(AUCs_test)`. We see that dispersion of AUCs during cross-validation is minuscule, and similar between cross-validated test and train sub-sets. We find these results more than satisfactory.
 
-## State-of-the-art: Neural Network model
+## Neural Network model
 
-We have also made an attempt to solve the problem with a neural network.
+Although we can't use Neural Networks to explain customer satisfaction, we also made an attempt to solve the problem with a neural network to understand the upper bound for performance that is achievable on the given problem.
 
 ```{r}
 nn_model_path <- "./neural_net/nn_model.h5"
@@ -912,10 +902,9 @@ The network consists of the following layers:
 * 3 hidden ones with 24, 16, 8 nodes respectively,
 * output with 2 nodes.
 
-In each layer we have used dropout = 0.3
-and ReLU (Rectified Linear Unit) activation function.
+In each layer we have used ReLU (Rectified Linear Unit) activation function, and to regularize the model we applied a dropout of 0.3.
 
-```{r, echo = TRUE}
+```{r, echo = FALSE}
 create_nn_model <- function() {
   nn_model <- keras_model_sequential() %>%
     layer_dense(units = 34, activation = 'relu',
@@ -936,11 +925,12 @@ create_nn_model <- function() {
   nn_model
 }
 nn_model <- create_nn_model()
+summary(nn_model)
 ```
 
 ### Fitting and performance
 
-We performed model matching on binned and encoded data in 50 epochs.
+We gave the model 25 epochs to fit to the binned and encoded dataset, with a batch size of 64. During fitting, a sample of 0.1 was used a as a control/validation data to make sure we're not overfitting the model.
 
 ```{r}
 # NN training or restoring
@@ -962,7 +952,6 @@ history <- if(file.exists(nn_history_path) & file.exists(nn_model_path)){
             }
 ```
 
-
 ```{r, include = TRUE}
 plot(history$metrics$loss, main="Model Loss", xlab = "epoch", ylab="loss", ylim= c(0, 1), col="blue", type="l")
 lines(history$metrics$val_loss, col="red")
@@ -975,8 +964,7 @@ lines(history$metrics$val_acc, col="red")
 legend("bottomright", c("train","validation"), col=c("blue", "red"), lty=c(1,1))
 ```
 
-Surprisingly, the neural network has achieved most of its performance after only one epoch.
-This can be seen in the charts above.
+Surprisingly, the neural network has achieved most of its performance after only one epoch. This can be seen in the charts above, and explainable by high level of data separability - which was the reason why even the baseline model achieved high performance.
 
 ```{r}
 fAUC_NN <- function(model, data_x, data_y) {
@@ -1007,13 +995,12 @@ for(i in AirlinesEncoded_binned_test_splited){
 ```
 
 ```{r}
-AUC_NN_toConclusion
+#AUC_NN_toConclusion
 ```
 
 
 ```{r}
 pred1 <- prediction(predict(nn_model, train_input_x), train_input_y)
-plot(performance(pred1, "tpr", "fpr"), col="blue", lwd = 3)
 AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
 perf1 <- performance(pred1, "tpr", "fpr")
 ks1 <- max(attr(perf1,'y.values')[[1]] - attr(perf1,'x.values')[[1]])
@@ -1027,8 +1014,7 @@ plotROC(actuals = train_input_y, predictedScores = predScores1)
 ```
 
 ### Validation
-To keep the convention we have also used Monte Carlo Cross Validation
-despite the high computational cost.
+To keep consistency with other models, we have also used Monte Carlo Cross Validation for the Neural Network despite the high computational cost.
 
 ```{r}
 nn_cv_data_path <- "./neural_net/cv.rds"
@@ -1079,10 +1065,12 @@ aucs_test_nn <- allAUCs_NN %>% filter(model == "test data") %>% select(AUC) %>% 
 Validation showed that the model is highly effective.
 
 The AUC for the neural network model on training data has:
+
 * the median equal to `r median(aucs_train_nn)` for train data and `r median(aucs_test_nn)` for test data,
 * the average equal to `r mean(aucs_train_nn)` for train data and `r mean(aucs_test_nn)` for test data,
 * the standard deviation equal to `r sd(aucs_train_nn)` for train data and `r sd(aucs_test_nn)` for test data.
 
+Moreover, the density plots behave as one would expect - they have a distribution of similar dispersion, but the test data is slightly displaced to the left. Nonetheless, this displacement is acceptable and explainable since in the end model is expected to perform better on the train dataset.
 
 # Conclusion
 
@@ -1100,12 +1088,11 @@ grid.arrange(p1, p2, ncol = 1)
 
 In the plots, we showed the accuracy of models with the data they had not seen before.
 As we can see, all challangers models performed well.
-The neural network model is the most accurate, but we recommend logistic regression 2 for implementation -
-It is transparent - its operation can be easily explained to the customer.
-Moreover, the effects achieved by logistic regression are only slightly worse.
+The neural network model is the most accurate, but we recommend logistic regression 2 for production - since it is transparent, and explainable so its operation can provide insight about customer preferences for the Airlines Company. 
+
+Moreover, the effects achieved by the logistic regression model are of very high performance metrics.
 
 In the following table we summarise these results:
-
 
 Model   |   Mean AUC on Test Data | Mean AUC on Training Data
 --------+----------+----------------+--------------------------+----------------
