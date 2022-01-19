@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.19)  18 JAN 2022 21:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.19)  19 JAN 2022 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1149,88 +1149,97 @@ Underfull \hbox (badness 10000) in paragraph at lines 887--890
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 903--904
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf, id=247
+, 440.64626pt x 248.93pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf Gr
+aphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
+d-chunk-20-1.pdf  used on input line 906.
+(pdftex.def)             Requested size: 390.01561pt x 220.32771pt.
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 915--916
 
  []
 
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-21-1.pdf, id=247
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-21-1.pdf, id=252
 , 440.64626pt x 296.10625pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-21-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-21-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-21-1.pdf  used on input line 912.
+d-chunk-21-1.pdf  used on input line 924.
 (pdftex.def)             Requested size: 390.01561pt x 262.08337pt.
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 914--920
+[23 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-20-1.pdf>]
+
+Underfull \hbox (badness 10000) in paragraph at lines 926--932
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 921--929
+Underfull \hbox (badness 10000) in paragraph at lines 933--941
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 930--933
+Underfull \hbox (badness 10000) in paragraph at lines 942--945
 
  []
 
-[23 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-21-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-1.pdf, id=263
+[24 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-21-1.pdf>]
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-1.pdf, id=275
 , 440.64626pt x 251.94125pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-22-1.pdf  used on input line 937.
+d-chunk-22-1.pdf  used on input line 949.
 (pdftex.def)             Requested size: 390.01561pt x 222.99298pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-2.pdf, id=264
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-2.pdf, id=276
 , 457.71pt x 313.17pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-2.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-2.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-22-2.pdf  used on input line 938.
+d-chunk-22-2.pdf  used on input line 950.
 (pdftex.def)             Requested size: 390.01216pt x 266.8504pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-3.pdf, id=265
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-3.pdf, id=277
 , 459.7175pt x 315.1775pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-3.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-3.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-22-3.pdf  used on input line 940.
+d-chunk-22-3.pdf  used on input line 952.
 (pdftex.def)             Requested size: 390.01816pt x 267.39236pt.
-[24 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-1.pdf> 
+[25 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-1.pdf> 
 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-2.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 942--945
+Underfull \hbox (badness 10000) in paragraph at lines 954--957
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 946--951
+Underfull \hbox (badness 10000) in paragraph at lines 958--963
 
  []
 
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-24-1.pdf, id=285
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-24-1.pdf, id=299
 , 453.695pt x 313.17pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-24-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-24-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-24-1.pdf  used on input line 962.
+d-chunk-24-1.pdf  used on input line 974.
 (pdftex.def)             Requested size: 390.00395pt x 269.20625pt.
-[25 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-3.pdf>]
+[26 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-22-3.pdf>]
 
-Overfull \hbox (54.60022pt too wide) in paragraph at lines 1034--1034
+Overfull \hbox (54.60022pt too wide) in paragraph at lines 1046--1046
 []\T1/lmtt/m/n/12 ## glm(formula = frm, family = "binomial", data = Airlines_bi
 nned_train)[] 
  []
 
-[26 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-24-1.pdf>]
+[27 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-24-1.pdf>]
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 1034--1034
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 1046--1046
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 ***\TS
 1/lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.001 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 **\TS1/
 lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.01 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 *\TS1/lmtt
@@ -1238,300 +1247,300 @@ lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.01 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 *\TS1/lmtt
 /12 ' \T1/lmtt/m/n/12 0.1 \TS1/lmtt/m/n/12 ' ' \T1/lmtt/m/n/12 1[] 
  []
 
-[27]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-1.pdf, id=322
+[28]
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-1.pdf, id=334
 , 440.64626pt x 251.94125pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-26-1.pdf  used on input line 1058.
+d-chunk-26-1.pdf  used on input line 1070.
 (pdftex.def)             Requested size: 390.01561pt x 222.99298pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-2.pdf, id=323
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-2.pdf, id=335
 , 457.71pt x 313.17pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-2.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-2.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-26-2.pdf  used on input line 1059.
+d-chunk-26-2.pdf  used on input line 1071.
 (pdftex.def)             Requested size: 390.01216pt x 266.8504pt.
-[28]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-3.pdf, id=328
+[29]
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-3.pdf, id=340
 , 459.7175pt x 315.1775pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-3.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-3.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-26-3.pdf  used on input line 1061.
+d-chunk-26-3.pdf  used on input line 1073.
 (pdftex.def)             Requested size: 390.01816pt x 267.39236pt.
-[29 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-1.pdf> 
+[30 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-1.pdf> 
 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-2.pdf>]
-Overfull \hbox (60.77522pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.77522pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## glm(formula = frm2, family = "binomial", data = Airlines_b
 inned_train)[] 
  []
 
-[30 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-3.pdf>]
+[31 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-26-3.pdf>]
 
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ##                               Estimate Std. Error z value 
 Pr(>|z|)[] 
  []
 
 
-Overfull \hbox (60.7332pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7332pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## (Intercept)                   -7.23908    0.09822 -73.699 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassBusiness                  1.74811    0.06208  28.159 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassEcoPlus                   0.42848    0.11666   3.673 
 0.000240 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## IsFemale1                      1.15594    0.07710  14.992 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## IsLoyal1                       1.40869    0.05355  26.307 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7402pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## Age30s                         0.21245    0.04727   4.494 
 6.99e-06 ***[] 
  []
 
 
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76122pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## Age40s50s                      0.55289    0.04442  12.447 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## Age60plus                     -0.33849    0.06615  -5.117 
 3.10e-07 ***[] 
  []
 
 
-Overfull \hbox (60.76822pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76822pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## FlightDistanceM               -0.22820    0.04753  -4.801 
 1.58e-06 ***[] 
  []
 
 
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76122pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## FlightDistanceH               -0.44938    0.08464  -5.310 
 1.10e-07 ***[] 
  []
 
 
-Overfull \hbox (60.7332pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7332pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## EntertainmentNoteM             1.75566    0.02894  60.658 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76122pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## EntertainmentNoteH             2.84328    0.04440  64.040 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76122pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## SeatNoteM                      0.84514    0.03383  24.985 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## SeatNoteH                      5.15478    0.11218  45.949 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## eBookingNoteH                  1.55519    0.05784  26.888 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## eBookingNoteM                  0.92479    0.05355  17.270 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7402pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## eSupportNoteM                  0.16166    0.03321   4.868 
 1.13e-06 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## eSupportNoteH                  0.42142    0.03776  11.161 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ServiceNoteH                   0.69248    0.04817  14.377 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ServiceNoteM                   0.17398    0.04644   3.747 
 0.000179 ***[] 
  []
 
 
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7402pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## eBoardingNoteH                 0.22947    0.03721   6.168 
 6.94e-10 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## eBoardingNoteM                 0.33404    0.03464   9.644 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (36.0612pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (36.0612pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## LegRoomNoteM                  -0.02540    0.04874  -0.521 
 0.602319[] 
  []
 
 
-Overfull \hbox (60.7262pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7262pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## LegRoomNoteH                   0.66935    0.04891  13.686 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.76822pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76822pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## BaggageNoteM                   0.11801    0.03457   3.414 
 0.000640 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## BaggageNoteH                   0.50288    0.03998  12.577 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (54.5722pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (54.5722pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## CleanNoteM                     0.10369    0.03610   2.872 
 0.004076 **[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## CleanNoteH                     0.55564    0.04111  13.516 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7402pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## CheckInNoteM                   0.34630    0.02908  11.909 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## CheckInNoteH                   0.94897    0.03817  24.862 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## FoodNoteM                     -0.47547    0.03481 -13.660 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7402pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## FoodNoteH                     -0.51726    0.04323 -11.966 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76122pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## IsFemale1:IsLoyal1             1.08540    0.07105  15.276 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## IsFemale1:Age30s              -0.39527    0.06544  -6.041 
 1.54e-09 ***[] 
  []
 
 
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## IsFemale1:Age40s50s           -0.57123    0.06321  -9.038 
  < 2e-16 ***[] 
  []
 
 
-Overfull \hbox (36.0542pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (36.0542pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## IsFemale1:Age60plus           -0.06771    0.09023  -0.750 
 0.453013[] 
  []
 
 
-Overfull \hbox (60.76122pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.76122pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassBusiness:IsFemale1       -1.53533    0.05220 -29.412 
  < 2e-16 ***[] 
  []
 
-[31]
-Overfull \hbox (60.75421pt too wide) in paragraph at lines 1137--1137
+[32]
+Overfull \hbox (60.75421pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassEcoPlus:IsFemale1        -0.48121    0.09760  -4.930 
 8.20e-07 ***[] 
  []
 
 
-Overfull \hbox (60.74721pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.74721pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassBusiness:FlightDistanceM  0.49425    0.06107   8.093 
 5.82e-16 ***[] 
  []
 
 
-Overfull \hbox (48.41121pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (48.41121pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassEcoPlus:FlightDistanceM  -0.19410    0.10774  -1.802 
 0.071615 .[] 
  []
 
 
-Overfull \hbox (60.7402pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (60.7402pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassBusiness:FlightDistanceH  0.73526    0.09554   7.696 
 1.41e-14 ***[] 
  []
 
 
-Overfull \hbox (36.0542pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (36.0542pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## ClassEcoPlus:FlightDistanceH  -0.12560    0.20768  -0.605 
 0.545328[] 
  []
 
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 1137--1137
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 1150--1150
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 ***\TS
 1/lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.001 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 **\TS1/
 lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.01 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 *\TS1/lmtt
@@ -1539,116 +1548,151 @@ lmtt/m/n/12 ' \T1/lmtt/m/n/12 0.01 \TS1/lmtt/m/n/12 '\T1/lmtt/m/n/12 *\TS1/lmtt
 /12 ' \T1/lmtt/m/n/12 0.1 \TS1/lmtt/m/n/12 ' ' \T1/lmtt/m/n/12 1[] 
  []
 
-<AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf, id=364, 440.64626p
+<AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf, id=376, 440.64626p
 t x 251.94125pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf Graphic file (
 type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/rocr-1
-.pdf  used on input line 1155.
+.pdf  used on input line 1168.
 (pdftex.def)             Requested size: 390.01561pt x 222.99298pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf, id=365, 457.71pt x
+<AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf, id=377, 457.71pt x
  313.17pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf Graphic file (
 type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/rocr-2.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/rocr-2
-.pdf  used on input line 1156.
+.pdf  used on input line 1169.
 (pdftex.def)             Requested size: 390.01216pt x 266.8504pt.
-[32]
-<AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf, id=370, 459.7175pt
+[33]
+<AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf, id=382, 459.7175pt
  x 315.1775pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf Graphic file (
 type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/rocr-3.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/rocr-3
-.pdf  used on input line 1160.
+.pdf  used on input line 1173.
 (pdftex.def)             Requested size: 390.01816pt x 267.39236pt.
-[33 <./AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf> <./AirlinesC
-ustomerSatisfaction_files/figure-latex/rocr-2.pdf>] [34 <./AirlinesCustomerSati
+[34 <./AirlinesCustomerSatisfaction_files/figure-latex/rocr-1.pdf> <./AirlinesC
+ustomerSatisfaction_files/figure-latex/rocr-2.pdf>] [35 <./AirlinesCustomerSati
 sfaction_files/figure-latex/rocr-3.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-29-1.pdf, id=402
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-29-1.pdf, id=414
 , 453.695pt x 313.17pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-29-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-29-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-29-1.pdf  used on input line 1180.
+d-chunk-29-1.pdf  used on input line 1193.
 (pdftex.def)             Requested size: 390.00395pt x 269.20625pt.
-[35 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-29-1.pdf>]
+[36 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-29-1.pdf>]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1222.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-35-1.pdf, id=419
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1235.
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-35-1.pdf, id=432
 , 436.63126pt x 285.065pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-35-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-35-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-35-1.pdf  used on input line 1251.
+d-chunk-35-1.pdf  used on input line 1264.
 (pdftex.def)             Requested size: 389.99971pt x 254.62048pt.
-[36]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-36-1.pdf, id=427
+[37]
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-36-1.pdf, id=440
 , 434.62375pt x 285.065pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-36-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-36-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-36-1.pdf  used on input line 1253.
+d-chunk-36-1.pdf  used on input line 1266.
 (pdftex.def)             Requested size: 390.02371pt x 255.81232pt.
-[37 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-35-1.pdf> 
+[38 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-35-1.pdf> 
 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-36-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-38-1.pdf, id=449
+Overfull \hbox (85.38419pt too wide) in paragraph at lines 1275--1275
+[]\T1/lmtt/m/n/12 ##  [1] 0.9735321 0.9795128 0.9738887 0.9848778 0.9844361 0.9
+819136 0.9809298[] 
+ []
+
+
+Overfull \hbox (85.39119pt too wide) in paragraph at lines 1275--1275
+[]\T1/lmtt/m/n/12 ##  [8] 0.9824050 0.9822437 0.9811294 0.9745668 0.9805752 0.9
+786453 0.9809332[] 
+ []
+
+
+Overfull \hbox (23.63416pt too wide) in paragraph at lines 1275--1275
+[]\T1/lmtt/m/n/12 ## [15] 0.9779799 0.9749139 0.9852288 0.9762452 0.9832038 0.9
+790004[] 
+ []
+
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-40-1.pdf, id=461
 , 440.64626pt x 251.94125pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-38-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-38-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-38-1.pdf  used on input line 1258.
-(pdftex.def)             Requested size: 390.01561pt x 222.99298pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-1.pdf, id=450
-, 457.71pt x 313.17pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-1.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-1.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-39-1.pdf  used on input line 1260.
-(pdftex.def)             Requested size: 390.01216pt x 266.8504pt.
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-2.pdf, id=451
-, 459.7175pt x 315.1775pt>
-File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-2.pdf Gr
-aphic file (type pdf)
-<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-2.pdf>
-Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-39-2.pdf  used on input line 1261.
-(pdftex.def)             Requested size: 390.01816pt x 267.39236pt.
-[38 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-38-1.pdf> 
-<./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-1.pdf>]
-<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-40-1.pdf, id=471
-, 453.695pt x 313.17pt>
 File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-40-1.pdf Gr
 aphic file (type pdf)
 <use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-40-1.pdf>
 Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
-d-chunk-40-1.pdf  used on input line 1269.
+d-chunk-40-1.pdf  used on input line 1277.
+(pdftex.def)             Requested size: 390.01561pt x 222.99298pt.
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-1.pdf, id=462
+, 457.71pt x 313.17pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-1.pdf Gr
+aphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-1.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
+d-chunk-41-1.pdf  used on input line 1279.
+(pdftex.def)             Requested size: 390.01216pt x 266.8504pt.
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-2.pdf, id=463
+, 459.7175pt x 315.1775pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-2.pdf Gr
+aphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-2.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
+d-chunk-41-2.pdf  used on input line 1280.
+(pdftex.def)             Requested size: 390.01816pt x 267.39236pt.
+[39 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-40-1.pdf>]
+[40 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-1.pdf> 
+<./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-41-2.pdf>]
+<AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-42-1.pdf, id=495
+, 453.695pt x 313.17pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-42-1.pdf Gr
+aphic file (type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-42-1.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/unname
+d-chunk-42-1.pdf  used on input line 1288.
 (pdftex.def)             Requested size: 390.00395pt x 269.20625pt.
-[39 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-39-2.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1293.
-[40 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-40-1.pdf>]
-[41]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1293.
+<AirlinesCustomerSatisfaction_files/figure-latex/concl-1.pdf, id=496, 454.69875
+pt x 313.17pt>
+File: AirlinesCustomerSatisfaction_files/figure-latex/concl-1.pdf Graphic file 
+(type pdf)
+<use AirlinesCustomerSatisfaction_files/figure-latex/concl-1.pdf>
+Package pdftex.def Info: AirlinesCustomerSatisfaction_files/figure-latex/concl-
+1.pdf  used on input line 1303.
+(pdftex.def)             Requested size: 390.00645pt x 268.61371pt.
+[41 <./AirlinesCustomerSatisfaction_files/figure-latex/unnamed-chunk-42-1.pdf>]
+[42 <./AirlinesCustomerSatisfaction_files/figure-latex/concl-1.pdf>]
+Overfull \hbox (38.47351pt too wide) in alignment at lines 1318--1322
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (38.47351pt too wide) in alignment at lines 1322--1328
+ [] [] [] [] [] 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1336.
+[43]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1336.
 (./AirlinesCustomerSatisfaction.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1293.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1293.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1336.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1336.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13799 strings out of 481239
- 208810 string characters out of 5920377
- 491198 words of memory out of 5000000
- 28570 multiletter control sequences out of 15000+600000
- 600908 words of font info for 134 fonts, out of 8000000 for 9000
+ 13818 strings out of 481239
+ 209630 string characters out of 5920377
+ 491273 words of memory out of 5000000
+ 28581 multiletter control sequences out of 15000+600000
+ 600999 words of font info for 135 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,7n,42p,827b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
@@ -1664,10 +1708,10 @@ ic/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss17.pfb></usr/share
 lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/tex
 mf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmt
 t12.pfb>
-Output written on AirlinesCustomerSatisfaction.pdf (41 pages, 3796656 bytes).
+Output written on AirlinesCustomerSatisfaction.pdf (43 pages, 3822893 bytes).
 PDF statistics:
- 651 PDF objects out of 1000 (max. 8388607)
- 512 compressed objects within 6 object streams
- 103 named destinations out of 1000 (max. 500000)
- 14638 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 681 PDF objects out of 1000 (max. 8388607)
+ 534 compressed objects within 6 object streams
+ 107 named destinations out of 1000 (max. 500000)
+ 14648 words of extra memory for PDF output out of 17280 (max. 10000000)
 
