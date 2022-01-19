@@ -4,7 +4,7 @@ title: |
   | \vspace{4ex}
 author: "Joanna Krężel, Anna Matysek, Piotr Mikler, Adam Szczerba"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-abstract: "The project aims to analyze the data about satisfaction of Investico Airlines passengers. Having customer-granular observations about the cruise and a reported satisfaction level for particular aspects of the flight we try to fit models which predict whether they are satisfied with the service or not. The binary classification models used during the project are {} {} {}, out of which our recommendation is {} based on {}. This document describes the process we undertook and presents the results of data preprocessing, model selection and model validation."
+abstract: "The project aims to analyze the data about satisfaction of Investico Airlines passengers. Having customer-granular observations about the cruise and a reported satisfaction level for particular aspects of the flight we try to fit models which predict whether they are satisfied with the service or not. The binary classification models used during the project are Adaline, Logistic regression, Random Forest and a Neural Network; out of which our recommendation is {tbd} based on {tbd}. This document describes the process we undertook and presents the results of data preprocessing, model selection and model validation."
 documentclass: article 
 classoption:
   - 12pt
@@ -57,7 +57,7 @@ library(magrittr)
 library(tensorflow)
 library(keras)
 library(ROCR)
-
+library(naniar)
 # SETUP
 # Some config variables
 bDownloadFromKaggle <- FALSE  # fetch data from Kaggle when compiling .Rmd
@@ -73,7 +73,9 @@ setwd(".") # change for your main directory
 
 # Introduction
 
-_Tbd..._
+During the project we undertook a problem of an Airline Company, which surveyed it's passengers on different aspects of the journey and would like to make inference about parts of their service which impact the overall client satisfaction.
+
+The document presents our approach to answering that question. The first chapter describes the origin and treatment of the data. In the second chapter we talk about different binary classification models, fit and validate them. In the last part of the document their performance is compared on an unseen test set and we conclude with a model recommendation and answer the posed question based on the findings of the project. 
 
 # Data
 
@@ -111,47 +113,50 @@ AirlinesRaw <- read_csv(sFileName,
                         col_types = "fffdffdffffffffffffffdd")
 ```
 
-The data is downloaded from [www.kaggle.com](https://www.kaggle.com/sjleshrac/airlines-customer-satisfaction?fbclid=IwAR1azFXqBkqKfah7ZTJ16CcR6S-zYpdQMJ7z7hlXcrEtzcJgh6nlN_4Bu8Y) and delivered by an airline organization. The dataset consists of the details of customers who have already flown with them. The feedback of the customers on various context and their flight data has been consolidated. The main purpose of this dataset is to predict whether a future customer would be satisfied with their service given the details of the other parameters values. Also the airlines need to know on which aspect of the services offered by them have to be emphasized more to generate more satisfied customers. The data consists of 129880 rows and 23 columns.
+The data is downloaded from [www.kaggle.com](https://www.kaggle.com/sjleshrac/airlines-customer-satisfaction?fbclid=IwAR1azFXqBkqKfah7ZTJ16CcR6S-zYpdQMJ7z7hlXcrEtzcJgh6nlN_4Bu8Y) and delivered by an anonimized airline organization, called *Invistico Airlines* for the purpose of the project. The dataset consists of customer-granular information about them, their flight and survey votes given for specific parts of the service. The variable of interest is the binary *satisfaction* answer, which denotes whether a customer was overall satisfied or dissatisfied with their flight. 
+To help us do that, we have 129,880 instances of 22 explanatory variables, which we describe below.
 
-Below we list all column names with explanations of the variables' meaning.
-For categorical variables describing satisfaction level, $0$ means _Not Available_ and reflects situation in which the passenger did not provide a rating.
-
-Feature | Description | Values
+Feature | Description | Variable type
 --------|-------------|-------
-Satisfaction | Airline satisfaction level | satisfied/dissatisfied
-Gender | Gender of the passenger | male/female
-Customer type | The customer type | loyal / disloyal customer
-Age | The age of a passenger | [7; 85] years
-Type of travel | Purpose of the flight | personal / business travel
-Class | Travel class in the plane | business / eco / eco plus
-Flight distance | The flight distance of the journey | [50; 6951] miles
-Seat comfort | Satisfaction level of seat comfort | {0-5}
-Departure/arrival | Satisfaction level of departure/arrival time | {0-5}
-Food and drink | Satisfaction level of food and drink | {0-5}
-Gate location | Satisfaction level of gate location | {0-5}
-Inflight WiFi service | Satisfaction level of the inflight wifi service | {0-5}
-Inflight entertainment | Satisfaction level of inflight entertainment | {0-5}
-Online support | Satisfaction level of online support | {0-5}
-Ease of online booking | Satisfaction level of online booking | {0-5}
-On-board services | Satisfaction level of on-board service | {0-5}
-Leg room service | Satisfaction level of leg room service | {0-5}
-Baggage handling | Satisfaction level of baggage handling | {0-5}
-Checkin service |Satisfaction level of check-in service | {0-5}
-Cleanliness | Satisfaction level of cleanliness | {0-5}
-Online boarding | Satisfaction level of online boarding | {0-5}
-Departure delay in minutes | Delay upon departure | [0; 1592] minutes
-Arrival delay in minutes | Delay upon arrival | [0; 1584] minutes
+Satisfaction | Overall satisfaction | factor, 2 levels
+Gender | Gender of the passenger | factor, 2 levels
+Customer type | Loyalty of the passenger | factor, 2 levels
+Age | The age of a passenger | continuous
+Type of travel | Flight purpose | factor, 2 levels
+Class | Travel class in the plane | factor, 3 levels
+Flight distance | Distance of the journey | continuous
+Seat comfort | Survey note for seat comfort | factor, 5 levels
+Departure/arrival | Survey note for departure/arrival time convenience | factor, 5 levels
+Food and drink | Survey note for food and drinks | factor, 5 levels
+Gate location | Survey note for gate location | factor, 5 levels
+Inflight WiFi service | Survey note for the inflight wifi | factor, 5 levels
+Inflight entertainment | Survey note for inflight entertainment | factor, 5 levels
+Online support | Survey note for online support | factor, 5 levels
+Ease of online booking | Survey note for online booking | factor, 5 levels
+On-board services | Survey note for on-board service | factor, 5 levels
+Leg room | Survey note for leg room/space | factor, 5 levels
+Baggage handling | Survey note for baggage handling | factor, 5 levels
+Checkin service | Survey note for check-in service | factor, 5 levels
+Cleanliness | Survey note for cleanliness | factor, 5 levels
+Online boarding | Survey note for online boarding | factor, 5 levels
+Departure delay | Delay upon departure | continuous
+Arrival delay | Delay upon arrival | continuous
 
 
 ## Exploratory Data Analysis
-Before data wrangling and trying to fit some models, it is great to get an overview of our data set and verify whether it makes sense. We start from summarizing our to see basic statistical analysis. For each quantitive variable we get the minimum, maximum, mean, median and the inter quartile range information. However, for each categorical variable we get the number of observations in each category. 
+
+Before data wrangling and modelling, it is good to get an overview of our data set and verify whether the variables meet a commmon sense. We start by summarizing the dataframe to see a handful of basic statistics. For each quantitative variable we get the min, max, mean, median and the IQR. For each categorical variable on the other hand we see the number of observations per category.
 ```{r,echo=TRUE}
 summary(AirlinesRaw)
 ```
-\\
-In this project we will predict the satisfaction level of a customer in function of the other variables based on past data. All results seems to be reasonable. It is noteworthy that the numbers of satisfied and dissatisfied customers are similar, which means that the data is valuable for future predictions. Moreover, we have almost the same number of males and females, and of business and eco class passengers. However, we have significantly more opinions from loyal customers than from disloyal ones. This may cause some unreliability in data since loyal customers might give greater notes because of some discounts for flights etc. We can also look at each variable connected with customers' notes and check which aspects are considered better and which worse. What we also notice is the fact that there are missing values in some columns. Nevertheless, we will take care about it later.\\
 
-Additionally, we plot some histograms to view the distribution of quatitive variables.\\
+It's worth noting at this stage that for survey answers describing customer satisfaction level, $0$ means *Not Available* and reflects a situation in which the passenger did not provide an answer.
+
+Looking at the data summary we don't see any immediate problems, and overall the data statistics seem to be reasonable. It is noteworthy that the numbers of satisfied and dissatisfied customers in the dataset are comparable, which means that we're not working with an imbalanced binary classification problem. 
+
+Moreover, we have almost the same number of males and females, and of business and eco class passengers. However, we have significantly more opinions from loyal customers than from disloyal ones. This may introduce some unreliability in data since loyal customers might give greater notes because of some discounts for flights etc. We can also look at each variable connected with customers' notes and check which aspects are considered better and which worse. What we also notice is the fact that there are missing values in some columns. Nevertheless, we will take care about it later.
+
+Additionally, we plot some histograms to view the distribution of quatitive variables.
 ```{r,echo=TRUE}
 attach(AirlinesRaw)
 h4<-histogram(AirlinesRaw$Age,AirlinesRaw,col='blue',type='count')
@@ -230,6 +235,11 @@ knitr::kable(NA_structure,
 ```
 
 After examining the data it seems we don't have any critical issue related to missing values. *NAs* are present in $12$ variables, but they constitute a minuscule portion of a very large dataset (see fig. \ref{tab:NA_structure}). We considered employing an imputation strategy based on median, but given that NAs constitute roughly `r round(mean(Airlines %>% is.na() %>% rowSums() > 0), 2)` of all observations, even if we drop them we would still have `r (Airlines %>% drop_na() %>% dim())[1]` observations left to work with. Based on that we decided not to introduce imputed values to the dataset, but rather work with pure data. 
+
+```{r}
+gg_miss_upset(Airlines)
+```
+
 
 ```{r}
 Airlines <- drop_na(Airlines)
