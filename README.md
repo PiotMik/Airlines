@@ -4,22 +4,24 @@
 Project for the Quantitative Analysis for Managerial Decisions course.
 ---
 ### Project description
-The project focuses on the decision-making workflow of using mathematical models to make informed answers about a specified problem.
-In the case of our project, we faced a **supervised binary classification** problem of predicting the overall customer satisfaction based on several features - objective measures of satisfaction
-provided by customers of the anonymized *Invistico Airlines*.
+The project focuses on the decision-making workflow behind the use of mathematical models to make informed answers about a problem at hand.
+In the case of our project, we faced a **supervised binary classification** problem of predicting the overall customer satisfaction based on several features - objective measures of satisfaction provided by customers of the anonymized *Invistico Airlines*.
 
-We attempt to build a model that is both:
+We attempt to build a classification model that is both:
 * Accurate in it's predictions
 * Explainable - to help guide the company actions to maximize the number of satisfied customers
 
-### TOC (tbd)
-1. Data preparation
-2. Model selection
-3. Model fitting and evaluation
-4. Validating the models
-5. Summary
+### TOC
+1. Data preprocessing
+2. Model fitting and validation
+ * Adaline
+ * Random Forest
+ * Logistic Regression
+ * Neural Network
+3. Model performance comparison
+4. Summary
 
-### How to
+### How to?
 * Please refer to the file `AirlinesCustomerSatisfaction.pdf` for the full generated report.
 * Please refer to the file `AirlinesCustomerSatisfaction.Rmd` for the detailed code used to generate it
 
