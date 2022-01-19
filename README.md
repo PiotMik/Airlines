@@ -13,11 +13,15 @@ We attempt to build a classification model that is both:
 
 ### TOC
 1. Data preprocessing
+   * EDA
+   * Missing data
+   * Feature Engineering
+   * Feature Encoding
 2. Model fitting and validation
- * Adaline
- * Random Forest
- * Logistic Regression
- * Neural Network
+   * Adaline
+   * Random Forest
+   * Logistic Regression
+   * Neural Network
 3. Model performance comparison
 4. Summary
 
