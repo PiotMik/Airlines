@@ -146,7 +146,7 @@ Arrival delay | Delay upon arrival | continuous
 ## Exploratory Data Analysis
 
 Before data wrangling and modelling, it is good to get an overview of our data set and verify whether the variables meet a commmon sense. We start by summarizing the dataframe to see a handful of basic statistics. For each quantitative variable we get the min, max, mean, median and the IQR. For each categorical variable on the other hand we see the number of observations per category.
-```{r,echo=TRUE}
+```{r,echo=FALSE}
 summary(AirlinesRaw)
 ```
 
@@ -154,23 +154,24 @@ It's worth noting at this stage that for survey answers describing customer sati
 
 Looking at the data summary we don't see any immediate problems, and overall the data statistics seem to be reasonable. It is noteworthy that the numbers of satisfied and dissatisfied customers in the dataset are comparable, which means that we're not working with an imbalanced binary classification problem. 
 
-Moreover, we have almost the same number of males and females, and of business and eco class passengers. However, we have significantly more opinions from loyal customers than from disloyal ones. This may introduce some unreliability in data since loyal customers might give greater notes because of some discounts for flights etc. We can also look at each variable connected with customers' notes and check which aspects are considered better and which worse. What we also notice is the fact that there are missing values in some columns. Nevertheless, we will take care about it later.
+Moreover, we have almost the same number of males and females, and of business and eco class passengers. However, we have significantly more opinions from loyal customers than from disloyal ones. We note that loyal customers might give higher survey answers because of e.g. benefits due to loyalty programs. What we also notice is the fact that there are missing values in some columns, which we will take care about in the following chapters.
 
-Additionally, we plot some histograms to view the distribution of quatitive variables.
-```{r,echo=TRUE}
-attach(AirlinesRaw)
-h4<-histogram(AirlinesRaw$Age,AirlinesRaw,col='blue',type='count')
-h7<-histogram(AirlinesRaw$`Flight Distance`,AirlinesRaw,col='blue',type='count')
-h22<-histogram(AirlinesRaw$`Departure Delay in Minutes`,AirlinesRaw,col='blue',type='count')
-h23<-histogram(AirlinesRaw$`Arrival Delay in Minutes`,AirlinesRaw,col='blue',type='count')
-grid.arrange(h4,h7, h22, h23,ncol=2)
+Additionally, we visualize histograms of features to view the distribution of continuous variables.
+
+```{r fig.width=4}
+AirlinesRaw %>%
+  select(all_of(c("Age", "Flight Distance", "Departure Delay in Minutes", "Arrival Delay in Minutes"))) %>%
+  mutate_all(as.numeric) %>%
+  pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>%
+  ggplot(aes(x=value, fill=Feature)) + geom_histogram(bins=20) + facet_wrap(~Feature, scales = "free") + theme_bw() + scale_fill_brewer(palette="Dark2")
 ```
-We see that:\\
-• departure and arrivals delays are mostly small,\\
-• the most common flight distance is around 2000 kilometers,\\
-• the age differs from few years to more than 80, but the biggest number of customers is between 20 and 60.\\
+We see that:
 
-Now, when we have an initial overview of our data set, we can move to preprocessing. 
+* departure and arrivals delays are mostly zero, or small,
+* the most common flight distance is around 2,000 kilometers,
+* the age varies between very small children to elderly in their 80s, but the biggest number of customers are between their 20s and 60s.
+
+Now, as when we have an initial overview of our data set, we move to data preprocessing. 
 
 ## Data Preprocessing
 
