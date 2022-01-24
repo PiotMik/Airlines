@@ -14,6 +14,8 @@ output:
 fontsize: 12pt
 header-includes:
     \usepackage{titling}
+    \usepackage{float}
+    \floatplacement{figure}{H}
     \pretitle{\begin{center}
     \vspace{-7ex}
     \includegraphics[height=40mm]{img/logo3AGH.png}\\
@@ -158,13 +160,20 @@ Moreover, we have almost the same number of males and females, and of business a
 
 Additionally, we visualize histograms of features to view the distribution of continuous variables.
 
-```{r fig.width=7}
-AirlinesRaw %>%
+```{r,include=FALSE, echo=FALSE}
+hist<-AirlinesRaw %>%
   select(all_of(c("Age", "Flight Distance", "Departure Delay in Minutes", "Arrival Delay in Minutes"))) %>%
   mutate_all(as.numeric) %>%
   pivot_longer(cols=!ends_with('Satisfied'), names_to = 'Feature') %>%
   ggplot(aes(x=value, fill=Feature)) + geom_histogram(bins=20) + facet_wrap(~Feature, scales = "free") + theme_bw() + scale_fill_brewer(palette="Dark2")
 ```
+
+
+```{r contdist, fig.pos="H", fig.height=4, fig.cap='Distributions of continuous variables.'}
+hist
+```
+
+
 We see that:
 
 * departure and arrivals delays are mostly zero, or small,
@@ -254,19 +263,22 @@ The more is not always the better. Feature engineering is a pre-modeling stage w
 
 We have four continuous variables in our dataset: `Age`, `DepartureDelay`, `ArrivalDelay` and `FlightDistance`. We start visualizing their co-dependence structure.
 We note a high linear relationship between `ArrivalDelay` and `DepartureDelay`, visible both in the correlation matrix  (fig. \ref{fig:Multicollinearity}) and on their scatterplot (fig. \ref{fig:Delays_Collinearity}). Therefore we can safely drop `ArrivalDelay`, since it doesn't introduce much new information.
-```{r Multicollinearity, echo=FALSE, fig.width=4, fig.height=4, fig.cap="\\label{fig:Multicollinearity} Pearson correlation matrix only detects strong collinearity in Delays."}
+```{r}
 multicorr <- 
   Airlines %>% 
   select(all_of(c('Age', 'DepartureDelay', 'ArrivalDelay', 'FlightDistance'))) %>%
   drop_na() %>%
   cor() %>%
   ggcorrplot(lab = T)
+```
 
+
+```{r Multicollinearity, echo=FALSE, fig.width=3.8, fig.height=3.8, fig.cap='\\label{fig:Multicollinearity} Correlation between continuous scale variables.'}
 multicorr
 ```
 
 
-```{r Delays_Collinearity, echo=FALSE, fig.width=3, fig.height=3, fig.cap="\\label{fig:Delays_Collinearity} Strong linear relationship between departure delay and arrival delay allows to drop one of them from the dataset."}
+```{r Delays_Collinearity, echo=FALSE, fig.width=2.6, fig.height=2.6, fig.cap='\\label{fig:Delays_Collinearity} Strong linear relationship between departure delay and arrival delay allows to drop one of them from the dataset.'}
 c <- cor(x = drop_na(Airlines)$DepartureDelay, y = drop_na(Airlines)$ArrivalDelay)
 Airlines %>% drop_na() %>% 
   ggplot(aes(x = DepartureDelay, y = ArrivalDelay)) +
@@ -278,7 +290,7 @@ Airlines$ArrivalDelay <- NULL
 Next, we're going to examine the loess estimator of satisfaction as a function of the remaining continuous variables to see if any of them looks flat enough to raise suspicion regarding it's utility. Flatness of loess implies that average satisfaction does not change in the explanatory variable, hence the explanatory variable doesn't convey much information. 
 In our case, this is not visible on the figure \ref{fig:loess}, so we cannot discard any feature based on that.  Note, the plot has been generated on a randomized data sub-sample for computational complexity reduction. We made sure however to take a sample large enough, so that the standard errors are tamed, and to ensure the relationship shape is stable regardless of the random seed chosen.
 
-```{r, fig.width=5, fig.height=8, fig.caption = "Loess estimator for IsSatisfied as function of continuous features from the dataset.\\label{fig:loess}"}
+```{r}
 
 set.seed(127)
 Airlines_numeric <- 
@@ -296,7 +308,10 @@ p2 <- qplot(data = Airlines_numeric, FlightDistance, IsSatisfied, xlab = "", yla
 p3 <- qplot(data = Airlines_numeric, DepartureDelay, IsSatisfied, xlab = "", ylab = "") +
      geom_smooth(method = "loess", se=T) +
      ggtitle("DepartureDelay")
+```
 
+
+```{r Loess, fig.width=5, fig.height=7.5, fig.cap = c('Loess estimator for IsSatisfied as function of continuous features from the dataset.\\label{fig:loess}')}
 grid.arrange(p1, p2, p3, ncol=1)
 ```
 
@@ -369,7 +384,7 @@ Airlines_binned <- Airlines_binned %>% as.data.frame() %>%
                                                  ifelse(grepl("5", .), "H",
                                                         "M"))))
 binnings$`WOE Table for eBookingNote` %>% 
-  select(all_of(display_cols)) %>% knitr::kable()
+  select(all_of(display_cols)) %>% knitr::kable(caption = "WOE table for eBookingNote.")
 ```
 
 The table \ref{tab:CategoricalFeatureSelection} presents all of the binned features and their IVs. We see that there are features with IV smaller than $0.1$ - we are going to drop those from the dataset. 
@@ -409,7 +424,7 @@ knitr::kable(arrange(output, IV),
 Airlines_binned <- Airlines_binned %>% select(-all_of(c(vars_to_drop)))
 ```
 
-```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant collinear relationships in ordinal variables"}
+```{r CategoricalSpearman,  echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:spearman_cor} Spearman correlation shows no significant collinear relationships in ordinal variables", fig.pos="H"}
 spearman_cor <-
   Airlines_binned %>%
   select(ends_with("Note")) %>%
@@ -616,8 +631,16 @@ As the first modelling option we will try out the Random Forest model. First, we
 
 ```{r}
 library(randomForest)
-#Define the formula
-frm<-IsSatisfied~.
+```
+
+```{r, echo=TRUE, results='hide'}
+frm<-IsSatisfied~Class+IsFemale+IsLoyal+Age+FlightDistance+
+      EntertainmentNote+SeatNote+eBookingNote+eSupportNote+
+      ServiceNote+eBoardingNote+LegRoomNote+BaggageNote+
+      CleanNote+CheckInNote+WifiNote+FoodNote
+```
+
+```{r}
 #Fit the model or restore result from file
 
 rf_model_path <- "./random_forest/rf_model.rds"
@@ -625,7 +648,8 @@ RanForest1 <- if(file.exists(rf_model_path)){
                   readRDS(rf_model_path)
               }else{
                   set.seed(12428)
-                  randomForest(frm,Airlines_binned_train,importance=TRUE) %T>%
+                  randomForest(frm,Airlines_binned_train,
+                  importance=TRUE) %T>%
                   saveRDS(rf_model_path)
               }
 
@@ -657,7 +681,7 @@ Random Forest enables us to determine how important each variable is in the mode
 * MeanDecreaseAccuracy - expresses the accuracy lost by leaving particular variable out of the training set.
 * MeanDecreaseGini - measures node impurity at each split, highest purity means that each node contains only elements of a single class.
 
-```{r}
+```{r impvar, fig.height=4.5, fig.cap='Importance of variables measured by the mean decrease of accuracy and Gini score.'}
 varImpPlot(RanForest1)
 ```
 
@@ -692,14 +716,22 @@ AUC1_RF <- attr(performance(pred1_RF, "auc"), "y.values")[[1]]
 perf1_RF <- performance(pred1_RF, "tpr", "fpr")
 ks1_RF <- max(attr(perf1_RF,'y.values')[[1]] - attr(perf1_RF,'x.values')[[1]])
 predSc1_RF <- as.numeric(predict(RanForest1, type = "prob")[ ,2])
+```
+
+
+```{r KS_rf, fig.height=4, fig.pos="H", fig.cap='The KS Plot for the random forest.'}
 ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
 cat('\n\n')
+```
+
+
+```{r ROC_rf, fig.height=4, fig.pos="H", fig.cap='The ROC for the random forest.'}
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predSc1_RF)
 ```
 
 The model has an AUC of `r AUC1_RF` on the train set and `r AUC_RanForest1_test` on the test set. As we observe a drop of AUC presume that this model shows signs of overfitting to the train set.
 
-We decided to explore some options to improveme the model but did not succeed. Excluding any variables resulted in making accuracy worse, and still not stable on the test set. Adding interactions didn't change accuracy or performance of the model at all. We therefore concluded on the original model as the for Random Forest representative.
+We decided to explore some options to improve the model but did not succeed. Excluding any variables resulted in making accuracy worse, and still not stable on the test set. Adding interactions didn't change accuracy or performance of the model at all. We therefore concluded on the original model as the for Random Forest representative.
 
 We can now approach validation part.
 
@@ -711,7 +743,7 @@ set.seed(1201984)
 nRuns = 20
 ```
 
-```{r fig.cap='The results of the cross validation for the random forest.\\label{fig:MCxvalrf1}'}
+```{r val_rf, fig.pos='H',fig.height=4, fig.cap='The results of the cross validation for the random forest.\\label{fig:MCxvalrf1}'}
 allAUCs_RF_path <- "./random_forest/rf_allAUCs_RF.rds"
 AUCs_test_RF_path <- "./random_forest/rf_test_AUCs_RF.rds"
 
@@ -745,9 +777,15 @@ Observed values for the AUC of the test data have the median equal to `r median(
 
 ### Fitting and performance
 The next model that we will study is a logistic regression. We start from the most basic model which takes all the variables. 
+
+```{r, echo=TRUE, results='hide'}
+frm<-IsSatisfied~Class+IsFemale+IsLoyal+Age+FlightDistance+
+      EntertainmentNote+SeatNote+eBookingNote+eSupportNote+
+      ServiceNote+eBoardingNote+LegRoomNote+BaggageNote+
+      CleanNote+CheckInNote+WifiNote+FoodNote
+```
+
 ```{r}
-# Define the formula:
-frm <- IsSatisfied ~.
 # Fit the model:
 logreg1 <- glm(formula = frm, data = Airlines_binned_train, family = "binomial")
 # Investigate the model:
@@ -786,8 +824,15 @@ AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
 perf1 <- performance(pred1, "tpr", "fpr")
 ks1 <- max(attr(perf1,'y.values')[[1]] - attr(perf1,'x.values')[[1]])
 predScores1 <- predict(logreg1, type = "response")
+```
+
+
+```{r KS_logreg1, fig.pos="H", fig.height=4, fig.cap='The KS plot for the first logistic regression model.'}
 ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
-cat('\n\n')
+```
+
+
+```{r ROC_logreg1, fig.pos="H", fig.height=4, fig.cap='The ROC for the first logistic regression model.'}
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores1)
 ```
 
@@ -796,8 +841,15 @@ The AUC on the training data is `r AUC1` and on the testing data `r AUC_logreg1_
 However, we decided to add interactions between variables as some of them seem natural. After many attempts we opt for including the interactions between gender&loyalty, gender&class, gender&age and class&flight distance. We tried also for example class&food or class&service, but they didn't improve our model. 
 
 What is more, we decided to not include WifiNote as after adding interactions it was the least significant feature and the relationship was counterintuitive. Thus we get the final logistic regression model, which is summarized below.
+```{r, echo=TRUE, results='hide'}
+frm2<-IsSatisfied~Class+IsFemale+IsLoyal+Age+FlightDistance+
+      EntertainmentNote+SeatNote+eBookingNote+eSupportNote+
+      ServiceNote+eBoardingNote+LegRoomNote+BaggageNote+
+      CleanNote+CheckInNote+FoodNote+IsFemale*IsLoyal+
+      IsFemale*Age+IsFemale*Class+Class*FlightDistance
+```
+
 ```{r}
-frm2 <- IsSatisfied ~.+IsFemale*IsLoyal+IsFemale*Age+IsFemale*Class+Class*FlightDistance-WifiNote
 # Fit the model:
 logreg2 <- glm(formula = frm2, data = Airlines_binned_train, family = "binomial")
 # Investigate the model:
@@ -815,7 +867,7 @@ We notice that according to our model:
 
 
 Now we will study the performance of the model.
-```{r rocr, fig.cap=c("The ROC (receiver operating curve) for our model", "The lift of the model (bottom): the cumulative percentage of responders (ones) captured by the model")}
+```{r}
 AUC_logreg2_train <- fAUC(logreg2, data = Airlines_binned_train, type = "response")
 AUC_logreg2_test <- fAUC(logreg2, data = Airlines_binned_test, type = "response")
 pred2 <- prediction(predict(logreg2, type = "response"), Airlines_binned_train$IsSatisfied)
@@ -828,12 +880,19 @@ AUC2 <- attr(performance(pred2, "auc"), "y.values")[[1]]
 perf2 <- performance(pred2, "tpr", "fpr")
 ks2 <- max(attr(perf2,'y.values')[[1]] - attr(perf2,'x.values')[[1]])
 predScores2 <- predict(logreg2, type = "response")
+```
+
+
+```{r KS_logreg2, fig.pos="H", fig.height=4, fig.cap='The KS plot for the second logistic regression model.'}
 ks_plot(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores2)
-cat('\n\n')
+```
+
+
+```{r ROC_logreg2, fig.pos="H", fig.height=4, fig.cap='The ROC for the second logistic regression model.'}
 plotROC(actuals = Airlines_binned_train$IsSatisfied, predictedScores = predScores2)
 ```
 
-This logistic regression model has an AUC of `r AUC2` on the training data and `r AUC_logreg2_test`on the testing data. The difference is again marginal. The KS is `r ks2`. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. Therefore, we will move forward to the validation part. 
+This logistic regression model has an AUC of `r AUC2` on the training data and `r AUC_logreg2_test` on the testing data. The difference is again marginal. The KS is `r ks2`. Moreover, we can see (on the ROC curve graph) that our classifier is not far from being perfect. Therefore, we will move forward to the validation part. 
 
 ### Validation
 To validate the model we will use the cross validation method and opt for the Monte Carlo Cross Validation.
@@ -843,7 +902,7 @@ set.seed(18901229)
 nRuns = 20
 ```
 We use the Monte Carlo Cross Validation with a test data-set that spans 30% of our observations and 70% in the training data-set. We will draw 100 times a training data-set of 0.7 and study the AUC on the testing data-set.
-```{r fig.cap='The histogram for the AUC of the ramdomised data-sets with the Monte Carlo cross vailidation for the first logistic regression model.\\label{fig:MCxval1}'}
+```{r}
 cv_mc <- crossv_mc(Airlines_binned_train, n = nRuns, test = 1 - pctTrain)
 mods <- map(cv_mc$train, ~ glm(frm2, data = ., family = "binomial"))
 #AUCs <- map2_dbl(mods, cv_mc$test, fAUC)
@@ -856,9 +915,17 @@ AUCs_train[k] <- fAUC(mods[[k]], as.data.frame(cv_mc$train[[k]]))
 }
 allAUCs_lr2 <- rbind(tibble(model = "train data", AUC = AUCs_train),
 tibble(model = "test data", AUC = AUCs_test))
+```
+
+
+```{r val_logreg2, fig.height=4,fig.cap='The histogram for the AUC of the randomised data-sets with the Monte Carlo cross validation for the second logistic regression model.\\label{fig:MCxval1}'}
 p1 <- ggplot(allAUCs_lr2, aes(AUC, fill = model, colour = model)) + geom_density(alpha=0.5) + xlim(0.9520, 0.9620)
 p2 <- ggplot(allAUCs_lr2, aes(AUC, fill = model, colour = model)) + stat_ecdf()
 grid.arrange(p1, p2, ncol = 1)
+```
+
+
+```{r}
 #median(AUCs_test)
 #mean(AUCs_test)
 #sd(AUCs_test)
@@ -952,13 +1019,13 @@ history <- if(file.exists(nn_history_path) & file.exists(nn_model_path)){
             }
 ```
 
-```{r, include = TRUE}
+```{r, include = TRUE,fig.height=4,fig.pos="H"}
 plot(history$metrics$loss, main="Model Loss", xlab = "epoch", ylab="loss", ylim= c(0, 1), col="blue", type="l")
 lines(history$metrics$val_loss, col="red")
 legend("topright", c("train","validation"), col=c("blue", "red"), lty=c(1,1))
 ```
 
-```{r, include = TRUE}
+```{r, include = TRUE,fig.height=4, fig.pos="H", fig.cap='The entire accuracy of the model was achieved in the first epoch of neural network training.'}
 plot(history$metrics$acc, main="Model Accuracy", xlab = "epoch", ylab="accuracy", ylim= c(0, 1), col="blue", type="l")
 lines(history$metrics$val_acc, col="red")
 legend("bottomright", c("train","validation"), col=c("blue", "red"), lty=c(1,1))
@@ -1003,20 +1070,28 @@ for(i in AirlinesEncoded_binned_test_splited){
 pred1 <- prediction(predict(nn_model, train_input_x), train_input_y)
 AUC1 <- attr(performance(pred1, "auc"), "y.values")[[1]]
 perf1 <- performance(pred1, "tpr", "fpr")
+```
+
+
+```{r}
 ks1 <- max(attr(perf1,'y.values')[[1]] - attr(perf1,'x.values')[[1]])
 ```
 
-```{r}
+```{r KS_nn,fig.pos="H",fig.height=4,fig.cap='The KS for the neural network.'}
 # Visualize the ROC curve:
 predScores1 <- predict(nn_model, train_input_x)
 ks_plot(actuals = as.numeric(train_input_y), predictedScores = as.numeric(predScores1))
+```
+
+
+```{r ROC_nn,fig.pos="H",fig.height=4,fig.cap='The ROC for the neural network.'}
 plotROC(actuals = train_input_y, predictedScores = predScores1)
 ```
 
 ### Validation
 To keep consistency with other models, we have also used Monte Carlo Cross Validation for the Neural Network despite the high computational cost.
 
-```{r}
+```{r val_nn, fig.pos="H", fig.cap='The results of cross validation for the neural network.'}
 nn_cv_data_path <- "./neural_net/cv.rds"
 
 allAUCs_NN<-if(file.exists(nn_cv_data_path)){
@@ -1087,7 +1162,7 @@ grid.arrange(p1, p2, ncol = 1)
 ```
 
 In the plots, we showed the accuracy of models with the data they had not seen before.
-As we can see, all challangers models performed well.
+As we can see, all challengers models performed well.
 The neural network model is the most accurate, but we recommend logistic regression 2 for production - since it is transparent, and explainable so its operation can provide insight about customer preferences for the Airlines Company. 
 
 Moreover, the effects achieved by the logistic regression model are of very high performance metrics.
